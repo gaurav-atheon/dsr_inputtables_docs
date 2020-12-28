@@ -1,11 +1,12 @@
-Welcome to your new dbt project!
+#Demand Signal Repository (DSR)
 
-### Using the starter project
+### dbt
 
-Try running the following commands:
-- dbt run
-- dbt test
+The DSR has been built using dbt.
 
+### Design
+- So far only Organisation has been built
+- A seed is created to create the Atheon organisation
 
 ### Resources:
 - Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)

@@ -9,13 +9,12 @@ all_data as
 ranked_data as
 (
 select
-    {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_id,
-    origin_organisation_number,
-    origin_organisation_name,
+    {{ dbt_utils.surrogate_key(['origin_organisation_id','business_organisation_number']) }} as organisation_id,
     business_organisation_number,
     business_organisation_name,
+    origin_organisation_id,
     loaded_timestamp,
-    row_number() over (partition by origin_organisation_number, business_organisation_number order by loaded_timestamp desc) rank
+    row_number() over (partition by origin_organisation_id, business_organisation_number order by loaded_timestamp desc) rank
 from all_data
 )
 

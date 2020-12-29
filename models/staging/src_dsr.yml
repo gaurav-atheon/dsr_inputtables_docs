@@ -10,19 +10,30 @@ sources:
           tests:
             - dbt_utils.unique_combination_of_columns:
                 combination_of_columns:
-                  - origin_organisation_number
+                  - origin_organisation_id
                   - business_organisation_number
                   - loaded_timestamp
           columns:
-            - name: origin_organisation_number
-              description: Number of the organisation that is submitting this data record.
-              tests:
-                - not_null
-            - name: origin_organisation_name
-              description: Name of the organisation that is submitting this data record.
+            - name: origin_organisation_id
+              description: DSR ID of the organisation that is submitting this data record.
               tests:
                 - not_null
             - name: business_organisation_number
               description: Number that the origin organisation uses to refer to the subject organisation.
             - name: business_organisation_name
               description: Name of the subject organisation according to the origin organisation.
+
+        - name: input_organisation
+          description: Raw organisation attributes and parentage.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - organisation_id
+                  - loaded_timestamp
+          columns:
+            - name: organisation_id
+              description: DSR ID of the organisation that these attributes pertain to.
+              tests:
+                - not_null
+            - name: parent_organisation_id
+              description: If this organisation is the child to another organisation, this field holds the DSR ID of the parent organisation.

@@ -1,2 +1,2 @@
-origin_organisation_number, origin_organisation_name, business_organisation_number, business_organisation_name
-NULL, NULL, 1, Atheon
+origin_organisation_id, business_organisation_number, business_organisation_name
+NULL, 1, Atheon

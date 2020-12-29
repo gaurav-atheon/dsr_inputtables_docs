@@ -1,4 +1,4 @@
-#Demand Signal Repository (DSR)
+# Demand Signal Repository (DSR)
 
 ### dbt
 

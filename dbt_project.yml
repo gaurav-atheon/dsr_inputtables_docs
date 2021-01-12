@@ -32,4 +32,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  dsr:
+  DSR:
+
+seeds:
+  DSR:
+    master_organisation:
+      +column_types:
+        origin_organisation_id: varchar()

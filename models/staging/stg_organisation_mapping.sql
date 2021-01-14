@@ -13,7 +13,7 @@ select
     a.business_organisation_number,
     a.business_organisation_name,
     a.origin_organisation_number,
-    {{ dbt_utils.surrogate_key(['b.origin_organisation_number','a.origin_organisation_number']) }} as origin_organisation_id,
+    nvl2(a.origin_organisation_number,{{ dbt_utils.surrogate_key([ 'b.origin_organisation_number','a.origin_organisation_number']) }},NULL) as origin_organisation_id,
     a.loaded_timestamp,
     row_number() over (partition by a.origin_organisation_number, a.business_organisation_number order by a.loaded_timestamp desc) rank
 from all_data a

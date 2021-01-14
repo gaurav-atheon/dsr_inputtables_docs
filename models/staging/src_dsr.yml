@@ -46,3 +46,18 @@ sources:
 
         - name: input_storedaysku_orders
           description: Raw store order metrics from source databases
+
+        - name: input_location
+          description: Raw location data from origin organisations.
+
+        - name: input_date
+          description: Raw date data.
+
+        - name: input_calendar
+          description: Raw date data from origin organisations.
+
+        - name: input_sku
+          description: Raw product data from origin organisations.
+
+        - name: input_sku_grouping
+          description: Raw product data from origin organisations.

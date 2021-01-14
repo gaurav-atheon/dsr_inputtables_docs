@@ -38,4 +38,4 @@ seeds:
   DSR:
     master_organisation:
       +column_types:
-        origin_organisation_id: varchar()
+        origin_organisation_number: varchar()

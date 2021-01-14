@@ -10,12 +10,12 @@ sources:
           tests:
             - dbt_utils.unique_combination_of_columns:
                 combination_of_columns:
-                  - origin_organisation_id
+                  - origin_organisation_number
                   - business_organisation_number
                   - loaded_timestamp
           columns:
-            - name: origin_organisation_id
-              description: DSR ID of the organisation that is submitting this data record.
+            - name: origin_organisation_number
+              description: Number of the organisation, as defined by the master, that is submitting this data record.
               tests:
                 - not_null
             - name: business_organisation_number
@@ -28,12 +28,21 @@ sources:
           tests:
             - dbt_utils.unique_combination_of_columns:
                 combination_of_columns:
-                  - organisation_id
+                  - business_organisation_number
+                  - origin_organisation_number
                   - loaded_timestamp
           columns:
-            - name: organisation_id
-              description: DSR ID of the organisation that these attributes pertain to.
+            - name: business_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+            - name: business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null
-            - name: parent_organisation_id
-              description: If this organisation is the child to another organisation, this field holds the DSR ID of the parent organisation.
+            - name: parent_organisation_number
+              description: If this organisation is the child to another organisation, this field holds the business orgnasation number of the parent organisation.
+
+            - name: parent_organisation_number
+              description: If this organisation is the child to another organisation, this field holds the business organisation number of the parent organisation.
+
+        - name: input_storedaysku_orders
+          description: Raw store order metrics from source databases

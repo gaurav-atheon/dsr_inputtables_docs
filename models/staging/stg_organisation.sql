@@ -2,10 +2,12 @@ with
 ranked_data as
 (
 select
-    {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_ID,
+    origin_organisation_number,
+    business_organisation_number,
     type,
     address,
-     {{ dbt_utils.surrogate_key(['parent_origin_organisation_number','parent_organisation_number']) }} as parent_organisation_ID,
+    parent_origin_organisation_number,
+    parent_organisation_number,
     loaded_timestamp,
     row_number() over (partition by origin_organisation_number,business_organisation_number order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_organisation') }}

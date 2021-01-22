@@ -1,3 +1,10 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='unique_key'
+    )
+}}
+
 select
     day_date,
     src.organisation_id as organisation_id, --converted to DSR ID
@@ -5,7 +12,9 @@ select
     locto.LOCATION_ID as ORGANISATION_LOCATION_ID_to, --converted to DSR ID
     prd.product_ID, --converted to DSR ID
     UNITS_ORDERED,
-    UNITS_MATCHED
+    UNITS_MATCHED,
+    ord.loaded_timestamp,
+    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','locFrom.LOCATION_ID','locto.LOCATION_ID','prd.Product_ID']) }} as unique_key
 
 from {{ ref('stg_depotstoredaysku_orders') }} ord
 
@@ -25,3 +34,7 @@ and locto.location_function = 'Point of Sale'
 left join {{ ref('dim_product') }} prd --this should really be "inner", with relationship validation earlier in the flow
 on prd.organisation_ID = src.organisation_ID
 and prd.ORGANISATION_SKU = ord.ORGANISATION_SKU
+
+        {% if is_incremental() %}
+        where ord.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        {% endif %}

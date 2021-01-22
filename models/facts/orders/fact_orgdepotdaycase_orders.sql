@@ -1,3 +1,10 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='unique_key'
+    )
+}}
+
 select
     day_date,
     src.organisation_id as organisation_id_to, --converted to DSR ID
@@ -5,7 +12,9 @@ select
     loc.LOCATION_ID, --converted to DSR ID
     prd.logisticitem_ID, --converted to DSR ID
     CASES_ORDERED_IN,
-    CASES_MATCHED_IN
+    CASES_MATCHED_IN,
+    ord.loaded_timestamp,
+    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','org.organisation_id','loc.LOCATION_ID','prd.logisticitem_ID']) }} as unique_key
 
 from {{ ref('stg_orgdepotdaycase_orders') }} ord
 
@@ -24,3 +33,7 @@ and loc.location_function = 'Distribution Location'
 left join {{ ref('dim_logisticitem') }} prd --this should really be "inner", with relationship validation earlier in the flow
 on prd.organisation_ID = src.organisation_ID
 and prd.ORGANISATION_case = ord.ORGANISATION_case
+
+        {% if is_incremental() %}
+        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        {% endif %}

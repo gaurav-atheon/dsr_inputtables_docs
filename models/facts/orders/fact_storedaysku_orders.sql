@@ -24,15 +24,15 @@ select
 
 from {{ref('stg_storedaysku_orders')}} ord
 
-left join {{ ref('utl_source_organisations') }} src --this should really be "inner", with relationship validation earlier in the flow
+inner join {{ ref('utl_source_organisations') }} src --need relationship validation earlier in the flow
 on ord.source_db_id = src.business_organisation_number
 
-inner join {{ ref('dim_location') }} loc --this should really be "inner", with relationship validation earlier in the flow
+inner join {{ ref('dim_location') }} loc --need relationship validation earlier in the flow
 on loc.organisation_ID = src.organisation_ID
 and loc.ORGANISATION_LOCATION_ID = ord.ORGANISATION_LOCATION_ID
 and loc.LOCATION_FUNCTION = 'Point of Sale'
 
-left join {{ ref('dim_product') }} prd --this should really be "inner", with relationship validation earlier in the flow
+inner join {{ ref('dim_product') }} prd --need relationship validation earlier in the flow
 on prd.organisation_ID = src.organisation_ID
 and prd.ORGANISATION_SKU = ord.ORGANISATION_SKU
 

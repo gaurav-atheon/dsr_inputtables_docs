@@ -18,15 +18,15 @@ select
 
 from {{ ref('stg_locationdaycase_inventory') }} inv
 
-left join {{ ref('utl_source_organisations') }} src --this should really be "inner", with relationship validation earlier in the flow
+inner join {{ ref('utl_source_organisations') }} src --need relationship validation earlier in the flow
 on inv.source_db_id = src.business_organisation_number
 
-left join {{ ref('dim_location') }} loc --this should really be "inner", with relationship validation earlier in the flow
+inner join {{ ref('dim_location') }} loc --need relationship validation earlier in the flow
 on loc.organisation_ID = src.organisation_ID
 and loc.ORGANISATION_LOCATION_ID = inv.ORGANISATION_LOCATION_ID
 and loc.location_function = inv.location_function
 
-left join {{ ref('dim_logisticitem') }} prd --this should really be "inner", with relationship validation earlier in the flow
+inner join {{ ref('dim_logisticitem') }} prd --need relationship validation earlier in the flow
 on prd.organisation_ID = src.organisation_ID
 and prd.ORGANISATION_case = inv.ORGANISATION_case
 

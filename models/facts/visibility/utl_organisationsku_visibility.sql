@@ -1,8 +1,14 @@
+{{
+    config(
+        materialized='table'
+    )
+}}
+
 with
 orders as
 (
 select *
-from {{ ref('int_storedaysku_orders_visibility') }}
+from {{ ref('int_allfacts_visibility') }}
 ),
 
 next_order as

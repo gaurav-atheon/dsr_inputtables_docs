@@ -4,12 +4,15 @@ select
         LOCATION_ID,
         Product_ID,
         sum(stock_units) as stock_units
-        from (select
+        from (
+
+            select
                 day_date,
                 organisation_id, --converted to DSR ID
                 LOCATION_ID, --converted to DSR ID
                 Product_ID, --converted to DSR ID
-                stock_units
+                stock_units,
+                loaded_timestamp
 
             from {{ ref('int_locationdaysku_inventory') }}
 
@@ -20,7 +23,9 @@ select
                 organisation_id, --converted to DSR ID
                 LOCATION_ID, --converted to DSR ID
                 Product_ID, --converted to DSR ID
-                (stock_units*case_size) as stock_units
+                (stock_units*case_size) as stock_units,
+                loaded_timestamp
 
             from {{ ref('fact_locationdaycase_inventory') }} )
+
 group by day_date,organisation_id,LOCATION_ID,Product_ID

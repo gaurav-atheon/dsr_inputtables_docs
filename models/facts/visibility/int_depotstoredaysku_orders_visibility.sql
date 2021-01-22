@@ -2,11 +2,11 @@ select
 ord.day_date,
 src.organisation_id, --converted to DSR ID
 prd.Product_ID as item_id, --converted to DSR ID
-'fact_storedaysku_orders' table_reference,
+'fact_depotstoredaysku_orders' table_reference,
 '100 - Explicit' access_level,
 loaded_timestamp
 
-from {{ ref('stg_storedaysku_orders') }} ord
+from {{ ref('stg_depotstoredaysku_orders') }} ord
 
 inner join {{ ref('utl_source_organisations') }} src
 on ord.source_db_id = src.business_organisation_number

@@ -10,6 +10,7 @@ select
     DAY_OF_WEEK,
     WEEK_OF_YEAR,
     DAY_OF_YEAR,
+    loaded_timestamp,
     row_number() over (partition by DAY_DATE order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_date') }}
 )

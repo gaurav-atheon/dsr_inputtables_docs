@@ -7,6 +7,7 @@ select
     YEAR_ID,
     origin_organisation_number,
     business_organisation_number,
+    loaded_timestamp,
     row_number() over (partition by origin_organisation_number,business_organisation_number,DAY_DATE order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_calendar') }}
 )

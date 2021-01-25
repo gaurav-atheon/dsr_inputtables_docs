@@ -31,5 +31,5 @@ on prd.organisation_ID = src.organisation_ID
 and prd.ORGANISATION_case = inv.ORGANISATION_case
 
         {% if is_incremental() %}
-        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        where inv.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
         {% endif %}

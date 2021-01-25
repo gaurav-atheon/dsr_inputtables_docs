@@ -7,6 +7,7 @@ select
     business_organisation_number,
     GEOGRAPHIC_LOCATION,
     LOCATION_FUNCTION,
+    loaded_timestamp,
     row_number() over (partition by origin_organisation_number,business_organisation_number,ORGANISATION_LOCATION_ID order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_location') }}
 )

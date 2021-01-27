@@ -1,7 +1,8 @@
 {{
     config(
         materialized='incremental',
-        unique_key='DAY_DATE'
+        unique_key='DAY_DATE',
+        cluster_by=['loaded_timestamp']
     )
 }}
 

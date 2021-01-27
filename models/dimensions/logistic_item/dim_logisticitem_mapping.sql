@@ -1,7 +1,8 @@
 {{
     config(
         materialized='incremental',
-        unique_key='logisticitem_ID'
+        unique_key='logisticitem_ID',
+        cluster_by=['loaded_timestamp']
     )
 }}
 

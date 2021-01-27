@@ -1,12 +1,13 @@
 {{
     config(
         materialized='incremental',
-        unique_key='logisticitem_ID'
+        unique_key='logisticitem_ID',
+        cluster_by=['loaded_timestamp']
     )
 }}
 
 select
-    {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','ORGANISATION_CASE']) }} as logisticitem_ID,
+     logisticitem_ID,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_ID,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','ORGANISATION_SKU']) }} as product_ID,
     ORGANISATION_SKU,

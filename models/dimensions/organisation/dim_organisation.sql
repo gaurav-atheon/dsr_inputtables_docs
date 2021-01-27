@@ -1,13 +1,14 @@
 {{
     config(
         materialized='incremental',
-        unique_key='organisation_id'
+        unique_key='organisation_id',
+        cluster_by=['loaded_timestamp']
     )
 }}
 
 
 select
-    {{ dbt_utils.surrogate_key(['om.origin_organisation_number','om.business_organisation_number']) }} as organisation_id,
+    om.organisation_id,
     om.business_organisation_name as organisation_name,
     o.type,
     o.address,

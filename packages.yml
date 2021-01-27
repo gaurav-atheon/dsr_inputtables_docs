@@ -1,5 +1,5 @@
 packages:
     - package: fishtown-analytics/dbt_utils
       version: 0.6.2
-    - git: https://github.com/AtheonAnalytics/Atheon_DBT_Libraries.git
+    - git:  https://github.com/AtheonAnalytics/Atheon_DBT_Libraries.git
       revision: v1.0

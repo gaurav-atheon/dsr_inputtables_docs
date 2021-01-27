@@ -1,3 +1,10 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='Product_ID',
+        cluster_by=['loaded_timestamp']
+    )
+}}
 with
 ranked_data as
 (
@@ -12,8 +19,13 @@ select
     BRAND,
     GTIN,
     loaded_timestamp,
+    {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','ORGANISATION_SKU']) }} as Product_ID,
     row_number() over (partition by origin_organisation_number,business_organisation_number,ORGANISATION_SKU order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_sku') }}
+
+        {% if is_incremental() %}
+        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        {% endif %}
 )
 
 select *

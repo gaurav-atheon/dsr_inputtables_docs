@@ -1,7 +1,8 @@
 {{
     config(
         materialized='incremental',
-        unique_key='traded_unit_id'
+        unique_key='traded_unit_id',
+        cluster_by=['loaded_timestamp']
     )
 }}
 select

@@ -79,3 +79,6 @@ sources:
 
         - name: input_depotstoredaysku_orders
           description: Raw product data from origin organisations.
+
+        - name: input_storedaysku_plans
+          description: Raw product data from origin organisations.

@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key='unique_key',
+        unique_key='fct_act_mvt_storedaysku_key',
         cluster_by=['loaded_timestamp']
     )
 }}
@@ -13,9 +13,9 @@ select
     prd.Product_ID, --converted to DSR ID
     ord.ranged,
     ord.loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','loc.LOCATION_ID','prd.Product_ID']) }} as unique_key
+    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','loc.LOCATION_ID','prd.Product_ID']) }} as fct_act_mvt_storedaysku_key
 
-from {{ref('stg_storedaysku_plans')}} ord
+from {{ref('stg_pln_inv_storedaysku')}} ord
 
 inner join {{ ref('utl_source_organisations') }} src --need relationship validation earlier in the flow
 on ord.source_db_id = src.business_organisation_number

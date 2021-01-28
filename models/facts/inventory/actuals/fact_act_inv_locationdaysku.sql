@@ -14,7 +14,7 @@ select
                 stock_units,
                 loaded_timestamp
 
-            from {{ ref('int_locationdaysku_inventory') }}
+            from {{ ref('int_act_inv_locationdaysku') }}
 
             union all
 
@@ -26,6 +26,6 @@ select
                 (stock_units*case_size) as stock_units,
                 loaded_timestamp
 
-            from {{ ref('fact_locationdaycase_inventory') }} )
+            from {{ ref('fact_act_inv_locationdaycase') }} )
 
 group by day_date,organisation_id,LOCATION_ID,Product_ID

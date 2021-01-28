@@ -44,7 +44,7 @@ sources:
             - name: parent_organisation_number
               description: If this organisation is the child to another organisation, this field holds the business organisation number of the parent organisation.
 
-        - name: input_storedaysku_orders
+        - name: input_act_mvt_storedaysku
           description: Raw store order metrics from source databases
 
         - name: input_location
@@ -62,10 +62,10 @@ sources:
         - name: input_sku_grouping
           description: Raw product data from origin organisations.
 
-        - name: input_locationdaysku_inventory
+        - name: input_act_inv_locationdaysku
           description: Raw store order metrics from source databases
 
-        - name: input_locationdaycase_inventory
+        - name: input_act_inv_locationdaycase
           description: Raw store order metrics from source databases
 
         - name: input_case
@@ -74,11 +74,15 @@ sources:
         - name: input_case_grouping
           description: Raw product data from origin organisations.
 
-        - name: input_orgdepotdaycase_orders
+        - name: input_act_mvt_orgdepotdaycase
           description: Raw product data from origin organisations.
 
-        - name: input_depotstoredaysku_orders
+        - name: input_act_mvt_depotstoredaysku
           description: Raw product data from origin organisations.
 
-        - name: input_storedaysku_plans
+        - name: input_pln_inv_storedaysku
           description: Raw product data from origin organisations.
+
+        - name: input_pln_mvt_depotstoredaysku
+          description: Raw product data from origin organisations.
+

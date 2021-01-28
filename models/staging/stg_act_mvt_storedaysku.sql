@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key='unique_storedaysku_key',
+        unique_key='unique_act_mvt_storedaysku',
         cluster_by=['loaded_timestamp']
     )
 }}
@@ -23,9 +23,9 @@ select
     total_waste_eaches,
     total_waste_value,
     loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','Organisation_SKU']) }} as unique_storedaysku_key,
+    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','Organisation_SKU']) }} as unique_act_mvt_storedaysku,
     row_number() over (partition by day_date, source_db_id, organisation_location_id, Organisation_SKU order by loaded_timestamp desc) rank
-from {{ source('dsr_input', 'input_storedaysku_orders') }}
+from {{ source('dsr_input', 'input_act_mvt_storedaysku') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
         {% endif %}

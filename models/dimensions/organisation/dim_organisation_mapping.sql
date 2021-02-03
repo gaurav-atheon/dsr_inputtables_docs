@@ -8,6 +8,7 @@
 
 select
     a.organisation_id,
+    a.origin_organisation_number,
     a.business_organisation_number,
     a.business_organisation_name,
    nvl2(a.origin_organisation_number,{{ dbt_utils.surrogate_key([ 'b.origin_organisation_number','a.origin_organisation_number']) }},NULL)as origin_organisation_id,

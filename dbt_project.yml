@@ -33,7 +33,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
     DSR:
-      +snowflake_warehouse: "DATA_TRANSFORM_XS"
+      +snowflake_warehouse: "DATA_TRANSFORM_XL"
       facts:
         +snowflake_warehouse: "DATA_TRANSFORM_XL"
       staging:

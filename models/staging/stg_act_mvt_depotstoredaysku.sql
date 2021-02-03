@@ -17,7 +17,7 @@ select
     UNITS_ORDERED,
     UNITS_FULFILLED,
     loaded_timestamp,
-       {{ dbt_utils.surrogate_key(['day_date','source_db_id','ORGANISATION_LOCATION_ID_FROM','ORGANISATION_LOCATION_ID_TO','ORGANISATION_sku']) }} as unique_act_mvt_depotstoredaysku,
+    {{ dbt_utils.surrogate_key(['day_date','source_db_id','ORGANISATION_LOCATION_ID_FROM','ORGANISATION_LOCATION_ID_TO','ORGANISATION_sku']) }} as unique_act_mvt_depotstoredaysku,
     row_number() over (partition by day_date, source_db_id, ORGANISATION_LOCATION_ID_FROM,ORGANISATION_LOCATION_ID_TO, ORGANISATION_sku order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_act_mvt_depotstoredaysku') }}
         {% if is_incremental() %}

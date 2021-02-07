@@ -14,7 +14,7 @@ select
                 stock_units,
                 loaded_timestamp
 
-            from {{ ref('int_act_inv_locationdaysku') }}
+            from {{ ref('fact_act_inv_locationdaysku') }}
 
             union all
 

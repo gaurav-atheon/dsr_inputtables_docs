@@ -31,13 +31,21 @@ select
     ghost_data.is_ghost
 
 from {{ ref('int_all_ghost_location') }} ghost_data
-left join all_data
-on all_data.location_ID = ghost_data.location_ID
-  left join  {{ this }} stgloc
-        on stgloc.location_ID = all_data.location_ID
 
-where  stgloc.LOCATION_ID is null
-and all_data.location_ID is null
+where
+
+NOT EXISTS
+    (select 1
+    from all_data
+    where all_data.location_ID = ghost_data.location_ID)
+
+    {% if is_incremental() %}
+    and NOT EXISTS
+        (select 1
+        from  {{ this }} dim
+        where dim.location_ID = all_data.location_ID)
+    {% endif %}
+
 )
 
 select * from all_data

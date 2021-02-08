@@ -16,6 +16,7 @@ select
     stock_units,
     location_function,
     loaded_timestamp,
+    'SKU' as source,
     {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','Organisation_SKU','location_function']) }} as unique_act_inv_locationdaysku,
     row_number() over (partition by day_date, source_db_id, organisation_location_id, Organisation_SKU,location_function order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_act_inv_locationdaysku') }}

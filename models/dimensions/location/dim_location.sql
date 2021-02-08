@@ -43,7 +43,7 @@ NOT EXISTS
     and NOT EXISTS
         (select 1
         from  {{ this }} dim
-        where dim.location_ID = all_data.location_ID)
+        where dim.location_ID = ghost_data.location_ID)
     {% endif %}
 
 )

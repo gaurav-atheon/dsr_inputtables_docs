@@ -31,13 +31,20 @@ select
        ghost_data.loaded_timestamp,ghost_data.is_ghost
 
 from {{ ref('int_all_ghost_product') }} ghost_data
-left join all_data
-on all_data.Product_ID = ghost_data.Product_ID
-  left join  {{ this }} prd
-        on prd.Product_ID = all_data.Product_ID
 
-where  prd.Product_ID is null
-and all_data.Product_ID is null
+where
+NOT EXISTS
+    (select 1
+    from all_data
+    where all_data.Product_ID = ghost_data.Product_ID)
+
+    {% if is_incremental() %}
+    and NOT EXISTS
+        (select 1
+        from  {{ this }} dim
+        where dim.Product_ID = all_data.Product_ID)
+    {% endif %}
+
 )
 
 select * from all_data

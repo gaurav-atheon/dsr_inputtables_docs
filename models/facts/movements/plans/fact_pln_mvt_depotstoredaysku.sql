@@ -7,7 +7,7 @@
 }}
 
 select
-    pln.base_forecast_date,
+    pln.day_date,
     pln.forecast_date,
     pln.source_db_id,
     locFrom.LOCATION_ID as organisation_location_id_from,
@@ -21,7 +21,7 @@ select
     pln.model_version,
     pln.origin_file,
     pln.loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['pln.base_forecast_date','pln.forecast_date','src.organisation_id','locFrom.LOCATION_ID',
+    {{ dbt_utils.surrogate_key(['pln.day_date','pln.forecast_date','src.organisation_id','locFrom.LOCATION_ID',
                                 'locto.LOCATION_ID ','prd.Product_ID','pln.model_version']) }} as fct_pln_inv_storedaysku_key
 
 from {{ref('stg_pln_mvt_depotstoredaysku')}} pln

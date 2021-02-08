@@ -9,7 +9,7 @@ with
 ranked_data as
 (
 select
-    base_forecast_date,
+    base_forecast_date day_date,
     forecast_date,
     source_db_id,
     organisation_location_id_from,

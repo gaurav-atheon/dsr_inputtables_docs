@@ -28,13 +28,20 @@ select
         ghost_data.CASE_SIZE,ghost_data.GTIN, ghost_data.loaded_timestamp,ghost_data.is_ghost
 
 from {{ ref('int_all_ghost_logisticitem') }} ghost_data
-left join all_data
-on all_data.logisticitem_ID = ghost_data.logisticitem_ID
-  left join  {{ this }} prd
-        on prd.logisticitem_ID = all_data.logisticitem_ID
 
-where  prd.logisticitem_ID is null
-and all_data.logisticitem_ID is null
+where
+NOT EXISTS
+    (select 1
+    from all_data
+    where all_data.logisticitem_ID = ghost_data.logisticitem_ID)
+
+    {% if is_incremental() %}
+    and NOT EXISTS
+        (select 1
+        from  {{ this }} dim
+        where dim.logisticitem_ID = all_data.logisticitem_ID)
+    {% endif %}
+
 )
 
 select * from all_data

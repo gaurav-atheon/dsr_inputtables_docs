@@ -35,13 +35,21 @@ select
        ghost_data.is_ghost
 
 from {{ ref('int_all_ghost_organisation') }} ghost_data
-left join all_data
-on all_data.organisation_id = ghost_data.organisation_id
-  left join  {{ this }} org
-        on org.organisation_id = all_data.organisation_id
 
-where  org.organisation_id is null
-and all_data.organisation_id is null
+where
+
+NOT EXISTS
+    (select 1
+    from all_data
+    where all_data.organisation_id = ghost_data.organisation_id)
+
+    {% if is_incremental() %}
+    and NOT EXISTS
+        (select 1
+        from  {{ this }} dim
+        where dim.organisation_id = all_data.organisation_id)
+    {% endif %}
+
 )
 
 select * from all_data

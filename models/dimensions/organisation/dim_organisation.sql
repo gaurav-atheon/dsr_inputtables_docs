@@ -47,7 +47,7 @@ NOT EXISTS
     and NOT EXISTS
         (select 1
         from  {{ this }} dim
-        where dim.organisation_id = all_data.organisation_id)
+        where dim.organisation_id = ghost_data.organisation_id)
     {% endif %}
 
 )

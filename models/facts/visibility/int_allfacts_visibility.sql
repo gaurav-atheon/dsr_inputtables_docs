@@ -27,7 +27,7 @@ from
     {{ fact_visibility(staging_table = staging, fact_table=fact, sku_or_case="sku", access_level="100 - Explicit")  }}
     )
         {% if is_incremental() %}
-        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }} where table_reference = fact )
+        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }} where table_reference = '{{ fact }}' )
         {% endif %}
     {%- if not loop.last %}
         union all
@@ -48,7 +48,7 @@ from
     {{ fact_visibility(staging_table = staging, fact_table=fact, sku_or_case="case", access_level="100 - Explicit")  }}
     )
         {% if is_incremental() %}
-        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }} where table_reference = fact )
+        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }} where table_reference = '{{ fact }}' )
         {% endif %}
     {%- if not loop.last %}
         union all

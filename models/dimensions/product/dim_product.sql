@@ -42,7 +42,7 @@ NOT EXISTS
     and NOT EXISTS
         (select 1
         from  {{ this }} dim
-        where dim.Product_ID = all_data.Product_ID)
+        where dim.Product_ID = ghost_data.Product_ID)
     {% endif %}
 
 )

@@ -34,7 +34,7 @@ and prd.ORGANISATION_SKU = inv.ORGANISATION_SKU
         where inv.loaded_timestamp > (select max(loaded_timestamp) from {{ this }} where source = 'SKU')
         {% endif %}
 
-union
+union all
 
 select
     day_date,

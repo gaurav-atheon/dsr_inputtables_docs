@@ -1,8 +1,7 @@
-{% macro fact_visibility(staging_table, fact_table, sku_or_case, access_level) %}
+{% macro fact_visibility(staging_table, fact_table, sku_or_case, access_level, location_function=NULL) %}
 
     select
 ord.day_date,
-src.organisation_id, --converted to DSR ID
 
     {% if sku_or_case =='sku' %}
         prd.Product_ID as item_id, --converted to DSR ID
@@ -10,14 +9,26 @@ src.organisation_id, --converted to DSR ID
         prd.logisticitem_ID as item_id, --converted to DSR ID,
     {% endif %}
 
+    {% if  location_function %}
+        loc.LOCATION_FUNCTION as location_function,
+    {% else %}
+        NULL as location_function,
+    {% endif %}
+
+src.organisation_id, --converted to DSR ID
 '{{fact_table}}' table_reference,
 '{{access_level}}' access_level,
-ord.loaded_timestamp
+max(ord.loaded_timestamp) as loaded_timestamp
 
 from {{ ref(staging_table) }} ord
 
 inner join {{ ref('utl_source_organisations') }} src
 on ord.source_db_id = src.business_organisation_number
+
+    {% if  location_function %}
+        inner join {{ ref('dim_location') }} loc
+        on ord.location_ID = loc.location_ID
+    {% endif %}
 
     {% if  sku_or_case == 'sku' %}
         inner join {{ ref('dim_product') }} prd
@@ -31,7 +42,6 @@ on ord.source_db_id = src.business_organisation_number
 
 group by
 ord.day_date,
-src.organisation_id,
 
     {% if  sku_or_case == 'sku' %}
         prd.Product_ID,
@@ -39,6 +49,12 @@ src.organisation_id,
         prd.logisticitem_ID,
     {% endif %}
 
-ord.loaded_timestamp
+    {% if  location_function %}
+        loc.LOCATION_FUNCTION,
+    {% else %}
+        NULL,
+    {% endif %}
+
+src.organisation_id
 
 {% endmacro %}

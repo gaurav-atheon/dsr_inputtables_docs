@@ -19,6 +19,7 @@ select
     brand,
     gtin,
     loaded_timestamp,
+    attributes,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','organisation_sku']) }} as product_id,
     row_number() over (partition by origin_organisation_number,business_organisation_number,organisation_sku order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_sku') }}

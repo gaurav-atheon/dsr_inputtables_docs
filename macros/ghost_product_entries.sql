@@ -1,8 +1,8 @@
 {%- macro ghost_product_entries( stg_of_fact_table,prod_col_name='ORGANISATION_SKU') -%}
 
-select  {{ dbt_utils.surrogate_key(['all_fact_data.origin_organisation_number','all_fact_data.business_organisation_number','all_fact_data.ORGANISATION_SKU']) }} as Product_ID,
-        all_fact_data.organisation_id,all_fact_data.ORGANISATION_SKU,all_fact_data.DESCRIPTION,all_fact_data.INDIVIDUAL_UNITS,all_fact_data.NET_QUANTITY,
-        all_fact_data.BASE_UNIT,all_fact_data.BRAND,all_fact_data.GTIN, all_fact_data.loaded_timestamp,all_fact_data.is_ghost
+select  {{ dbt_utils.surrogate_key(['all_fact_data.origin_organisation_number','all_fact_data.business_organisation_number','all_fact_data.organisation_sku']) }} as product_id,
+        all_fact_data.organisation_id,all_fact_data.organisation_sku,all_fact_data.description,all_fact_data.individual_units,all_fact_data.net_quantity,
+        all_fact_data.base_unit,all_fact_data.brand,all_fact_data.gtin, all_fact_data.loaded_timestamp,all_fact_data.attributes,all_fact_data.is_ghost
 from
 (
 select
@@ -17,6 +17,7 @@ select
     inv.loaded_timestamp,
     business_organisation_number,
     origin_organisation_number,
+    NULL as attributes,
     true as is_ghost
 
 from {{ ref(stg_of_fact_table) }} inv

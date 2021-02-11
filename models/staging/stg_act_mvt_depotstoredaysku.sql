@@ -11,14 +11,14 @@ ranked_data as
 select
     day_date,
     source_db_id,
-    ORGANISATION_LOCATION_ID_FROM,
-    ORGANISATION_LOCATION_ID_TO,
-    ORGANISATION_sku,
-    UNITS_ORDERED,
-    UNITS_FULFILLED,
+    organisation_location_id_from,
+    organisation_location_id_to,
+    organisation_sku,
+    units_ordered,
+    units_fulfilled,
     loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['day_date','source_db_id','ORGANISATION_LOCATION_ID_FROM','ORGANISATION_LOCATION_ID_TO','ORGANISATION_sku']) }} as unique_act_mvt_depotstoredaysku,
-    row_number() over (partition by day_date, source_db_id, ORGANISATION_LOCATION_ID_FROM,ORGANISATION_LOCATION_ID_TO, ORGANISATION_sku order by loaded_timestamp desc) rank
+    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id_from','organisation_location_id_to','organisation_sku']) }} as unique_act_mvt_depotstoredaysku,
+    row_number() over (partition by day_date, source_db_id, organisation_location_id_from,organisation_location_id_to, organisation_sku order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_act_mvt_depotstoredaysku') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})

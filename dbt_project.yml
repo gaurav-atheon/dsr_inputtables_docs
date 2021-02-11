@@ -18,7 +18,7 @@ test-paths: ["tests"]
 data-paths: ["data"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
-
+query-comment: "executed by {{ target.user }} in dbt"
 target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
     - "target"
@@ -33,11 +33,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
     DSR:
-      +snowflake_warehouse: "DATA_TRANSFORM_XL"
+      +snowflake_warehouse: "DATA_TRANSFORM_M"
       facts:
-        +snowflake_warehouse: "DATA_TRANSFORM_XL"
+        +snowflake_warehouse: "DATA_TRANSFORM_M"
       staging:
-        +snowflake_warehouse: "DATA_TRANSFORM_XL"
+        +snowflake_warehouse: "DATA_TRANSFORM_M"
 
 seeds:
   DSR:

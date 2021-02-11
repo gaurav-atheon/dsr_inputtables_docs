@@ -1,21 +1,21 @@
 {{
     config(
         materialized='incremental',
-        unique_key='Product_ID',
+        unique_key='product_id',
         cluster_by=['loaded_timestamp']
     )
 }}
 with all_data as (
 select
-    Product_ID,
-    {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_ID,
-    ORGANISATION_SKU,
-    DESCRIPTION,
-    INDIVIDUAL_UNITS,
-    NET_QUANTITY,
-    BASE_UNIT,
-    BRAND,
-    GTIN,
+    product_id,
+    {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_id,
+    organisation_sku,
+    description,
+    individual_units,
+    net_quantity,
+    base_unit,
+    brand,
+    gtin,
     loaded_timestamp,
     false as is_ghost
 from {{ ref('stg_sku') }}
@@ -26,23 +26,23 @@ from {{ ref('stg_sku') }}
 ),
 ghost_data as (
 select
-       ghost_data.Product_ID,ghost_data.organisation_id,ghost_data.ORGANISATION_SKU,ghost_data.DESCRIPTION,
-       ghost_data.INDIVIDUAL_UNITS,ghost_data.NET_QUANTITY, ghost_data.BASE_UNIT,ghost_data.BRAND,ghost_data.GTIN,
+       ghost_data.product_id,ghost_data.organisation_id,ghost_data.organisation_sku,ghost_data.description,
+       ghost_data.individual_units,ghost_data.net_quantity, ghost_data.base_unit,ghost_data.brand,ghost_data.gtin,
        ghost_data.loaded_timestamp,ghost_data.is_ghost
 
 from {{ ref('int_all_ghost_product') }} ghost_data
 
 where
-NOT EXISTS
+not exists
     (select 1
     from all_data
-    where all_data.Product_ID = ghost_data.Product_ID)
+    where all_data.product_id = ghost_data.product_id)
 
     {% if is_incremental() %}
-    and NOT EXISTS
+    and not exists
         (select 1
         from  {{ this }} dim
-        where dim.Product_ID = ghost_data.Product_ID)
+        where dim.product_id = ghost_data.product_id)
     {% endif %}
 
 )

@@ -8,9 +8,9 @@
 
 select
     ord.day_date,
-    src.organisation_id, --converted to DSR ID
-    loc.LOCATION_ID, --converted to DSR ID
-    prd.Product_ID, --converted to DSR ID
+    src.organisation_id, --converted to dsr id
+    loc.location_id, --converted to dsr id
+    prd.product_id, --converted to dsr id
     ord.epos_eaches,
     ord.epos_value,
     ord.rtc_epos_eaches,
@@ -21,7 +21,7 @@ select
     ord.total_waste_eaches,
     ord.total_waste_value,
     ord.loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','loc.LOCATION_ID','prd.Product_ID']) }} as fct_act_mvt_storedaysku_key
+    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','loc.location_id','prd.product_id']) }} as fct_act_mvt_storedaysku_key
 
 from {{ref('stg_act_mvt_storedaysku')}} ord
 
@@ -29,13 +29,13 @@ inner join {{ ref('utl_source_organisations') }} src --need relationship validat
 on ord.source_db_id = src.business_organisation_number
 
 inner join {{ ref('dim_location') }} loc --need relationship validation earlier in the flow
-on loc.organisation_ID = src.organisation_ID
-and loc.ORGANISATION_LOCATION_ID = ord.ORGANISATION_LOCATION_ID
-and loc.LOCATION_FUNCTION = 'Point of Sale'
+on loc.organisation_id = src.organisation_id
+and loc.organisation_location_id = ord.organisation_location_id
+and loc.location_function = 'point of sale'
 
 inner join {{ ref('dim_product') }} prd --need relationship validation earlier in the flow
-on prd.organisation_ID = src.organisation_ID
-and prd.ORGANISATION_SKU = ord.ORGANISATION_SKU
+on prd.organisation_id = src.organisation_id
+and prd.organisation_sku = ord.organisation_sku
 
         {% if is_incremental() %}
         where ord.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})

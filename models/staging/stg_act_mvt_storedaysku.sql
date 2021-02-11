@@ -12,7 +12,7 @@ select
     day_date,
     source_db_id,
     organisation_location_id,
-    Organisation_SKU,
+    organisation_sku,
     epos_eaches,
     epos_value,
     rtc_epos_eaches,
@@ -23,8 +23,8 @@ select
     total_waste_eaches,
     total_waste_value,
     loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','Organisation_SKU']) }} as unique_act_mvt_storedaysku,
-    row_number() over (partition by day_date, source_db_id, organisation_location_id, Organisation_SKU order by loaded_timestamp desc) rank
+    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','organisation_sku']) }} as unique_act_mvt_storedaysku,
+    row_number() over (partition by day_date, source_db_id, organisation_location_id, organisation_sku order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_act_mvt_storedaysku') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})

@@ -7,11 +7,11 @@
 }}
 with all_data as (
 select
-    location_ID,
-    {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_ID,
-    ORGANISATION_LOCATION_ID,
-    GEOGRAPHIC_LOCATION,
-    LOCATION_FUNCTION,
+    location_id,
+    {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_id,
+    organisation_location_id,
+    geographic_location,
+    location_function,
     loaded_timestamp,
     false as is_ghost
 from {{ ref('stg_location') }}

@@ -12,13 +12,13 @@ select
     day_date,
     source_db_id,
     organisation_location_id,
-    BUSINESS_ORGANISATION_NUMBER_FROM,
-    ORGANISATION_CASE,
-    CASES_ORDERED_IN,
-    CASES_FULFILLED_IN,
+    business_organisation_number_from,
+    organisation_case,
+    cases_ordered_in,
+    cases_fulfilled_in,
     loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','ORGANISATION_CASE']) }} as unique_act_mvt_orgdepotdaycase,
-    row_number() over (partition by day_date, source_db_id, organisation_location_id, ORGANISATION_CASE order by loaded_timestamp desc) rank
+    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','organisation_case']) }} as unique_act_mvt_orgdepotdaycase,
+    row_number() over (partition by day_date, source_db_id, organisation_location_id, organisation_case order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_act_mvt_orgdepotdaycase') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})

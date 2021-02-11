@@ -12,11 +12,11 @@ select
     day_date,
     source_db_id,
     organisation_location_id,
-    Organisation_SKU,
+    organisation_sku,
     ranged,
     loaded_timestamp,
-{{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','Organisation_SKU','ranged']) }} as unique_pln_inv_storedaysku,
-    row_number() over (partition by day_date, source_db_id, organisation_location_id, Organisation_SKU,ranged order by loaded_timestamp desc) rank
+{{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','organisation_sku','ranged']) }} as unique_pln_inv_storedaysku,
+    row_number() over (partition by day_date, source_db_id, organisation_location_id, organisation_sku,ranged order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_pln_inv_storedaysku') }}
 
         {% if is_incremental() %}

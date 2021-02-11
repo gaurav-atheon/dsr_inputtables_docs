@@ -11,7 +11,7 @@ select
     om.business_organisation_name as organisation_name,
     o.type,
     o.address,
-    nvl2(o.parent_organisation_number,{{ dbt_utils.surrogate_key(['o.parent_origin_organisation_number','o.parent_organisation_number']) }} ,NULL)as parent_organisation_ID,
+    nvl2(o.parent_organisation_number,{{ dbt_utils.surrogate_key(['o.parent_origin_organisation_number','o.parent_organisation_number']) }} ,null)as parent_organisation_id,
     om.loaded_timestamp,
     false as is_ghost
 from {{ ref('stg_organisation_mapping') }} om
@@ -30,7 +30,7 @@ select
        ghost_data.organisation_name,
        ghost_data.type,
        ghost_data.address,
-       ghost_data.parent_organisation_ID,
+       ghost_data.parent_organisation_id,
        ghost_data.loaded_timestamp,
        ghost_data.is_ghost
 
@@ -38,13 +38,13 @@ from {{ ref('int_all_ghost_organisation') }} ghost_data
 
 where
 
-NOT EXISTS
+not exists
     (select 1
     from all_data
     where all_data.organisation_id = ghost_data.organisation_id)
 
     {% if is_incremental() %}
-    and NOT EXISTS
+    and not exists
         (select 1
         from  {{ this }} dim
         where dim.organisation_id = ghost_data.organisation_id)

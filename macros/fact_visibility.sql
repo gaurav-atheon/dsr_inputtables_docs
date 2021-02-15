@@ -1,4 +1,4 @@
-{% macro fact_visibility(staging_table, fact_table, sku_or_case, access_level, location_function=NULL) %}
+{% macro fact_visibility(staging_table, fact_table, sku_or_case, access_level, org_column, location_function=NULL) %}
 
     select
 ord.day_date,
@@ -22,8 +22,14 @@ max(ord.loaded_timestamp) as loaded_timestamp
 
 from {{ ref(staging_table) }} ord
 
-inner join {{ ref('utl_source_organisations') }} src
-on ord.source_db_id = src.business_organisation_number
+    {% if org_column == 'source_db_id' %}
+        inner join {{ ref('utl_source_organisations') }} src
+        on ord.source_db_id = src.business_organisation_number
+    {% else %}
+        inner join {{ ref('dim_organisation_mapping') }} src
+        on ord.{{- org_column }} = src.business_organisation_number
+        and ord.source_db_id = src.origin_organisation_number
+    {% endif %}
 
     {% if  location_function %}
         inner join {{ ref('dim_location') }} loc

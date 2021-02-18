@@ -1,0 +1,46 @@
+version: 2
+
+sources:
+    - name: dsr_input
+      description: Standard input tables for all inbound DSR data.
+      database: AA_DSR_RAW
+      tables:
+        - name: input_organisation_mapping
+          description: Raw organisation data from origin organisations.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - origin_organisation_number
+                  - business_organisation_number
+                  - loaded_timestamp
+          columns:
+            - name: origin_organisation_number
+              description: Number of the organisation, as defined by the master, that is submitting this data record.
+              tests:
+                - not_null
+            - name: business_organisation_number
+              tests:
+                - not_null
+              description: Number that the origin organisation uses to refer to the subject organisation.
+            - name: business_organisation_name
+              description: Name of the subject organisation according to the origin organisation.
+
+        - name: input_organisation
+          description: Raw organisation attributes and parentage.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - business_organisation_number
+                  - origin_organisation_number
+                  - loaded_timestamp
+          columns:
+            - name: business_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+              tests:
+                - not_null
+            - name: origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+
+

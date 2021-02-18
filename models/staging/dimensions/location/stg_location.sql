@@ -14,6 +14,9 @@ select
     business_organisation_number,
     geographic_location,
     location_function,
+    attributes,
+    parent_origin_organisation_number,
+    parent_business_organisation_number,
     loaded_timestamp,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','organisation_location_id','location_function']) }} as location_id,
     row_number() over (partition by origin_organisation_number,business_organisation_number,organisation_location_id order by loaded_timestamp desc) rank

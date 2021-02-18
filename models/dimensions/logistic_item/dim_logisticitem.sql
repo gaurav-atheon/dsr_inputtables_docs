@@ -24,8 +24,15 @@ from {{ ref('stg_case') }}
 ),
 ghost_data as (
 select
-        ghost_data.logisticitem_id,ghost_data.organisation_id,ghost_data.product_id,ghost_data.organisation_sku,ghost_data.organisation_case,
-        ghost_data.case_size,ghost_data.gtin, ghost_data.loaded_timestamp,ghost_data.is_ghost
+       ghost_data.logisticitem_id,
+       ghost_data.organisation_id,
+       ghost_data.product_id,
+       ghost_data.organisation_sku,
+       ghost_data.organisation_case,
+       ghost_data.case_size,
+       ghost_data.gtin,
+       ghost_data.loaded_timestamp,
+       ghost_data.is_ghost
 
 from {{ ref('int_all_ghost_logisticitem') }} ghost_data
 

@@ -7,9 +7,9 @@
 }}
 
 select
-    {{ dbt_utils.surrogate_key(['decision_maker_origin_organisation_number','decision_maker_organisation_number','grouping_key','loaded_timestamp']) }} as consumer_unit_id,
+    {{ dbt_utils.surrogate_key(['subject_origin_organisation_number','subject_business_organisation_number','grouping_key','loaded_timestamp']) }} as consumer_unit_id,
     --attributes
-    {{ dbt_utils.surrogate_key(['decision_maker_origin_organisation_number','decision_maker_organisation_number']) }} as decision_maker_organisation_id,
+    {{ dbt_utils.surrogate_key(['subject_origin_organisation_number','subject_business_organisation_number']) }} as decision_maker_organisation_id,
     loaded_timestamp
 from {{ ref('stg_sku_grouping') }}
 

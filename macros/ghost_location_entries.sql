@@ -3,7 +3,7 @@
 select     {{ dbt_utils.surrogate_key(['all_fact_data.origin_organisation_number', 'all_fact_data.business_organisation_number',
                                         'all_fact_data.organisation_location_id', 'all_fact_data.location_function']) }} as location_ID,
             all_fact_data.organisation_id,all_fact_data.organisation_location_id,all_fact_data.geographic_location,all_fact_data.attributes,
-            all_fact_data.parent_organisation_id,all_fact_data.location_function,all_fact_data.loaded_timestamp,all_fact_data.is_ghost
+            all_fact_data.location_function,all_fact_data.loaded_timestamp,all_fact_data.is_ghost
 from
 (
 select
@@ -17,7 +17,6 @@ select
     {% endif %}
     inv.loaded_timestamp,
     null as attributes,
-    null as parent_organisation_id,
     business_organisation_number,
     origin_organisation_number,
     true as is_ghost

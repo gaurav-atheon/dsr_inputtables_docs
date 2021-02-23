@@ -13,7 +13,6 @@ select
     geographic_location,
     location_function,
     attributes,
-    {{ dbt_utils.surrogate_key(['parent_origin_organisation_number','parent_business_organisation_number']) }} as parent_organisation_id,
     loaded_timestamp,
     false as is_ghost
 from {{ ref('stg_location') }}
@@ -30,7 +29,6 @@ select
     to_geography(ghost_data.geographic_location),
     ghost_data.location_function,
     to_variant(ghost_data.attributes),
-    ghost_data.parent_organisation_id,
     ghost_data.loaded_timestamp,
     ghost_data.is_ghost
 

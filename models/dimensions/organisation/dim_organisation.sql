@@ -11,14 +11,12 @@ select
     om.business_organisation_name as organisation_name,
     o.type,
     o.address,
-    nvl2(o.parent_organisation_number,{{ dbt_utils.surrogate_key(['o.parent_origin_organisation_number','o.parent_organisation_number']) }} ,null)as parent_organisation_id,
     om.loaded_timestamp,
     false as is_ghost
 from {{ ref('stg_organisation_mapping') }} om
 left outer join {{ ref('stg_organisation') }} o
     on om.origin_organisation_number = o.origin_organisation_number
     and  om.business_organisation_number = o.business_organisation_number
-
 
         {% if is_incremental() %}
         where om.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
@@ -30,7 +28,6 @@ select
        ghost_data.organisation_name,
        ghost_data.type,
        ghost_data.address,
-       ghost_data.parent_organisation_id,
        ghost_data.loaded_timestamp,
        ghost_data.is_ghost
 

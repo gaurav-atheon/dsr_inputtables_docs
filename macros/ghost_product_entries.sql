@@ -7,17 +7,17 @@ from
 (
 select
     src.organisation_id,
-    inv.{{prod_col_name}} as ORGANISATION_SKU,
-    NULL as DESCRIPTION,
-    NULL as INDIVIDUAL_UNITS,
-    NULL as NET_QUANTITY,
-    NULL as BASE_UNIT,
-    NULL as BRAND,
-    NULL as GTIN,
+    inv.{{prod_col_name}} as organisation_sku,
+    null as description,
+    null as individual_units,
+    null as net_quantity,
+    null as base_unit,
+    null as brand,
+    null as gtin,
     inv.loaded_timestamp,
     business_organisation_number,
     origin_organisation_number,
-    NULL as attributes,
+    null as attributes,
     true as is_ghost
 
 from {{ ref(stg_of_fact_table) }} inv

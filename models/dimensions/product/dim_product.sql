@@ -27,9 +27,18 @@ from {{ ref('stg_sku') }}
 ),
 ghost_data as (
 select
-       ghost_data.product_id,ghost_data.organisation_id,ghost_data.organisation_sku,ghost_data.description,
-       ghost_data.individual_units,ghost_data.net_quantity, ghost_data.base_unit,ghost_data.brand,ghost_data.gtin,
-       ghost_data.loaded_timestamp,to_variant(ghost_data.attributes),ghost_data.is_ghost
+       ghost_data.product_id,
+      ghost_data.organisation_id,
+      ghost_data.organisation_sku,
+      ghost_data.description,
+      ghost_data.individual_units,
+      ghost_data.net_quantity,
+      ghost_data.base_unit,
+      ghost_data.brand,
+      ghost_data.gtin,
+      ghost_data.loaded_timestamp,
+      to_variant(ghost_data.attributes),
+      ghost_data.is_ghost
 
 from {{ ref('int_all_ghost_product') }} ghost_data
 

@@ -1,0 +1,114 @@
+version: 2
+
+sources:
+    - name: dsr_input
+      description: Standard input tables for all inbound DSR data.
+      database: AA_DSR_RAW
+      tables:
+        - name: input_location
+          description: Raw location data from origin organisations.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - business_organisation_number
+                  - origin_organisation_number
+                  - organisation_location_id
+                  - location_function
+                  - loaded_timestamp
+          columns:
+            - name: business_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+              tests:
+                - not_null
+            - name: origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: location_function
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+
+        - name: input_location_group
+          description: Raw location data from origin organisations.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - creator_origin_organisation_number
+                  - creator_business_organisation_number
+                  - organisation_location_id
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                  - location_function
+                  - group_name
+                  - loaded_timestamp
+          columns:
+            - name: creator_origin_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+              tests:
+                - not_null
+            - name: creator_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: location_function
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: group_name
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+        - name: input_location_parentage
+          description: Raw location data from origin organisations.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - business_organisation_number
+                  - origin_organisation_number
+                  - parent_origin_organisation_number
+                  - parent_business_organisation_number
+                  - creator_origin_organisation_number
+                  - creator_business_organisation_number
+                  - loaded_timestamp
+          columns:
+            - name: business_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+              tests:
+                - not_null
+            - name: origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: parent_origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: parent_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: creator_origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: creator_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null

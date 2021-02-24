@@ -17,7 +17,7 @@ select
     cases_ordered_in,
     cases_fulfilled_in,
     loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','organisation_case']) }} as unique_act_mvt_orgdepotdaycase,
+    {{ dbt_utils.surrogate_key(['day_date','source_db_id','business_organisation_number_from','organisation_location_id','organisation_case']) }} as unique_act_mvt_orgdepotdaycase,
     row_number() over (partition by day_date, source_db_id, organisation_location_id, organisation_case order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_act_mvt_orgdepotdaycase') }}
         {% if is_incremental() %}

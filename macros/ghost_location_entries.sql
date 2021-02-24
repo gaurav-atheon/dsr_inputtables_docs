@@ -2,20 +2,21 @@
 
 select     {{ dbt_utils.surrogate_key(['all_fact_data.origin_organisation_number', 'all_fact_data.business_organisation_number',
                                         'all_fact_data.organisation_location_id', 'all_fact_data.location_function']) }} as location_ID,
-            all_fact_data.organisation_id,all_fact_data.ORGANISATION_LOCATION_ID,all_fact_data.GEOGRAPHIC_LOCATION,
+            all_fact_data.organisation_id,all_fact_data.organisation_location_id,all_fact_data.geographic_location,all_fact_data.attributes,
             all_fact_data.location_function,all_fact_data.loaded_timestamp,all_fact_data.is_ghost
 from
 (
 select
     src.organisation_id,
-    inv.{{location_col_name}} as ORGANISATION_LOCATION_ID,
-    NULL as GEOGRAPHIC_LOCATION,
+    inv.{{location_col_name}} as organisation_location_id,
+    null as geographic_location,
     {% if  fact_location_function %}
         '{{fact_location_function}}' as location_function,
     {% else %}
         location_function as location_function,
     {% endif %}
     inv.loaded_timestamp,
+    null as attributes,
     business_organisation_number,
     origin_organisation_number,
     true as is_ghost

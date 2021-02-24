@@ -7,6 +7,7 @@ select location_ID,
     organisation_ID,
     organisation_location_id,
     geographic_location,
+    attributes,
     location_function,max(loaded_timestamp) as loaded_timestamp, is_ghost from (
 {{ ghost_location_entries(stg_of_fact_table='stg_act_inv_locationdaycase') }}
 
@@ -45,9 +46,4 @@ union
 union
 
 {{ ghost_location_entries(stg_of_fact_table='stg_pln_mvt_depotstoredaysku',location_col_name='ORGANISATION_LOCATION_ID_TO',fact_location_function='Point of Sale') }}
-) group by  location_ID,
-            organisation_id,
-            organisation_location_id,
-            geographic_location,
-            location_function,
-            is_ghost
+) group by  location_ID, organisation_id, organisation_location_id, geographic_location,location_function,attributes, is_ghost

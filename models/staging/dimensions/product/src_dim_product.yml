@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+    - name: dsr_input
+      description: Standard input tables for all inbound DSR data.
+      database: AA_DSR_RAW
+      tables:
+        - name: input_sku
+          description: Raw product data from origin organisations.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - business_organisation_number
+                  - origin_organisation_number
+                  - organisation_sku
+                  - loaded_timestamp
+          columns:
+            - name: business_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+              tests:
+                - not_null
+            - name: origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: organisation_sku
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+
+        - name: input_sku_grouping
+          description: Raw product data from origin organisations.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - creator_business_organisation_number
+                  - creator_origin_organisation_number
+                  - organisation_sku
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                  - grouping_key
+                  - loaded_timestamp
+          columns:
+            - name: creator_business_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+              tests:
+                - not_null
+            - name: creator_origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: organisation_sku
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: grouping_key
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null

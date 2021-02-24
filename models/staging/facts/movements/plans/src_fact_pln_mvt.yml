@@ -1,0 +1,97 @@
+version: 2
+
+sources:
+    - name: dsr_input
+      description: Standard input tables for all inbound DSR data.
+      database: AA_DSR_RAW
+      tables:
+        - name: input_pln_mvt_depotstoredaysku
+          description: Raw product data from origin organisations.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - base_forecast_date
+                  - forecast_date
+                  - source_db_id
+                  - organisation_sku
+                  - organisation_location_id_from
+                  - organisation_location_id_to
+                  - model_version
+                  - forecast_components
+                  - loaded_timestamp
+          columns:
+            - name: source_db_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: base_forecast_date
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: forecast_date
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: organisation_sku
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: organisation_location_id_from
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: organisation_location_id_to
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: model_version
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: forecast_components
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+
+        - name: input_pln_mvt_daysku
+          description: Raw product data from origin organisations.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - base_forecast_date
+                  - forecast_date
+                  - source_db_id
+                  - subject_business_organisation_number
+                  - organisation_sku
+                  - model_version
+                  - forecast_components
+                  - loaded_timestamp
+          columns:
+            - name: source_db_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: base_forecast_date
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: forecast_date
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: organisation_sku
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: forecast_components
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: model_version
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null

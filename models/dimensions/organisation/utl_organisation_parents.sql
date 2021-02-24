@@ -1,8 +1,7 @@
 select
 o.organisation_id,
 o.organisation_name,
-o.type,
-o.address,
+o.attributes,
 o.loaded_timestamp,
 o.is_ghost,
 p.parent_organisation_id

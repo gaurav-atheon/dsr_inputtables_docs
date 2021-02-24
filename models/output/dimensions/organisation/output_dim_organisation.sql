@@ -1,8 +1,7 @@
 select
        organisation_id,
        organisation_name,
-       type,
-       address,
+       attributes,
        loaded_timestamp,
        is_ghost
 

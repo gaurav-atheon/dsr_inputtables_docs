@@ -9,8 +9,7 @@ with all_data as (
 select
     om.organisation_id,
     om.business_organisation_name as organisation_name,
-    o.type,
-    o.address,
+    o.attributes,
     om.loaded_timestamp,
     false as is_ghost
 from {{ ref('stg_organisation_mapping') }} om
@@ -26,8 +25,7 @@ ghost_data as (
 select
        ghost_data.organisation_id,
        ghost_data.organisation_name,
-       ghost_data.type,
-       ghost_data.address,
+       to_variant(ghost_data.attributes),
        ghost_data.loaded_timestamp,
        ghost_data.is_ghost
 

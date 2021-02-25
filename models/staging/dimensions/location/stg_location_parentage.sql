@@ -9,17 +9,21 @@ with
 ranked_data as
 (
 select
-    origin_organisation_number,
-    business_organisation_number,
+    subject_origin_organisation_number,
+    subject_business_organisation_number,
+    subject_organisation_location_id,
+    subject_location_function,
     parent_origin_organisation_number,
     parent_business_organisation_number,
+    parent_organisation_location_id,
+    parent_location_function,
     creator_origin_organisation_number,
     creator_business_organisation_number,
     loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number',
-                                'creator_origin_organisation_number','creator_business_organisation_number']) }} as parentage_id,
-    row_number() over (partition by origin_organisation_number,business_organisation_number,
-                                    creator_origin_organisation_number,creator_business_organisation_number order by loaded_timestamp desc) rank
+    {{ dbt_utils.surrogate_key(['subject_origin_organisation_number','subject_business_organisation_number','subject_organisation_location_id',
+                                'subject_location_function','creator_origin_organisation_number','creator_business_organisation_number']) }} as parentage_id,
+    row_number() over (partition by subject_origin_organisation_number,subject_business_organisation_number,subject_organisation_location_id,
+                                    subject_location_function,creator_origin_organisation_number,creator_business_organisation_number order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_location_parentage') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})

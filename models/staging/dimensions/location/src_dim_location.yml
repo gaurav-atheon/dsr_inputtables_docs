@@ -80,19 +80,31 @@ sources:
           tests:
             - dbt_utils.unique_combination_of_columns:
                 combination_of_columns:
-                  - business_organisation_number
-                  - origin_organisation_number
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                  - subject_organisation_location_id
+                  - subject_location_function
                   - parent_origin_organisation_number
                   - parent_business_organisation_number
+                  - parent_organisation_location_id
+                  - parent_location_function
                   - creator_origin_organisation_number
                   - creator_business_organisation_number
                   - loaded_timestamp
           columns:
-            - name: business_organisation_number
+            - name: subject_origin_organisation_number
               description: Nummber assigned to the organisation by the origin.
               tests:
                 - not_null
-            - name: origin_organisation_number
+            - name: subject_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_location_function
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null
@@ -101,6 +113,14 @@ sources:
               tests:
                 - not_null
             - name: parent_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: parent_organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: parent_location_function
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null

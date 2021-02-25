@@ -16,6 +16,7 @@ select
     creator_origin_organisation_number,
     creator_business_organisation_number,
     loaded_timestamp,
+    created_timestamp,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number',
                                 'creator_origin_organisation_number','creator_business_organisation_number']) }} as parentage_id,
     row_number() over (partition by origin_organisation_number,business_organisation_number,

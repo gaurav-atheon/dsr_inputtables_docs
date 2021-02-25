@@ -14,6 +14,7 @@ with ranked_data as
     case_size,
     gtin,
     loaded_timestamp,
+    created_timestamp,
     row_number() over (partition by origin_organisation_number,business_organisation_number,organisation_case order by loaded_timestamp desc) rank,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','organisation_case']) }} as logisticitem_id
 from {{ source('dsr_input', 'input_case') }}

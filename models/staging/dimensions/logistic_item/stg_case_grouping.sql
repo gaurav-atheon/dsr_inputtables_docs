@@ -16,6 +16,7 @@ select
     subject_business_organisation_number,
     grouping_key,
     loaded_timestamp,
+    created_timestamp,
     {{ dbt_utils.surrogate_key(['creator_origin_organisation_number','creator_business_organisation_number','organisation_case',
                                 'subject_origin_organisation_number','subject_business_organisation_number']) }} as logisticitem_stg_id,
     row_number() over (partition by creator_origin_organisation_number,creator_business_organisation_number,organisation_case,

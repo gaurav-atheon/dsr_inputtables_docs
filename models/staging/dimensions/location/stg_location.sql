@@ -16,6 +16,7 @@ select
     location_function,
     attributes,
     loaded_timestamp,
+    created_timestamp,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','organisation_location_id','location_function']) }} as location_id,
     row_number() over (partition by origin_organisation_number,business_organisation_number,organisation_location_id order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_location') }}

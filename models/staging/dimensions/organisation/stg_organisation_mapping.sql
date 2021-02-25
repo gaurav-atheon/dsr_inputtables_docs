@@ -21,6 +21,7 @@ select
     a.business_organisation_name,
     a.origin_organisation_number,
     a.loaded_timestamp,
+    a.created_timestamp,
   {{ dbt_utils.surrogate_key(['a.origin_organisation_number','a.business_organisation_number']) }} as organisation_id,
     row_number() over (partition by a.origin_organisation_number, a.business_organisation_number order by a.loaded_timestamp desc) rank
 from all_data a

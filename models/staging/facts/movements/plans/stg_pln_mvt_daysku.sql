@@ -22,6 +22,7 @@ select
     model_version,
     origin_file,
     loaded_timestamp,
+    created_timestamp,
    {{ dbt_utils.surrogate_key(['base_forecast_date','forecast_date','source_db_id','subject_business_organisation_number'
                                 ,'organisation_sku','model_version']) }} as unique_pln_mvt_daysku,
     row_number() over (partition by base_forecast_date, forecast_date, source_db_id,

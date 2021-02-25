@@ -17,6 +17,7 @@ select
     units_ordered,
     units_fulfilled,
     loaded_timestamp,
+    created_timestamp,
     {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id_from','organisation_location_id_to','organisation_sku']) }} as unique_act_mvt_depotstoredaysku,
     row_number() over (partition by day_date, source_db_id, organisation_location_id_from,organisation_location_id_to, organisation_sku order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_act_mvt_depotstoredaysku') }}

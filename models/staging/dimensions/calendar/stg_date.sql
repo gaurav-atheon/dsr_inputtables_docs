@@ -18,6 +18,7 @@ select
     week_of_year,
     day_of_year,
     loaded_timestamp,
+    created_timestamp,
     row_number() over (partition by day_date order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_date') }}
         {% if is_incremental() %}

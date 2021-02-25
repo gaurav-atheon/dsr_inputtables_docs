@@ -17,6 +17,7 @@ select
     location_function,
     group_name,
     loaded_timestamp,
+    created_timestamp,
     {{ dbt_utils.surrogate_key(['creator_origin_organisation_number','creator_business_organisation_number','group_name','organisation_location_id',
                                 'subject_origin_organisation_number','subject_business_organisation_number','location_function']) }} as location_mapping_id,
     row_number() over (partition by creator_origin_organisation_number,creator_business_organisation_number,group_name,organisation_location_id,

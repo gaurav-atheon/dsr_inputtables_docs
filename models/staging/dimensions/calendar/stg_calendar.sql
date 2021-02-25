@@ -15,6 +15,7 @@ select
     origin_organisation_number,
     business_organisation_number,
     loaded_timestamp,
+    created_timestamp,
     row_number() over (partition by origin_organisation_number,business_organisation_number,day_date order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_calendar') }}
         {% if is_incremental() %}

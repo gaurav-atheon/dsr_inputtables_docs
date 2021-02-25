@@ -95,3 +95,60 @@ sources:
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null
+        - name: input_pln_mvt_orgdepotdaysku
+          description: Raw product data from origin organisations.
+          tests:
+            - dbt_utils.unique_combination_of_columns:
+                combination_of_columns:
+                  - base_forecast_date
+                  - forecast_date
+                  - source_db_id
+                  - subject_organisation_sku
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                  - subject_organisation_location_id
+                  - subject_location_function
+                  - model_version
+                  - forecast_components
+                  - loaded_timestamp
+          columns:
+            - name: source_db_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: base_forecast_date
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: forecast_date
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_organisation_sku
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: subject_location_function
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: model_version
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null
+            - name: forecast_components
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null

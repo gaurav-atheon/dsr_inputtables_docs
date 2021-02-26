@@ -17,6 +17,6 @@ select
     model_version,
     origin_file,
     loaded_timestamp,
-    fct_pln_inv_locationdaysku_key
+    fct_pln_inv_orgdepotdaysku_key
 
 from {{ref('fact_pln_mvt_orgdepotdaysku')}}

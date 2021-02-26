@@ -35,7 +35,7 @@ on pln.source_db_id = src.business_organisation_number
 
 inner join {{ ref('dim_organisation_mapping') }} orgto --need relationship validation earlier in the flow
 on pln.subject_business_organisation_number_to = orgto.business_organisation_number
-and orgto.origin_organisation_id = src.organisation_id
+and orgto.origin_organisation_id = src.origin_organisation_id
 
 inner join {{ ref('dim_organisation_mapping') }} orgfrom --need relationship validation earlier in the flow
 on pln.subject_business_organisation_number_from = orgfrom.business_organisation_number

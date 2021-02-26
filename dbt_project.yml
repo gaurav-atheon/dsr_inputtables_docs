@@ -38,6 +38,8 @@ models:
         +snowflake_warehouse: "DATA_TRANSFORM_M"
       staging:
         +snowflake_warehouse: "DATA_TRANSFORM_M"
+      output:
+        +post-hook: "grant select on {{ this }} to role dbt_analyst"
 
 seeds:
   DSR:

@@ -105,9 +105,9 @@ sources:
                   - source_db_id
                   - subject_organisation_sku
                   - subject_origin_organisation_number
-                  - subject_business_organisation_number
-                  - subject_organisation_location_id
-                  - subject_location_function
+                  - subject_business_organisation_number_from
+                  - subject_business_organisation_number_to
+                  - subject_organisation_location_id_to
                   - model_version
                   - forecast_components
                   - loaded_timestamp
@@ -132,15 +132,15 @@ sources:
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null
-            - name: subject_business_organisation_number
+            - name: subject_business_organisation_number_from
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null
-            - name: subject_organisation_location_id
+            - name: subject_business_organisation_number_to
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null
-            - name: subject_location_function
+            - name: subject_organisation_location_id_to
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null

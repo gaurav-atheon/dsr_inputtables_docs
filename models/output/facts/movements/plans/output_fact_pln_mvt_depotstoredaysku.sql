@@ -13,6 +13,6 @@ select
     model_version,
     origin_file,
     loaded_timestamp,
-    fct_pln_inv_storedaysku_key
+    unique_key
 
 from {{ref('fact_pln_mvt_depotstoredaysku')}}

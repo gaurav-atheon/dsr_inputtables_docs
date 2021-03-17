@@ -1,8 +1,0 @@
-version: 2
-
-models:
-  - name: utl_organisation_hierarchy
-    description: >-
-      This utility consolidates the parent child relationships of organisations,
-      returning the top of the hierarchical tree for each organisation.
-      This allows attribution of metrics to a single, top level organisation from all the children below.

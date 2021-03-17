@@ -10,7 +10,7 @@ select
     location_id,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_id,
     organisation_location_id,
-    geographic_location,
+    to_geography(geographic_location) as geographic_location,
     location_function,
     attributes,
     loaded_timestamp,

@@ -21,10 +21,14 @@ select
                                 'creator_origin_organisation_number','creator_business_organisation_number']) }} as parentage_id,
     row_number() over (partition by origin_organisation_number,business_organisation_number,
                                     creator_origin_organisation_number,creator_business_organisation_number order by loaded_timestamp desc) rank
-from {{ source('dsr_input', 'input_organisation_parentage') }}
+ {% if target.name == 'ci' %}
+    from {{ ref ('stg_organisation_parentage_ci' )}}
+ {% else %}
+    from {{ source('dsr_input', 'input_organisation_parentage') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
         {% endif %}
+ {% endif %}
 )
 
 select *

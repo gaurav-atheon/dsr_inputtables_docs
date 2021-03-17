@@ -13,6 +13,6 @@ select
     total_waste_eaches,
     total_waste_value,
     loaded_timestamp,
-    fct_act_mvt_storedaysku_key
+    unique_key
 
 from {{ref('fact_act_mvt_storedaysku')}}

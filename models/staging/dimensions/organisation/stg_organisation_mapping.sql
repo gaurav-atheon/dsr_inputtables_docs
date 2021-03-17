@@ -5,14 +5,22 @@
         cluster_by=['loaded_timestamp']
     )
 }}
+ {% if target.name == 'ci' %}
+        with all_data as
+        (
+        {{ dbt_utils.union_relations(
+            relations=[ref('master_organisation'), ref ('stg_organisation_mapping_ci' )],
+        ) }}
+        ),
+ {% else %}
+        with all_data as
+        (
+        {{ dbt_utils.union_relations(
+            relations=[ref('master_organisation'), source('dsr_input', 'input_organisation_mapping')],
+        ) }}
+        ),
+ {% endif %}
 
-with
-all_data as
-(
-{{ dbt_utils.union_relations(
-    relations=[ref('master_organisation'), source('dsr_input', 'input_organisation_mapping')],
-) }}
-),
 
 ranked_data as
 (

@@ -102,3 +102,124 @@ sources:
               tests:
                 - not_null
 
+models:
+  - name: stg_act_mvt_storedaysku
+    columns:
+      - name: unique_key
+        tests:
+          - check_distinct_sku_fetched:
+             env: ci
+          - check_all_sku_fetched:
+             columnlist:
+              - day_date
+              - source_db_id
+              - organisation_location_id
+              - organisation_sku
+             env: ci
+          - check_latest_sku_fetched:
+              columnlist:
+                - day_date
+                - source_db_id
+                - organisation_location_id
+                - organisation_sku
+              env: ci
+      - name: source_db_id
+        tests:
+          - relationships:
+              to: ref('utl_source_organisations')
+              field: business_organisation_number
+      - name: organisation_location_id
+        tests:
+          - relationships:
+              to: ref('dim_location')
+              field: organisation_location_id
+      - name: organisation_sku
+        tests:
+          - relationships:
+              to: ref('dim_product')
+              field: organisation_sku
+  - name: stg_act_mvt_orgdepotdaycase
+    columns:
+      - name: unique_key
+        tests:
+          - check_distinct_sku_fetched:
+             env: ci
+          - check_all_sku_fetched:
+             columnlist:
+              - day_date
+              - source_db_id
+              - business_organisation_number_from
+              - organisation_location_id
+              - organisation_case
+             env: ci
+          - check_latest_sku_fetched:
+              columnlist:
+                - day_date
+                - source_db_id
+                - business_organisation_number_from
+                - organisation_location_id
+                - organisation_case
+              env: ci
+      - name: source_db_id
+        tests:
+          - relationships:
+              to: ref('utl_source_organisations')
+              field: business_organisation_number
+      - name: business_organisation_number_from
+        tests:
+          - relationships:
+              to: ref('dim_organisation_mapping')
+              field: business_organisation_number
+      - name: organisation_location_id
+        tests:
+          - relationships:
+              to: ref('dim_location')
+              field: organisation_location_id
+      - name: organisation_case
+        tests:
+          - relationships:
+              to: ref('dim_logisticitem')
+              field: organisation_case
+
+  - name: stg_act_mvt_depotstoredaysku
+    columns:
+      - name: unique_key
+        tests:
+          - check_distinct_sku_fetched:
+             env: ci
+          - check_all_sku_fetched:
+             columnlist:
+              - day_date
+              - source_db_id
+              - organisation_location_id_from
+              - organisation_location_id_to
+              - organisation_sku
+             env: ci
+          - check_latest_sku_fetched:
+              columnlist:
+                - day_date
+                - source_db_id
+                - organisation_location_id_from
+                - organisation_location_id_to
+                - organisation_sku
+              env: ci
+      - name: source_db_id
+        tests:
+          - relationships:
+              to: ref('utl_source_organisations')
+              field: business_organisation_number
+      - name: organisation_location_id_to
+        tests:
+          - relationships:
+              to: ref('dim_location')
+              field: organisation_location_id
+      - name: organisation_location_id_from
+        tests:
+          - relationships:
+              to: ref('dim_location')
+              field: organisation_location_id
+      - name: organisation_sku
+        tests:
+          - relationships:
+              to: ref('dim_product')
+              field: organisation_sku

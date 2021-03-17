@@ -25,10 +25,14 @@ select
                                 'subject_location_function','creator_origin_organisation_number','creator_business_organisation_number']) }} as parentage_id,
     row_number() over (partition by subject_origin_organisation_number,subject_business_organisation_number,subject_organisation_location_id,
                                     subject_location_function,creator_origin_organisation_number,creator_business_organisation_number order by loaded_timestamp desc) rank
-from {{ source('dsr_input', 'input_location_parentage') }}
+ {% if target.name == 'ci' %}
+    from {{ ref ('stg_location_parentage_ci' )}}
+ {% else %}
+    from {{ source('dsr_input', 'input_location_parentage') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
         {% endif %}
+ {% endif %}
 )
 
 select *

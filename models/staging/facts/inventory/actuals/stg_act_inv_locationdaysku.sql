@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key='unique_act_inv_locationdaysku',
+        unique_key='unique_key',
         cluster_by=['loaded_timestamp']
     )
 }}
@@ -18,12 +18,17 @@ select
     loaded_timestamp,
     'sku' as source,
     created_timestamp,
-    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','organisation_sku','location_function']) }} as unique_act_inv_locationdaysku,
+    {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','organisation_sku','location_function']) }} as unique_key,
     row_number() over (partition by day_date, source_db_id, organisation_location_id, organisation_sku,location_function order by loaded_timestamp desc) rank
-from {{ source('dsr_input', 'input_act_inv_locationdaysku') }}
+ {% if target.name == 'ci' %}
+    from {{ ref ('stg_act_inv_locationdaysku_ci' )}}
+ {% else %}
+    from {{ source('dsr_input', 'input_act_inv_locationdaysku') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
         {% endif %}
+ {% endif %}
+
 )
 
 select *

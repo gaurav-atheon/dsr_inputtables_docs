@@ -14,7 +14,7 @@ select
     null as base_unit,
     null as brand,
     null as gtin,
-    inv.loaded_timestamp,
+    to_timestamp(inv.loaded_timestamp) as loaded_timestamp,
     business_organisation_number,
     origin_organisation_number,
     null as attributes,

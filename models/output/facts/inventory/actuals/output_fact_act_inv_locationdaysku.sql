@@ -5,7 +5,7 @@ select
     product_id,
     stock_units,
     loaded_timestamp,
-    inv_act_inv_locationdaysku_key,
+    unique_key,
     source
 
 from {{ ref('fact_act_inv_locationdaysku') }}

@@ -8,7 +8,7 @@ select
   null as organisation_name,
   null as attributes,
   inv.{{org_col_name}} as business_organisation_number,
-  inv.loaded_timestamp,
+  to_timestamp(inv.loaded_timestamp) as loaded_timestamp,
   inv.source_db_id as origin_organisation_number,
   true as is_ghost
 

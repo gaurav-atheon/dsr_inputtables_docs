@@ -132,3 +132,74 @@ sources:
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null
+models:
+  - name: stg_location
+    columns:
+      - name: location_id
+        tests:
+          - check_distinct_sku_fetched:
+              env: ci
+          - check_all_sku_fetched:
+             columnlist:
+              - origin_organisation_number
+              - business_organisation_number
+              - organisation_location_id
+              - location_function
+             env: ci
+          - check_latest_sku_fetched:
+              columnlist:
+              - origin_organisation_number
+              - business_organisation_number
+              - organisation_location_id
+              - location_function
+              env: ci
+  - name: stg_location_group
+    columns:
+        - name: location_mapping_id
+          tests:
+            - check_distinct_sku_fetched:
+                env: ci
+            - check_all_sku_fetched:
+                columnlist:
+                  - creator_origin_organisation_number
+                  - creator_business_organisation_number
+                  - group_name
+                  - organisation_location_id
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                  - location_function
+                env: ci
+            - check_latest_sku_fetched:
+                columnlist:
+                  - creator_origin_organisation_number
+                  - creator_business_organisation_number
+                  - group_name
+                  - organisation_location_id
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                  - location_function
+                env: ci
+  - name: stg_location_parentage
+    columns:
+        - name: parentage_id
+          tests:
+            - check_distinct_sku_fetched:
+                env: ci
+            - check_all_sku_fetched:
+                columnlist:
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                  - subject_organisation_location_id
+                  - subject_location_function
+                  - creator_origin_organisation_number
+                  - creator_business_organisation_number
+                env: ci
+            - check_latest_sku_fetched:
+                columnlist:
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                  - subject_organisation_location_id
+                  - subject_location_function
+                  - creator_origin_organisation_number
+                  - creator_business_organisation_number
+                env: ci

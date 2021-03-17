@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: dim_org_calendar
+    columns:
+      - name: organisation_id
+        tests:
+          - relationships:
+              to: ref('dim_organisation')
+              field: organisation_id

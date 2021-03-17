@@ -31,6 +31,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 # In this example config, we tell dbt to build all models in the example/ directory
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
+vars:
+  dbt_artifacts:
+    dbt_artifacts_database: 'AA_DBT_ARTIFACTS' # optional, default is your target database
+    dbt_artifacts_schema: 'DSR_PROD' # optional, default is 'dbt_artifacts'
+    #dbt_artifacts_table: 'your_table' # option
+
 models:
     DSR:
       +snowflake_warehouse: "DATA_TRANSFORM_M"
@@ -40,9 +46,21 @@ models:
         +snowflake_warehouse: "DATA_TRANSFORM_M"
       output:
         +post-hook: "grant select on {{ this }} to role dbt_analyst"
-
+      utl:
+        +database: AA_DBT_ARTIFACTS
+        +schema: RESULTS
+    dbt_artifacts:
+      +database: AA_DBT_ARTIFACTS
+      +schema: RESULTS
+      +materialized: table
+      incremental:
+        +materialized: incremental
+      staging:
+        +materialized: view # The staging tables cannot be ephemeral
 seeds:
   DSR:
-    master_organisation:
-      +column_types:
-        origin_organisation_number: varchar()
+    dimensions:
+      organisation:
+        master_organisation:
+          +column_types:
+            origin_organisation_number: varchar()

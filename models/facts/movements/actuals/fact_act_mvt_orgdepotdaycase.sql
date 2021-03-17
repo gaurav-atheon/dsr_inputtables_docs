@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key='fct_act_mvt_orgdepotdaycase_key',
+        unique_key='unique_key',
         cluster_by=['loaded_timestamp']
     )
 }}
@@ -15,7 +15,7 @@ select
     cases_ordered_in,
     cases_fulfilled_in,
     ord.loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','org.organisation_id','loc.location_id','prd.logisticitem_id']) }} as fct_act_mvt_orgdepotdaycase_key
+    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','org.organisation_id','loc.location_id','prd.logisticitem_id']) }} as unique_key
 
 from {{ ref('stg_act_mvt_orgdepotdaycase') }} ord
 

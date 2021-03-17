@@ -16,10 +16,14 @@ select
     created_timestamp,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_id,
     row_number() over (partition by origin_organisation_number,business_organisation_number order by loaded_timestamp desc) rank
-from {{ source('dsr_input', 'input_organisation') }}
+ {% if target.name == 'ci' %}
+    from {{ ref ('stg_organisation_ci' )}}
+ {% else %}
+    from {{ source('dsr_input', 'input_organisation') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
         {% endif %}
+ {% endif %}
 )
 
 select *

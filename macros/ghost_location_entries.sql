@@ -15,7 +15,7 @@ select
     {% else %}
         location_function as location_function,
     {% endif %}
-    inv.loaded_timestamp,
+    to_timestamp(inv.loaded_timestamp) as loaded_timestamp,
     null as attributes,
     business_organisation_number,
     origin_organisation_number,

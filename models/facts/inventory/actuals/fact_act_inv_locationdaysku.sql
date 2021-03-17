@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key='inv_act_inv_locationdaysku_key',
+        unique_key='unique_key',
         cluster_by=['loaded_timestamp']
     )
 }}
@@ -13,7 +13,7 @@ select
     prd.product_id, --converted to dsr id
     stock_units,
     inv.loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id','source']) }} as inv_act_inv_locationdaysku_key,
+    {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id','source']) }} as unique_key,
     source
 
 from {{ ref('stg_act_inv_locationdaysku') }} inv

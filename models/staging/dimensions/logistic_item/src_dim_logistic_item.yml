@@ -75,3 +75,44 @@ sources:
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null
+models:
+  - name: stg_case
+    columns:
+      - name: logisticitem_id
+        tests:
+          - check_distinct_sku_fetched:
+              env: ci
+          - check_all_sku_fetched:
+             columnlist:
+              - origin_organisation_number
+              - business_organisation_number
+              - organisation_case
+             env: ci
+          - check_latest_sku_fetched:
+              columnlist:
+              - origin_organisation_number
+              - business_organisation_number
+              - organisation_case
+              env: ci
+  - name: stg_case_grouping
+    columns:
+        - name: logisticitem_stg_id
+          tests:
+            - check_distinct_sku_fetched:
+                env: ci
+            - check_all_sku_fetched:
+                columnlist:
+                  - creator_origin_organisation_number
+                  - creator_business_organisation_number
+                  - organisation_case
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                env: ci
+            - check_latest_sku_fetched:
+                columnlist:
+                  - creator_origin_organisation_number
+                  - creator_business_organisation_number
+                  - organisation_case
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                env: ci

@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: utl_organisation_hierarchy
+    description: >-
+      This utility consolidates the parent child relationships of organisations,
+      returning the top of the hierarchical tree for each organisation.
+      This allows attribution of metrics to a single, top level organisation from all the children below.
+  - name: dim_organisation_mapping
+    columns:
+      - name: organisation_id
+        tests:
+          - relationships:
+              to: ref('dim_organisation')
+              field: organisation_id
+      - name: origin_organisation_id
+        tests:
+          - relationships:
+              to: ref('dim_organisation')
+              field: organisation_id
+  - name: dim_organisation_parentage
+    columns:
+      - name: creator_organisation_id
+        tests:
+          - relationships:
+              to: ref('dim_organisation')
+              field: organisation_id
+      - name: subject_organisation_id
+        tests:
+          - relationships:
+              to: ref('dim_organisation')
+              field: organisation_id
+      - name: parent_organisation_id
+        tests:
+          - relationships:
+              to: ref('dim_organisation')
+              field: organisation_id

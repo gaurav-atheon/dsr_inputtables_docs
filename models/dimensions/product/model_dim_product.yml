@@ -1,0 +1,21 @@
+version: 2
+models:
+  - name: dim_product
+    columns:
+      - name: organisation_id
+        tests:
+          - relationships:
+              to: ref('dim_organisation')
+              field: organisation_id
+  - name: dim_product_mapping
+    columns:
+      - name: creator_organisation_id
+        tests:
+          - relationships:
+              to: ref('dim_organisation')
+              field: organisation_id
+      - name: product_id
+        tests:
+          - relationships:
+              to: ref('dim_product')
+              field: product_id

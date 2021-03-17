@@ -7,6 +7,6 @@ select
     cases_ordered_in,
     cases_fulfilled_in,
     loaded_timestamp,
-    fct_act_mvt_orgdepotdaycase_key
+    unique_key
 
 from {{ ref('fact_act_mvt_orgdepotdaycase') }}

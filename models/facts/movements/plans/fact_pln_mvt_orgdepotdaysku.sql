@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key='fct_pln_inv_orgdepotdaysku_key',
+        unique_key='unique_key',
         cluster_by=['loaded_timestamp']
     )
 }}
@@ -26,7 +26,7 @@ select
     pln.origin_file,
     pln.loaded_timestamp,
     {{ dbt_utils.surrogate_key(['pln.day_date','pln.forecast_date','src.organisation_id','orgto.organisation_id','orgfrom.organisation_id',
-                                'loc.location_id ','prd.product_id','pln.model_version']) }} as fct_pln_inv_orgdepotdaysku_key
+                                'loc.location_id ','prd.product_id','pln.model_version']) }} as unique_key
 
 from {{ref('stg_pln_mvt_orgdepotdaysku')}} pln
 

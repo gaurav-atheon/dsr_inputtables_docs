@@ -7,6 +7,6 @@ select
     units_ordered,
     units_fulfilled,
     loaded_timestamp,
-    fct_act_mvt_depotstoredaysku_key
+    unique_key
 
 from {{ ref('fact_act_mvt_depotstoredaysku') }}

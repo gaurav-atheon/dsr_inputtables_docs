@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key='fct_act_mvt_storedaysku_key',
+        unique_key='unique_key',
         cluster_by=['loaded_timestamp']
     )
 }}
@@ -21,7 +21,7 @@ select
     ord.total_waste_eaches,
     ord.total_waste_value,
     ord.loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','loc.location_id','prd.product_id']) }} as fct_act_mvt_storedaysku_key
+    {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','loc.location_id','prd.product_id']) }} as unique_key
 
 from {{ref('stg_act_mvt_storedaysku')}} ord
 

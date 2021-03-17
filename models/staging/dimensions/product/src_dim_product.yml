@@ -8,30 +8,34 @@ sources:
         - name: input_sku
           description: Raw product data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - business_organisation_number
                   - origin_organisation_number
                   - organisation_sku
                   - loaded_timestamp
+                env: prod
           columns:
             - name: business_organisation_number
               description: Nummber assigned to the organisation by the origin.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_sku
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 
         - name: input_sku_grouping
           description: Raw product data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - creator_business_organisation_number
                   - creator_origin_organisation_number
@@ -40,31 +44,38 @@ sources:
                   - subject_business_organisation_number
                   - grouping_key
                   - loaded_timestamp
+                env: prod
           columns:
             - name: creator_business_organisation_number
               description: Nummber assigned to the organisation by the origin.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: creator_origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_sku
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: subject_business_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: subject_origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: grouping_key
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 models:
   - name: stg_sku
     columns:

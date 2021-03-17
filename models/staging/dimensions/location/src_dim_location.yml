@@ -8,35 +8,40 @@ sources:
         - name: input_location
           description: Raw location data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - business_organisation_number
                   - origin_organisation_number
                   - organisation_location_id
                   - location_function
                   - loaded_timestamp
+                env: prod
           columns:
             - name: business_organisation_number
               description: Nummber assigned to the organisation by the origin.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_location_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: location_function
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 
         - name: input_location_group
           description: Raw location data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - creator_origin_organisation_number
                   - creator_business_organisation_number
@@ -46,39 +51,47 @@ sources:
                   - location_function
                   - group_name
                   - loaded_timestamp
+                env: prod
           columns:
             - name: creator_origin_organisation_number
               description: Nummber assigned to the organisation by the origin.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: creator_business_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_location_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: subject_origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: subject_business_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: location_function
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: group_name
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
         - name: input_location_parentage
           description: Raw location data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - subject_origin_organisation_number
                   - subject_business_organisation_number
@@ -91,47 +104,58 @@ sources:
                   - creator_origin_organisation_number
                   - creator_business_organisation_number
                   - loaded_timestamp
+                env: prod
           columns:
             - name: subject_origin_organisation_number
               description: Nummber assigned to the organisation by the origin.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: subject_business_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: subject_organisation_location_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: subject_location_function
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: parent_origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: parent_business_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: parent_organisation_location_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: parent_location_function
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: creator_origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: creator_business_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 models:
   - name: stg_location
     columns:

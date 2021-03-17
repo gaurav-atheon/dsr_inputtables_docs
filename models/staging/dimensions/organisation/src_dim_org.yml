@@ -8,19 +8,22 @@ sources:
         - name: input_organisation_mapping
           description: Raw organisation data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - origin_organisation_number
                   - business_organisation_number
                   - loaded_timestamp
+                env: prod
           columns:
             - name: origin_organisation_number
               description: Number of the organisation, as defined by the master, that is submitting this data record.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: business_organisation_number
               tests:
-                - not_null
+                - not_null:
+                    env: prod
               description: Number that the origin organisation uses to refer to the subject organisation.
             - name: business_organisation_name
               description: Name of the subject organisation according to the origin organisation.
@@ -28,25 +31,28 @@ sources:
         - name: input_organisation
           description: Raw organisation attributes and parentage.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - business_organisation_number
                   - origin_organisation_number
                   - loaded_timestamp
+                env: prod
           columns:
             - name: business_organisation_number
               description: Nummber assigned to the organisation by the origin.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 
         - name: input_organisation_parentage
           description: Raw location data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - business_organisation_number
                   - origin_organisation_number
@@ -55,27 +61,33 @@ sources:
                   - creator_origin_organisation_number
                   - creator_business_organisation_number
                   - loaded_timestamp
+                env: prod
           columns:
             - name: business_organisation_number
               description: Nummber assigned to the organisation by the origin.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: parent_origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: parent_business_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: creator_business_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 models:
   - name: stg_organisation
     columns:

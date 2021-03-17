@@ -9,36 +9,41 @@ sources:
         - name: input_act_mvt_storedaysku
           description: Raw store order metrics from source databases
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - day_date
                   - source_db_id
                   - organisation_sku
                   - organisation_location_id
                   - loaded_timestamp
+                env: prod
           columns:
             - name: source_db_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: day_date
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_sku
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_location_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 
 
         - name: input_act_mvt_orgdepotdaycase
           description: Raw product data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - day_date
                   - source_db_id
@@ -46,33 +51,39 @@ sources:
                   - organisation_location_id
                   - business_organisation_number_from
                   - loaded_timestamp
+                env: prod
           columns:
             - name: source_db_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: day_date
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_case
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_location_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: business_organisation_number_from
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 
 
         - name: input_act_mvt_depotstoredaysku
           description: Raw product data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - day_date
                   - source_db_id
@@ -80,27 +91,33 @@ sources:
                   - organisation_location_id_from
                   - organisation_location_id_to
                   - loaded_timestamp
+                env: prod
           columns:
             - name: source_db_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: day_date
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_sku
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_location_id_from
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_location_id_to
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 
 models:
   - name: stg_act_mvt_storedaysku

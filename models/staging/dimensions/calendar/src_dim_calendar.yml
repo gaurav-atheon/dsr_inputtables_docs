@@ -8,34 +8,40 @@ sources:
         - name: input_date
           description: Raw date data.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - day_date
+                env: prod
           columns:
              - name: day_date
                description: Number assigned to the organisation by the origin organisation.
                tests:
-                  - not_null
+                  - not_null:
+                      env: prod
 
         - name: input_calendar
           description: Raw date data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - business_organisation_number
                   - origin_organisation_number
                   - day_date
                   - loaded_timestamp
+                env: prod
           columns:
             - name: business_organisation_number
               description: Nummber assigned to the organisation by the origin.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: origin_organisation_number
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: day_date
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod

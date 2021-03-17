@@ -8,7 +8,7 @@ sources:
         - name: input_pln_inv_storedaysku
           description: Raw product data from origin organisations.
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - day_date
                   - source_db_id
@@ -16,27 +16,33 @@ sources:
                   - ranged
                   - organisation_location_id
                   - loaded_timestamp
+                env: prod
           columns:
             - name: source_db_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: day_date
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_sku
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: ranged
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_location_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 models:
   - name: stg_pln_inv_storedaysku
     columns:

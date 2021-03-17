@@ -8,7 +8,7 @@ sources:
         - name: input_act_inv_locationdaysku
           description: Raw store order metrics from source databases
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - day_date
                   - source_db_id
@@ -17,37 +17,44 @@ sources:
                   - location_function
                   - organisation_location_id
                   - loaded_timestamp
+                env: prod
           columns:
             - name: source_db_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: day_date
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_sku
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: stock_units
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: location_function
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_location_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 
 
         - name: input_act_inv_locationdaycase
           description: Raw store order metrics from source databases
           tests:
-            - dbt_utils.unique_combination_of_columns:
+            - unique_combination_of_columns:
                 combination_of_columns:
                   - day_date
                   - source_db_id
@@ -56,31 +63,38 @@ sources:
                   - location_function
                   - organisation_location_id
                   - loaded_timestamp
+                env: prod
           columns:
             - name: source_db_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: day_date
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_case
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: stock_units
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: location_function
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
             - name: organisation_location_id
               description: Number assigned to the organisation by the origin organisation.
               tests:
-                - not_null
+                - not_null:
+                    env: prod
 
 models:
   - name: stg_act_inv_locationdaycase

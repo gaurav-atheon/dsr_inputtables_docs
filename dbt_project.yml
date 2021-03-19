@@ -41,9 +41,9 @@ models:
     DSR:
       +snowflake_warehouse: "DATA_TRANSFORM_M"
       facts:
-        +snowflake_warehouse: "DATA_TRANSFORM_M"
+        +snowflake_warehouse: "DATA_TRANSFORM_XL"
       staging:
-        +snowflake_warehouse: "DATA_TRANSFORM_M"
+        +snowflake_warehouse: "DATA_TRANSFORM_XL"
       output:
         +post-hook: "grant select on {{ this }} to role dbt_analyst"
       utl:

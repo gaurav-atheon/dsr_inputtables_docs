@@ -9,7 +9,7 @@ ord.day_date,
         prd.logisticitem_ID as item_id, --converted to DSR ID,
     {% endif %}
 
-    {% if  location_function %}
+    {% if location_function %}
         loc.LOCATION_FUNCTION as location_function,
     {% else %}
         NULL as location_function,

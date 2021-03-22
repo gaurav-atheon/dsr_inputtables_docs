@@ -64,3 +64,4 @@ seeds:
         master_organisation:
           +column_types:
             origin_organisation_number: varchar()
+            business_organisation_number: varchar()

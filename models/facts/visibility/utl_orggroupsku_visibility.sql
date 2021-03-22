@@ -1,3 +1,9 @@
+ {{
+    config(
+        materialized='table'
+    )
+}}
+
   SELECT v.table_reference,
          v.item_id,
          d.DAY_DATE,

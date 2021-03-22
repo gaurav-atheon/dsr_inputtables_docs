@@ -71,8 +71,12 @@ from logic_test
   or end_test = 'gap'
 )
 where end_date is not null
-)
-,
+),
+min_max as
+(
+select min(start_date) min_date, max(end_date) max_date
+from sku_ownership
+),
 primary_suppliers as
 (
 select distinct cp.product_id, s.organisation_id, cp.attributes:primary_supplier::string as primary_supplier_number --For Morrisons this maps to the suppliergroupid
@@ -85,11 +89,17 @@ where cp.attributes:primary_supplier::string is not null
 date_scaffold as
 (
 select dp.*, d.DAY_DATE
-from {{ ref('dim_date') }} d
+from
+(
+select dd.DAY_DATE
+from {{ ref('dim_date') }} dd
+inner join min_max mm
+on dd.DAY_DATE between mm.min_date and mm.max_date
+) d
 cross join primary_suppliers dp
 ),
 missing_dates as
-( --we should probably limit this to a range of dates as densifying the SMD will result in very large table (consider whether to do this here or in orggroupsku)
+(
 select distinct ds.product_id, ds.DAY_DATE, ds.organisation_id --remove any multi-supply ownership
 from date_scaffold ds
 left join sku_ownership so

@@ -16,6 +16,8 @@ select
     subject_business_organisation_number,
     location_function,
     group_name,
+    location_group_name,
+    group_value,
     loaded_timestamp,
     created_timestamp,
     {{ dbt_utils.surrogate_key(['creator_origin_organisation_number','creator_business_organisation_number','group_name','organisation_location_id',

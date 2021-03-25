@@ -16,7 +16,6 @@ select
     subject_business_organisation_number,
     location_function,
     group_name,
-    location_group_name,
     group_value,
     loaded_timestamp,
     created_timestamp,

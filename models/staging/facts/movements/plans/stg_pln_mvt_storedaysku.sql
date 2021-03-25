@@ -13,6 +13,7 @@ select
     forecast_date,
     source_db_id,
     subject_business_organisation_number,
+    subject_organisation_location_id_to,
     organisation_sku,
     units_required,
     units_required_upper,
@@ -23,14 +24,14 @@ select
     origin_file,
     loaded_timestamp,
     created_timestamp,
-   {{ dbt_utils.surrogate_key(['base_forecast_date','forecast_date','source_db_id','subject_business_organisation_number'
+   {{ dbt_utils.surrogate_key(['base_forecast_date','forecast_date','source_db_id','subject_business_organisation_number','subject_organisation_location_id_to'
                                 ,'organisation_sku','model_version']) }} as unique_key,
-    row_number() over (partition by base_forecast_date, forecast_date, source_db_id,subject_business_organisation_number,
+    row_number() over (partition by base_forecast_date, forecast_date, source_db_id,subject_business_organisation_number,subject_organisation_location_id_to,
                         organisation_sku,model_version order by loaded_timestamp desc) rank
  {% if target.name == 'ci' %}
-    from {{ ref ('stg_pln_mvt_daysku_ci' )}}
+    from {{ ref ('stg_pln_mvt_storedaysku_ci' )}}
  {% else %}
-     from {{ source('dsr_input', 'input_pln_mvt_daysku') }}
+     from {{ source('dsr_input', 'input_pln_mvt_storedaysku') }}
         {% if is_incremental() %}
         where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
         {% endif %}

@@ -7,15 +7,15 @@
 }}
 
 {% set base_facts = [
-                        {'fact':'act_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'BUSINESS_ORGANISATION_NUMBER_FROM', 'location_flag':true, 'access_level':'200 - Implicit'},
-                        {'fact':'act_mvt_storedaysku', 'product_type':'sku', 'org_column':'source_db_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
-                        {'fact':'act_mvt_depotstoredaysku', 'product_type':'sku', 'org_column':'source_db_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
-                        {'fact':'act_inv_locationdaysku', 'product_type':'sku', 'org_column':'source_db_id', 'location_flag':true, 'access_level':'100 - Explicit'},
-                        {'fact':'pln_inv_storedaysku', 'product_type':'sku', 'org_column':'source_db_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
-                        {'fact':'pln_mvt_depotstoredaysku', 'product_type':'sku', 'org_column':'source_db_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
-                        {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'source_db_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
-                        {'fact':'act_inv_locationdaycase', 'product_type':'case', 'org_column':'source_db_id', 'location_flag':true, 'access_level':'100 - Explicit'},
-                        {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'BUSINESS_ORGANISATION_NUMBER_FROM', 'location_flag':true, 'access_level':'200 - Implicit'}
+                        {'fact':'act_mvt_storedaysku', 'product_type':'sku', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
+                        {'fact':'act_mvt_depotstoredaysku', 'product_type':'sku', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
+                        {'fact':'act_inv_locationdaysku', 'product_type':'sku', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':true, 'access_level':'100 - Explicit'},
+                        {'fact':'pln_inv_storedaysku', 'product_type':'sku', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
+                        {'fact':'pln_mvt_depotstoredaysku', 'product_type':'sku', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
+                        {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'organisation_id_to', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'100 - Explicit'},
+                        {'fact':'act_inv_locationdaycase', 'product_type':'case', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':true, 'access_level':'100 - Explicit'},
+                        {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':true, 'access_level':'200 - Implicit'},
+                        {'fact':'act_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':true, 'access_level':'200 - Implicit'}
                         ] %}
 
 select
@@ -32,16 +32,59 @@ from
 
 {% for base_fact in base_facts %}
     {% set fact = "fact_" + base_fact['fact'] %}
-    {% set staging = "stg_" + base_fact['fact'] %}
+    {% set access_level = base_fact['access_level'] %}
+    {% set sku_or_case = base_fact['product_type'] %}
+    {% set location_function=base_fact['location_flag'] %}
+
     select day_date, organisation_id, item_id, location_function, table_reference, access_level, loaded_timestamp
     from (
-    {{ fact_visibility(
-        staging_table = staging,
-        fact_table=fact,
-        sku_or_case=base_fact['product_type'],
-        location_function=base_fact['location_flag'],
-        access_level=base_fact['access_level'],
-        org_column=base_fact['org_column'])  }}
+
+        select
+        ord.day_date,
+
+    {% if sku_or_case =='sku' %}
+        ord.Product_ID as item_id, --converted to DSR ID
+    {% elif sku_or_case == 'case' %}
+        ord.logisticitem_ID as item_id, --converted to DSR ID,
+    {% endif %}
+
+    {% if location_function %}
+        loc.LOCATION_FUNCTION as location_function,
+    {% else %}
+        NULL as location_function,
+    {% endif %}
+
+    {{ "ord." +base_fact['org_column'] }} as organisation_id,
+    '{{fact}}' as table_reference,
+    '{{access_level}}' as access_level,
+    max(ord.loaded_timestamp) as loaded_timestamp
+
+    from {{ ref(fact) }} ord
+
+    {% if location_function %}
+        inner join {{ ref('dim_location') }} loc
+        on loc.organisation_ID = {{ "ord." +base_fact['org_location_column'] }}
+        and loc.LOCATION_ID = ord.LOCATION_ID
+    {% endif %}
+
+    group by
+    ord.day_date,
+
+    {% if sku_or_case =='sku' %}
+        ord.Product_ID, --converted to DSR ID
+    {% elif sku_or_case == 'case' %}
+        ord.logisticitem_ID, --converted to DSR ID,
+    {% endif %}
+
+    {% if location_function %}
+        loc.LOCATION_FUNCTION,
+    {% else %}
+        NULL,
+    {% endif %}
+
+    {{ "ord." +base_fact['org_column'] }},
+    '{{fact}}',
+    '{{access_level}}'
     )
 
         {% if is_incremental() %}

@@ -4,6 +4,7 @@ select
     f.organisation_id_from,
     f.LOCATION_ID,
     li.product_ID,
+    min(f.loaded_timestamp) as loaded_timestamp,
     sum(f.CASES_ORDERED_IN) as CASES_ORDERED_IN,
     sum(f.CASES_FULFILLED_IN) as CASES_FULFILLED_IN
 from  {{ ref('fact_act_mvt_orgdepotdaycase') }} f

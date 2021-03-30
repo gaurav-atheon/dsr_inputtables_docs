@@ -7,7 +7,7 @@
 }}
 
 {% set base_facts = [
-                        {'fact':'act_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'BUSINESS_ORGANISATION_NUMBER_FROM', 'location_flag':true, 'access_level':'200 - Implicit'}
+                        {'fact':'act_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'BUSINESS_ORGANISATION_NUMBER_FROM', 'location_flag':true, 'access_level':'200 - Implicit'},
                         {'fact':'act_mvt_storedaysku', 'product_type':'sku', 'org_column':'source_db_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
                         {'fact':'act_mvt_depotstoredaysku', 'product_type':'sku', 'org_column':'source_db_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
                         {'fact':'act_inv_locationdaysku', 'product_type':'sku', 'org_column':'source_db_id', 'location_flag':true, 'access_level':'100 - Explicit'},

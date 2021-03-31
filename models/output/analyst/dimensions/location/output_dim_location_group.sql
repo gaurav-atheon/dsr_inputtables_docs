@@ -5,5 +5,6 @@ select
     subject_organisation_id,
     creator_organisation_id,
     group_name,
+    group_value,
     loaded_timestamp
 from {{ ref('dim_location_group') }}

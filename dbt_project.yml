@@ -46,7 +46,8 @@ models:
       staging:
         +snowflake_warehouse: "DATA_TRANSFORM_XL"
       output:
-        +post-hook: "grant select on {{ this }} to role dbt_analyst"
+        analyst:
+          +post-hook: "grant select on {{ this }} to role dbt_analyst"
       utl:
         +database: AA_DBT_ARTIFACTS
         +schema: RESULTS

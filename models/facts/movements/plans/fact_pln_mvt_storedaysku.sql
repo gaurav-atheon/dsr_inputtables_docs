@@ -29,9 +29,8 @@ from {{ref('stg_pln_mvt_storedaysku')}} pln
 inner join {{ ref('utl_source_organisations') }} src --need relationship validation earlier in the flow
 on pln.source_db_id = src.business_organisation_number
 
-inner join {{ ref('dim_organisation_mapping') }} org --need relationship validation earlier in the flow
+inner join {{ ref('utl_source_organisations') }} org --need relationship validation earlier in the flow
 on pln.subject_business_organisation_number = org.business_organisation_number
-and org.origin_organisation_id = src.organisation_id
 
 inner join {{ ref('dim_product') }} prd --need relationship validation earlier in the flow
 on prd.organisation_id = src.organisation_id
@@ -40,7 +39,7 @@ and prd.organisation_sku = pln.organisation_sku
 inner join {{ ref('dim_location') }} loc --need relationship validation earlier in the flow
 on loc.organisation_id = src.organisation_id
 and loc.organisation_location_id = pln.subject_organisation_location_id_to
-and loc.location_function = 'distribution location'
+and loc.location_function = 'point of sale'
 
         {% if is_incremental() %}
         where pln.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})

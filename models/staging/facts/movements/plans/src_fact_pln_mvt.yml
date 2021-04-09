@@ -153,11 +153,6 @@ sources:
               tests:
                 - not_null:
                     env: prod
-            - name: forecast_components
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
             - name: model_version
               description: Number assigned to the organisation by the origin organisation.
               tests:

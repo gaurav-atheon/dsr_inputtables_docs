@@ -67,3 +67,7 @@ seeds:
           +column_types:
             origin_organisation_number: varchar()
             business_organisation_number: varchar()
+      product:
+        stg_sku_ci:
+          +column_types:
+            ATTRIBUTES: variant

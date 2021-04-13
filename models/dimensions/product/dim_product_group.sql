@@ -9,7 +9,11 @@
 select
     product_id,
     {{ dbt_utils.surrogate_key(['creator_origin_organisation_number','creator_business_organisation_number']) }} as creator_organisation_id,
-    {{ dbt_utils.surrogate_key(['creator_origin_organisation_number','creator_business_organisation_number','grouping_key','loaded_timestamp']) }} as consumer_unit_id,
+    case when group_name ='product matching' then
+        {{ dbt_utils.surrogate_key(['creator_origin_organisation_number','creator_business_organisation_number','group_value','loaded_timestamp']) }}
+    else
+        null
+    end  as consumer_unit_id,
     loaded_timestamp
 from {{ ref('stg_sku_grouping') }}
 

@@ -3,4 +3,4 @@ select
     creator_organisation_id,
     consumer_unit_id,
     loaded_timestamp
-from {{ ref('dim_product_mapping') }}
+from {{ ref('dim_product_group') }}

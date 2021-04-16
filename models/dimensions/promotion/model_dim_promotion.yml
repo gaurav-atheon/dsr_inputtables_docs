@@ -1,15 +1,13 @@
 version: 2
 models:
-  - name: dim_product
+  - name: dim_promotion
     columns:
-      - name: organisation_id
+      - name: creator_organisation_id
         tests:
           - relationships:
               to: ref('dim_organisation')
               field: organisation_id
-  - name: dim_product_group
-    columns:
-      - name: creator_organisation_id
+      - name: subject_organisation_id
         tests:
           - relationships:
               to: ref('dim_organisation')

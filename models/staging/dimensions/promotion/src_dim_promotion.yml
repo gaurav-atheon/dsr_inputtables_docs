@@ -1,0 +1,94 @@
+version: 2
+
+sources:
+    - name: dsr_input
+      description: Standard input tables for all inbound DSR data.
+      database: AA_DSR_RAW
+      tables:
+        - name: input_promotion
+          description: Raw product data from origin organisations.
+          tests:
+            - unique_combination_of_columns:
+                combination_of_columns:
+                  - creator_business_organisation_number
+                  - creator_origin_organisation_number
+                  - subject_origin_organisation_number
+                  - subject_business_organisation_number
+                  - promotion_number
+                  - start_date
+                  - end_date
+                  - organisation_sku
+                  - loaded_timestamp
+                env: prod
+          columns:
+            - name: creator_business_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+              tests:
+                - not_null:
+                    env: prod
+            - name: creator_origin_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+              tests:
+                - not_null:
+                    env: prod
+            - name: subject_origin_organisation_number
+              description: Nummber assigned to the organisation by the origin.
+              tests:
+                - not_null:
+                    env: prod
+            - name: subject_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: promotion_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: start_date
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: end_date
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: organisation_sku
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+
+
+models:
+  - name: stg_promotion
+    columns:
+      - name: promotion_id
+        tests:
+          - check_distinct_sku_fetched:
+              env: ci
+          - check_all_sku_fetched:
+             columnlist:
+               - creator_business_organisation_number
+               - creator_origin_organisation_number
+               - subject_origin_organisation_number
+               - subject_business_organisation_number
+               - promotion_number
+               - start_date
+               - end_date
+               - organisation_sku
+             env: ci
+          - check_latest_sku_fetched:
+              columnlist:
+               - creator_business_organisation_number
+               - creator_origin_organisation_number
+               - subject_origin_organisation_number
+               - subject_business_organisation_number
+               - promotion_number
+               - start_date
+               - end_date
+               - organisation_sku
+              env: ci

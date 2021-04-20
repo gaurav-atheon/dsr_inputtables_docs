@@ -1,10 +1,9 @@
 # Demand Signal Repository (DSR)
 
 ### dbt
-
 The DSR has been built using dbt.
 
-### Documentation
-- Run `dbt docs generate` to generate documentation
+### dbt Documentation
+- Run `dbt docs generate` to generate documentation locally
 - Rub `dbt docs serve` to view documentation
 

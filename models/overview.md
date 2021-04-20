@@ -9,7 +9,7 @@ For Tutorials, How-To Guides and Explanation material on the DSR and the DeSiRe 
 please refer to readthedocs.
 
 ### DSR & the DeSiRe ecosystem
-![DeSiRe](assets/DeSiRe%20Ecosystem.JPG)
+![DeSiRe](assets/desire_ecosystem.png)
 The DSR contains harmonised data from multiple sources in a consolidated structure, serving downstream SKUtrak 
 analysis
 

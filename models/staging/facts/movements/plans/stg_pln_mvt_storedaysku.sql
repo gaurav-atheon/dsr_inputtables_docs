@@ -33,7 +33,7 @@ select
  {% else %}
      from {{ source('dsr_input', 'input_pln_mvt_storedaysku') }}
         {% if is_incremental() %}
-        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        where loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}
  {% endif %}
 

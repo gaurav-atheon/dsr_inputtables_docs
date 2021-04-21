@@ -22,7 +22,7 @@ select
     row_number() over (partition by day_date order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_date') }}
         {% if is_incremental() %}
-        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        where loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}
 )
 

@@ -15,5 +15,5 @@ select
 from {{ ref('stg_organisation_parentage') }}
 
         {% if is_incremental() %}
-        where loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        where loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}

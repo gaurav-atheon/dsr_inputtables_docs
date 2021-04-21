@@ -19,5 +19,5 @@ on a.origin_organisation_number = b.business_organisation_number
 and to_number(b.origin_organisation_number) = ( select business_organisation_number from {{ ref('utl_master_organisation') }} )
 
         {% if is_incremental() %}
-        where a.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        where a.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}

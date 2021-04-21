@@ -31,7 +31,7 @@ on prd.organisation_id = src.organisation_id
 and prd.organisation_sku = inv.organisation_sku
 
         {% if is_incremental() %}
-        where inv.loaded_timestamp > (select max(loaded_timestamp) from {{ this }} where source = 'sku')
+        where inv.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where source = 'sku'), to_timestamp('0'))
         {% endif %}
 
 union all

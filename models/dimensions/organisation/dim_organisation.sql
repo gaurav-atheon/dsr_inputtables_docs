@@ -18,7 +18,7 @@ left outer join {{ ref('stg_organisation') }} o
     and  om.business_organisation_number = o.business_organisation_number
 
         {% if is_incremental() %}
-        where om.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        where om.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}
 ),
 ghost_data as (

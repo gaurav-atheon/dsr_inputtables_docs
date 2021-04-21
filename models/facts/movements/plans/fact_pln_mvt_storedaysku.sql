@@ -42,5 +42,5 @@ and loc.organisation_location_id = pln.subject_organisation_location_id_to
 and loc.location_function = 'point of sale'
 
         {% if is_incremental() %}
-        where pln.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        where pln.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}

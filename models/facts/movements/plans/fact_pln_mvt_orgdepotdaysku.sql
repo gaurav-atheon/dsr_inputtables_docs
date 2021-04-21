@@ -52,5 +52,5 @@ on prd.organisation_id = orgto.organisation_id
 and prd.organisation_sku = pln.subject_organisation_sku
 
         {% if is_incremental() %}
-        where pln.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        where pln.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}

@@ -60,5 +60,5 @@ inner join {{ ref('dim_logisticitem') }} prd --need relationship validation earl
 on prd.organisation_id = src.organisation_id
 and prd.organisation_case = inv.organisation_case
         {% if is_incremental() %}
-        where inv.loaded_timestamp > (select max(loaded_timestamp) from {{ this }} where source = 'case')
+        where inv.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where source = 'case'), to_timestamp('0'))
         {% endif %}

@@ -15,7 +15,7 @@ select
     prd.case_size,
     prd.product_id,
     inv.loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id']) }} as unique_key
+    {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','prd.logisticitem_id','loc.location_id']) }} as unique_key
 
 from {{ ref('stg_act_inv_locationdaycase') }} inv
 
@@ -32,5 +32,5 @@ on prd.organisation_id = src.organisation_id
 and prd.organisation_case = inv.organisation_case
 
         {% if is_incremental() %}
-        where inv.loaded_timestamp > (select max(loaded_timestamp) from {{ this }})
+        where inv.loaded_timestamp >  nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}

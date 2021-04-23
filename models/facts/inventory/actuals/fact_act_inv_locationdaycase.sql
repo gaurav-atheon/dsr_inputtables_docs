@@ -15,7 +15,7 @@ select
     prd.case_size,
     prd.product_id,
     inv.loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id']) }} as unique_key
+    {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.logisticitem_id']) }} as unique_key
 
 from {{ ref('stg_act_inv_locationdaycase') }} inv
 

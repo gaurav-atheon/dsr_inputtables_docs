@@ -89,8 +89,10 @@ from
     '{{access_level}}'
     )
 
+    where item_id is not null -- some case conversions cannot happen until new dimension data comes through
+
         {% if is_incremental() %}
-        where loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where table_reference = '{{ fact }}' ), to_timestamp('0'))
+        and loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where table_reference = '{{ fact }}' ), to_timestamp('0'))
         {% endif %}
 
     {%- if not loop.last %}

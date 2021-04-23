@@ -7,7 +7,7 @@
 }}
 with all_data as (
 select
-     logisticitem_id,
+    logisticitem_id,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_id,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','ORGANISATION_SKU']) }} as product_id,
     organisation_sku,

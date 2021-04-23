@@ -41,9 +41,9 @@ select
     src.organisation_id, --converted to dsr id
     loc.location_id, --converted to dsr id
     prd.product_id, --converted to dsr id
-    (stock_units*case_size) as stock_units,
+    sum((stock_units*case_size)) as stock_units,
     inv.loaded_timestamp,
-    {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id','source']) }} as fct_act_inv_locationdaycase_key,
+    {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id','source']) }} as unique_key,
     source
 
 from {{ ref('stg_act_inv_locationdaycase') }} inv
@@ -59,6 +59,16 @@ and loc.location_function = inv.location_function
 inner join {{ ref('dim_logisticitem') }} prd --need relationship validation earlier in the flow
 on prd.organisation_id = src.organisation_id
 and prd.organisation_case = inv.organisation_case
+
         {% if is_incremental() %}
         where inv.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where source = 'case'), to_timestamp('0'))
         {% endif %}
+
+group by
+    day_date,
+    src.organisation_id, --converted to dsr id
+    loc.location_id, --converted to dsr id
+    prd.product_id, --converted to dsr id
+    inv.loaded_timestamp,
+    {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id','source']) }},
+    source

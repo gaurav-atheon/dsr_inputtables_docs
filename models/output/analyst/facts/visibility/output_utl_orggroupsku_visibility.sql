@@ -3,5 +3,6 @@
          DAY_DATE_FROM,
          DAY_DATE_TO,
          organisation_group_id,
+         location_function,
          min_access_level
   FROM   {{ ref('utl_orggroupsku_visibility') }}

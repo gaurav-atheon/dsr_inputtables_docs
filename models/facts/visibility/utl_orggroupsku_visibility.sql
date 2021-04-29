@@ -9,6 +9,7 @@
          v.DAY_DATE_FROM,
          v.DAY_DATE_TO,
          o.organisation_group_id,
+         v.location_function,
          Min(access_level) min_access_level
   FROM   {{ ref('utl_organisationsku_visibility') }} v
          left outer join {{ ref('utl_organisation_hierarchy') }} o
@@ -19,4 +20,5 @@
             v.item_id,
             v.DAY_DATE_FROM,
             v.DAY_DATE_TO,
-            o.organisation_group_id
+            o.organisation_group_id,
+            v.location_function

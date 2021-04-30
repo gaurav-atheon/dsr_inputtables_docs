@@ -39,6 +39,7 @@ vars:
     #dbt_artifacts_table: 'your_table' # option
 
 models:
+    +post-hook: "grant usage on schema {{ target.schema }} to role dbt_analyst"
     DSR:
       +snowflake_warehouse: "DATA_TRANSFORM_M"
       facts:

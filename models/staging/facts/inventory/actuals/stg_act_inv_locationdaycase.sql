@@ -15,6 +15,7 @@ select
     organisation_location_id,
     organisation_case,
     stock_units,
+    stock_value,
     location_function,
     loaded_timestamp,
        'case' as source,

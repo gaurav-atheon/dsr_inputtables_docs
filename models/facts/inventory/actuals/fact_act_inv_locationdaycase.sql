@@ -12,6 +12,7 @@ select
     loc.location_id, --converted to dsr id
     prd.logisticitem_id, --converted to dsr id
     stock_units,
+    stock_value,
     prd.case_size,
     prd.product_id,
     inv.loaded_timestamp,

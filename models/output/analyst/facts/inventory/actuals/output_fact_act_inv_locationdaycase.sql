@@ -4,6 +4,7 @@ select
     location_id,
     logisticitem_id,
     stock_units,
+    stock_value,
     case_size,
     product_id,
     loaded_timestamp,

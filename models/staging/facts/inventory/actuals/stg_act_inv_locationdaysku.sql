@@ -14,6 +14,7 @@ select
     organisation_location_id,
     organisation_sku,
     stock_units,
+    stock_value,
     location_function,
     loaded_timestamp,
     'sku' as source,

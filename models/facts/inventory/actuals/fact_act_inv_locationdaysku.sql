@@ -12,6 +12,7 @@ select
     loc.location_id, --converted to dsr id
     prd.product_id, --converted to dsr id
     stock_units,
+    stock_value,
     inv.loaded_timestamp,
     {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id','source']) }} as unique_key,
     source
@@ -42,6 +43,7 @@ select
     loc.location_id, --converted to dsr id
     prd.product_id, --converted to dsr id
     sum((stock_units*case_size)) as stock_units,
+    inv.stock_value,
     inv.loaded_timestamp,
     {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id','source']) }} as unique_key,
     source
@@ -69,6 +71,7 @@ group by
     src.organisation_id, --converted to dsr id
     loc.location_id, --converted to dsr id
     prd.product_id, --converted to dsr id
+    inv.stock_value,
     inv.loaded_timestamp,
     {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id','source']) }},
     source

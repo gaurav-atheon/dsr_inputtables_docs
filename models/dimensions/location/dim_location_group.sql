@@ -14,6 +14,7 @@ select
     {{ dbt_utils.surrogate_key(['creator_origin_organisation_number','creator_business_organisation_number']) }} as creator_organisation_id,
     group_name,
     group_value,
+    attributes,
     loaded_timestamp
 from {{ ref('stg_location_group') }}
 

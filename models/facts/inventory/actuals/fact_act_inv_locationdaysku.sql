@@ -65,7 +65,7 @@ and prd.organisation_case = inv.organisation_case
         {% if is_incremental() %}
         where inv.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where source = 'case'), to_timestamp('0'))
         {% endif %}
-
+where prd.product_id is not null
 group by
     day_date,
     src.organisation_id, --converted to dsr id

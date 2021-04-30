@@ -4,6 +4,7 @@ select
     location_id,
     product_id,
     stock_units,
+    stock_value,
     loaded_timestamp,
     unique_key,
     source

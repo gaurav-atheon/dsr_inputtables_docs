@@ -6,5 +6,6 @@ select
     creator_organisation_id,
     group_name,
     group_value,
+    attributes,
     loaded_timestamp
 from {{ ref('dim_location_group') }}

@@ -61,11 +61,11 @@ and loc.location_function = inv.location_function
 inner join {{ ref('dim_logisticitem') }} prd --need relationship validation earlier in the flow
 on prd.organisation_id = src.organisation_id
 and prd.organisation_case = inv.organisation_case
-
-        {% if is_incremental() %}
-        where inv.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where source = 'case'), to_timestamp('0'))
-        {% endif %}
 where prd.product_id is not null
+        {% if is_incremental() %}
+        and inv.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where source = 'case'), to_timestamp('0'))
+        {% endif %}
+
 group by
     day_date,
     src.organisation_id, --converted to dsr id

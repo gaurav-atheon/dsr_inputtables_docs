@@ -16,7 +16,7 @@ select
 from {{ ref('stg_organisation_mapping') }} a
 left outer join {{ ref('stg_organisation_mapping') }} b
 on a.origin_organisation_number = b.business_organisation_number
-and to_number(b.origin_organisation_number) = ( select business_organisation_number from {{ ref('utl_master_organisation') }} )
+and (b.origin_organisation_number) = ( select business_organisation_number from {{ ref('utl_master_organisation') }} )
 
         {% if is_incremental() %}
         where a.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))

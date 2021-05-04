@@ -4,23 +4,9 @@
     )
 }}
 
-with
-
-  SELECT v.table_reference,
-         v.item_id,
-         v.DAY_DATE_FROM,
-         v.DAY_DATE_TO,
-         o.organisation_group_id,
-         v.location_function,
-         Min(access_level) min_access_level
-  FROM   {{ ref('utl_organisationsku_visibility') }} v
-         left outer join {{ ref('utl_organisation_hierarchy') }} o
-                      ON v.SUBJECT_ORGANISATION_ID = o.organisation_id
-         inner join {{ ref('dim_date') }} d
-                 ON d.DAY_DATE BETWEEN v.day_date_from AND v.day_date_to
-  GROUP  BY v.table_reference,
-            v.item_id,
-            v.DAY_DATE_FROM,
-            v.DAY_DATE_TO,
-            o.organisation_group_id,
-            v.location_function
+select DAY_DATE_FROM, DAY_DATE_TO, item_id,
+organisation_group_id, table_reference, location_function
+from
+(
+{{ scd_from_densified_dates('int_orggroupsku_visibility', 'day_date') }}
+)

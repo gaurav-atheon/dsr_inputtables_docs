@@ -23,6 +23,7 @@
 select
 day_date,
 organisation_id,
+product_type,
 item_id,
 location_function,
 table_reference,
@@ -38,11 +39,12 @@ from
     {% set sku_or_case = base_fact['product_type'] %}
     {% set location_function=base_fact['location_flag'] %}
 
-    select day_date, organisation_id, item_id, location_function, table_reference, access_level, loaded_timestamp
+    select day_date, organisation_id, product_type, item_id, location_function, table_reference, access_level, loaded_timestamp
     from (
 
         select
         ord.day_date,
+        '{{product_type}}' as product_type,
 
     {% if sku_or_case =='sku' %}
         ord.Product_ID as item_id, --converted to DSR ID
@@ -71,6 +73,7 @@ from
 
     group by
     ord.day_date,
+    '{{product_type}}',
 
     {% if sku_or_case =='sku' %}
         ord.Product_ID, --converted to DSR ID

@@ -6,7 +6,7 @@ WITH RECURSIVE groups AS
   WHERE parent_location_id is null
   UNION ALL
   -- Recursive Clause
-  select  o.location_id, o.parent_location_id, to_char(o.location_id) || '# ' || g.Level, g.location_group_id
+  select  o.location_id, o.parent_location_id, to_char(o.location_id) || '->' || g.Level, g.location_group_id
   from {{ ref('utl_location_parents') }} o
   join groups g
   on o.parent_location_id = g.location_id

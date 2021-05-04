@@ -1,0 +1,68 @@
+version: 2
+
+sources:
+    - name: dsr_input
+      description: Standard input tables for all inbound DSR data.
+      database: AA_DSR_RAW
+      tables:
+
+        - name: input_delegated_visibility
+          description: Delegation instruction from one organisation to another to inherit sku level visibility
+          tests:
+            - unique_combination_of_columns:
+                combination_of_columns:
+                  - delegator_origin_organisation_number
+                  - delegator_organisation_number
+                  - delegatee_origin_organisation_number
+                  - delegatee_organisation_number
+                  - subject_origin_organisation_number
+                  - subject_organisation_number
+                  - organisation_sku
+                  - loaded_timestamp
+                env: prod
+          columns:
+            - name: delegator_origin_organisation_number
+              description: The origin organisation of the organisation that is making the delegation
+              tests:
+                - not_null:
+                    env: prod
+            - name: delegator_organisation_number
+              description: The organisation that is making the delegation of their visibility access
+              tests:
+                - not_null:
+                    env: prod
+            - name: delegatee_origin_organisation_number
+              description: The origin organisation of the organisation that is receiving the delegated visibility access
+              tests:
+                - not_null:
+                    env: prod
+            - name: delegatee_organisation_number
+              description: The organisation that is receiving the delegated visibility access
+              tests:
+                - not_null:
+                    env: prod
+            - name: subject_origin_organisation_number
+              description: The origin organisation of the organisation that created the SKU
+              tests:
+                - not_null:
+                    env: prod
+            - name: subject_organisation_number
+              description: The organisation that created the SKU
+              tests:
+                - not_null:
+                    env: prod
+            - name: product_type
+              description: "Indicates whether the product being delegated is a SKU or Case. Allowable values: sku, case"
+              tests:
+                - not_null:
+                    env: prod
+            - name: organisation_product
+              description: The subject organisation SKU or Logistic Item that is having it's visibility access delegated from delegator to delegatee
+              tests:
+                - not_null:
+                    env: prod
+            - name: delegated_status
+              description: Status of the delegation. TRUE = Access is delegated, FALSE = Delegated access revoked
+              tests:
+                - not_null:
+                    env: prod

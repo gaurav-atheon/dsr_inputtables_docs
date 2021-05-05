@@ -4,6 +4,7 @@ deliveries as
 select day_date, organisation_id_from, product_ID
 from  {{ ref('fact_act_mvt_orgdepotdaysku') }}
   where CASES_FULFILLED_IN > 0
+  and product_ID is not null
 group by day_date, organisation_id_from, product_ID
 ),
 next_delivery as
@@ -83,7 +84,7 @@ select distinct cp.product_id, s.organisation_id, cp.attributes:primary_supplier
 from {{ ref('dim_product') }} cp
 inner join {{ ref('dim_organisation_mapping') }} s
   on cp.attributes:primary_supplier::string = s.business_organisation_number
-  and ORIGIN_ORGANISATION_NUMBER = 17 --How do we make this better and not hardcoded?
+  and ORIGIN_ORGANISATION_NUMBER = 'morrsions' --How do we make this better and not hardcoded?
 where cp.attributes:primary_supplier::string is not null
   ),
 date_scaffold as
@@ -152,7 +153,7 @@ organisation_id as ORIGIN_ORGANISATION_ID, product_ID as item_id, organisation_i
 NULL as table_reference, NULL as location_function, '300 - Acquired' as ACCESS_LEVEL
 from ps_smd_dates
 )
-select aa.DAY_DATE_FROM, aa.DAY_DATE_TO, ORIGIN_ORGANISATION_ID, item_id, SUBJECT_ORGANISATION_ID,
+select aa.DAY_DATE_FROM, aa.DAY_DATE_TO, ORIGIN_ORGANISATION_ID, 'sku' as product_type, item_id, SUBJECT_ORGANISATION_ID,
 af.table_reference, aa.location_function, aa.ACCESS_LEVEL
 from all_acquired aa
 cross join {{ ref('int_acquired_facts') }} af

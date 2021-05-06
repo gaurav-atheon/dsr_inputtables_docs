@@ -19,6 +19,7 @@ select
     pln.forecast_components,
     pln.created_at,
     pln.model_version,
+    pln.status,
     pln.origin_file,
     pln.loaded_timestamp,
     {{ dbt_utils.surrogate_key(['pln.day_date','pln.forecast_date','src.organisation_id','locfrom.location_id',

@@ -14,6 +14,8 @@ select
     else
         null
     end  as consumer_unit_id,
+    group_name,
+    group_value,
     loaded_timestamp
 from {{ ref('stg_sku_grouping') }}
 

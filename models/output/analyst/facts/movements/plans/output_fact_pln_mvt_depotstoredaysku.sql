@@ -11,6 +11,7 @@ select
     forecast_components,
     created_at,
     model_version,
+    status,
     origin_file,
     loaded_timestamp,
     unique_key

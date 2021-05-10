@@ -32,3 +32,27 @@ and prd.organisation_sku = ord.organisation_sku
         {% if is_incremental() %}
         where ord.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}
+
+union all
+
+    select
+    day_date,
+    organisation_id, --converted to dsr id
+    organisation_location_id_to location_id, --converted to dsr id
+    product_id, --converted to dsr id
+    status as ranged,
+    max(loaded_timestamp),
+    {{ dbt_utils.surrogate_key(['day_date','organisation_id','location_id','product_id']) }} as unique_key
+
+    from {{ref('fact_pln_mvt_depotstoredaysku')}} pln
+    where  status = true and model_version = 'morrison_ranging'
+    {% if is_incremental() %}
+        and pln.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
+    {% endif %}
+    group by
+        day_date,
+        organisation_id,
+        location_id,
+        product_id,
+        status,
+        unique_key

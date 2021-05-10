@@ -42,7 +42,8 @@ sources:
                   - organisation_sku
                   - subject_origin_organisation_number
                   - subject_business_organisation_number
-                  - grouping_key
+                  - group_name
+                  - group_value
                   - loaded_timestamp
                 env: prod
           columns:
@@ -71,7 +72,12 @@ sources:
               tests:
                 - not_null:
                     env: prod
-            - name: grouping_key
+            - name: group_name
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: group_value
               description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:

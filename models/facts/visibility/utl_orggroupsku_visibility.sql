@@ -4,7 +4,7 @@
     )
 }}
 
-select DAY_DATE_FROM, DAY_DATE_TO, item_id,
+select DAY_DATE_FROM, DAY_DATE_TO, product_type, item_id,
 organisation_group_id, table_reference, location_function
 from
 (

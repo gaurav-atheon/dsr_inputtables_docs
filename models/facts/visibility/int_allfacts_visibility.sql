@@ -14,9 +14,9 @@
                         {'fact':'pln_mvt_depotstoredaysku', 'product_type':'sku', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
                         {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'organisation_id_to', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'100 - Explicit'},
                         {'fact':'act_inv_locationdaycase', 'product_type':'case', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':true, 'access_level':'100 - Explicit'},
-                        {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':true, 'access_level':'200 - Implicit'},
-                        {'fact':'act_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':true, 'access_level':'200 - Implicit'},
-                        {'fact':'pln_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'subject_organisation_id_to', 'org_location_column':'organisation_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
+                        {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'200 - Implicit'},
+                        {'fact':'act_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'200 - Implicit'},
+                        {'fact':'pln_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'subject_organisation_id_to', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'100 - Explicit'},
                         {'fact':'pln_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'subject_organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'200 - Implicit'}
                         ] %}
 

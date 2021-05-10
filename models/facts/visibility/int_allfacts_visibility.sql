@@ -38,6 +38,7 @@ from
     {% set access_level = base_fact['access_level'] %}
     {% set sku_or_case = base_fact['product_type'] %}
     {% set location_function=base_fact['location_flag'] %}
+    {% set product_type=base_fact['product_type'] %}
 
     select day_date, organisation_id, product_type, item_id, location_function, table_reference, access_level, loaded_timestamp
     from (

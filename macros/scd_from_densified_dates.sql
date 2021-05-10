@@ -1,6 +1,6 @@
 {%- macro scd_from_densified_dates(table_name, date_column) -%}
 
-{%- set partition_columns = dbt_utils.star(ref(table_name), FALSE, date_column) -%}
+{%- set partition_columns = dbt_utils.star(from=ref(table_name), except=[date_column]) -%}
 
 with
 events as

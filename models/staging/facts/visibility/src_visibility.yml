@@ -17,7 +17,7 @@ sources:
                   - delegatee_organisation_number
                   - subject_origin_organisation_number
                   - subject_organisation_number
-                  - organisation_sku
+                  - organisation_product
                   - loaded_timestamp
                 env: prod
           columns:

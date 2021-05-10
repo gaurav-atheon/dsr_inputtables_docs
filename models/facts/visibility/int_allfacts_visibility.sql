@@ -14,9 +14,9 @@
                         {'fact':'pln_mvt_depotstoredaysku', 'product_type':'sku', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
                         {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'organisation_id_to', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'100 - Explicit'},
                         {'fact':'act_inv_locationdaycase', 'product_type':'case', 'org_column':'organisation_id', 'org_location_column':'organisation_id', 'location_flag':true, 'access_level':'100 - Explicit'},
-                        {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':true, 'access_level':'200 - Implicit'},
-                        {'fact':'act_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':true, 'access_level':'200 - Implicit'},
-                        {'fact':'pln_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'subject_organisation_id_to', 'org_location_column':'organisation_id', 'location_flag':NULL, 'access_level':'100 - Explicit'},
+                        {'fact':'act_mvt_orgdepotdaycase', 'product_type':'case', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'200 - Implicit'},
+                        {'fact':'act_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'200 - Implicit'},
+                        {'fact':'pln_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'subject_organisation_id_to', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'100 - Explicit'},
                         {'fact':'pln_mvt_orgdepotdaysku', 'product_type':'sku', 'org_column':'subject_organisation_id_from', 'org_location_column':'organisation_id_to', 'location_flag':NULL, 'access_level':'200 - Implicit'}
                         ] %}
 
@@ -38,6 +38,7 @@ from
     {% set access_level = base_fact['access_level'] %}
     {% set sku_or_case = base_fact['product_type'] %}
     {% set location_function=base_fact['location_flag'] %}
+    {% set product_type=base_fact['product_type'] %}
 
     select day_date, organisation_id, product_type, item_id, location_function, table_reference, access_level, loaded_timestamp
     from (

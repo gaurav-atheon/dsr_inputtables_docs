@@ -1,4 +1,5 @@
   SELECT table_reference,
+         product_type,
          item_id,
          DAY_DATE_FROM,
          DAY_DATE_TO,

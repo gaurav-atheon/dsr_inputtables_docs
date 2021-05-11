@@ -2,6 +2,7 @@ select
        DAY_DATE_FROM,
        DAY_DATE_TO,
        ORIGIN_ORGANISATION_ID,
+       product_type,
        item_id,
        SUBJECT_ORGANISATION_ID,
        table_reference,

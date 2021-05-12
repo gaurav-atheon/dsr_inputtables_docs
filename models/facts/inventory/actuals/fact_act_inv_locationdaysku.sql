@@ -53,7 +53,7 @@ select
                            sum((stock_units * case_size)) as stock_units,
                            sum(inv.stock_value)           as stock_value,
                            max(inv.loaded_timestamp) as loaded_timestamp,
-                        {{ dbt_utils.surrogate_key(['inv.day_date', 'src.organisation_id', 'loc.location_id', 'prd.product_id', 'source']) }} as unique_key,
+                           {{ dbt_utils.surrogate_key(['inv.day_date', 'src.organisation_id', 'loc.location_id', 'prd.product_id', 'source']) }} as unique_key,
                         source
                     from {{ ref('stg_act_inv_locationdaycase') }} inv
                         inner join {{ ref('utl_source_organisations') }} src --need relationship validation earlier in the flow

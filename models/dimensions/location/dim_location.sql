@@ -10,7 +10,7 @@ select
     location_id,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number']) }} as organisation_id,
     organisation_location_id,
-    st_makepoint(geographic_location:geographic_location,geographic_location:latitude) as geographic_location,
+    st_makepoint(geographic_location:longitude,geographic_location:latitude) as geographic_location,
     location_function,
     attributes,
     loaded_timestamp,

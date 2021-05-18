@@ -45,7 +45,7 @@ union all
     {{ dbt_utils.surrogate_key(['day_date','organisation_id','location_id','product_id']) }} as unique_key
 
     from {{ref('fact_pln_mvt_depotstoredaysku')}} pln
-    where  status = true and model_version = 'morrison_ranging'
+    where  status = true and model_version = 'morrisons_ranging'
     {% if is_incremental() %}
         and pln.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
     {% endif %}

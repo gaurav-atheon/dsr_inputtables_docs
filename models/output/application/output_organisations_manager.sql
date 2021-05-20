@@ -7,4 +7,4 @@ FROM   {{ ref('dim_organisation_mapping') }} dom
        INNER JOIN {{ ref('dim_organisation_parentage') }} dop 
                ON dop.parent_organisation_id = dom.organisation_id 
        INNER JOIN {{ ref('utl_organisation_parents') }} uop 
-               ON uop.parent_organisation_id = dop.parent_organisation_id;
+               ON uop.parent_organisation_id = dop.parent_organisation_id

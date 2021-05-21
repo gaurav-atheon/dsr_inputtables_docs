@@ -8,7 +8,7 @@ from
 (
 select
     src.organisation_id,
-    inv.{{location_col_name}} as organisation_location_id,
+    coalesce(inv.{{location_col_name}} , '') as organisation_location_id,
     null as geographic_location,
     {% if  fact_location_function %}
         '{{fact_location_function}}' as location_function,

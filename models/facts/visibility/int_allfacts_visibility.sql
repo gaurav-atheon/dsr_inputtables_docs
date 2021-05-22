@@ -73,7 +73,7 @@ from
     {% endif %}
 
         {% if is_incremental() %}
-        where loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where table_reference = '{{ fact }}' ), to_timestamp('0'))
+        where ord.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where table_reference = '{{ fact }}' ), to_timestamp('0'))
         {% endif %}
 
     group by

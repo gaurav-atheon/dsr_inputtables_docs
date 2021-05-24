@@ -44,6 +44,8 @@ models:
       +snowflake_warehouse: "DATA_TRANSFORM_M"
       facts:
         +snowflake_warehouse: "DATA_TRANSFORM_XL"
+      dimensions:
+        +snowflake_warehouse: "DATA_TRANSFORM_XL"
       staging:
         +snowflake_warehouse: "DATA_TRANSFORM_XL"
       output:

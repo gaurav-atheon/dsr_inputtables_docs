@@ -8,13 +8,7 @@ ORIGIN_ORGANISATION_NUMBER,BUSINESS_ORGANISATION_NUMBER,ORGANISATION_LOCATION_ID
   ""r_postcode"": ""DN17 4DR"",
   ""r_store_name"": ""McColls CROWLE HIGH STREET""
 }",2021-02-22 18:02:23.603,2021-03-04 14:09:48.161
-1,17,4,point of sale,"{
-  ""coordinates"": [
-    -1.787098000000000e+00,
-    5.379804600000000e+01
-  ],
-  ""type"": ""Point""
-}","{
+1,17,4,point of sale,,"{
   ""r_format"": ""Supermarket"",
   ""r_postcode"": ""BD8 9TP"",
   ""r_region"": ""North"",

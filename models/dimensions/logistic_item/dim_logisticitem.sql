@@ -15,7 +15,8 @@ select
     case_size,
     gtin,
     loaded_timestamp,
-    false as is_ghost
+    false as is_ghost,
+    runstartedtime
 from {{ ref('stg_case') }}
 
         {% if is_incremental() %}
@@ -32,7 +33,8 @@ select
        ghost_data.case_size,
        ghost_data.gtin,
        ghost_data.loaded_timestamp,
-       ghost_data.is_ghost
+       ghost_data.is_ghost,
+       ghost_data.runstartedtime
 
 from {{ ref('int_all_ghost_logisticitem') }} ghost_data
 
@@ -47,6 +49,7 @@ NOT EXISTS
         (select 1
         from  {{ this }} dim
         where dim.logisticitem_id = ghost_data.logisticitem_id)
+        and ghost_data.runstartedtime > nvl((select max(runstartedtime) from {{ this }}), to_timestamp('0'))
     {% endif %}
 
 )

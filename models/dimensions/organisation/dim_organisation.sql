@@ -12,7 +12,8 @@ select
     o.attributes,
     ot.organisation_type,
     om.loaded_timestamp,
-    false as is_ghost
+    false as is_ghost,
+    om.runstartedtime
 from {{ ref('stg_organisation_mapping') }} om
 left outer join {{ ref('stg_organisation') }} o
     on om.origin_organisation_number = o.origin_organisation_number
@@ -31,7 +32,8 @@ select
        to_variant(ghost_data.attributes),
        null as organisation_type,
        ghost_data.loaded_timestamp,
-       ghost_data.is_ghost
+       ghost_data.is_ghost,
+       ghost_data.runstartedtime
 
 from {{ ref('int_all_ghost_organisation') }} ghost_data
 
@@ -47,6 +49,7 @@ not exists
         (select 1
         from  {{ this }} dim
         where dim.organisation_id = ghost_data.organisation_id)
+        and ghost_data.runstartedtime > nvl((select max(runstartedtime) from {{ this }}), to_timestamp('0'))
     {% endif %}
 
 )

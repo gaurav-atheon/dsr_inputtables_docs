@@ -3,6 +3,7 @@ o.organisation_id,
 o.organisation_name,
 o.attributes,
 o.loaded_timestamp,
+o.runstartedtime,
 o.is_ghost,
 p.parent_organisation_id
 from {{ ref('dim_organisation') }} o

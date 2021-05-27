@@ -15,6 +15,7 @@ select
     cases_ordered_in,
     cases_fulfilled_in,
     ord.loaded_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','org.organisation_id','loc.location_id','prd.logisticitem_id']) }} as unique_key
 
 from {{ ref('stg_act_mvt_orgdepotdaycase') }} ord

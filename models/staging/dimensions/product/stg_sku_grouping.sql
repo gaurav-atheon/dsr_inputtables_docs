@@ -18,7 +18,8 @@ select
     group_value,
     loaded_timestamp,
     created_timestamp,
-       {{ dbt_utils.surrogate_key(['creator_origin_organisation_number','creator_business_organisation_number','organisation_sku']) }} as product_id,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
+       {{ dbt_utils.surrogate_key(['subject_origin_organisation_number','subject_business_organisation_number','organisation_sku']) }} as product_id,
     row_number() over (partition by creator_origin_organisation_number,creator_business_organisation_number,organisation_sku,
                                     subject_origin_organisation_number,subject_business_organisation_number order by loaded_timestamp desc) rank
  {% if target.name == 'ci' %}

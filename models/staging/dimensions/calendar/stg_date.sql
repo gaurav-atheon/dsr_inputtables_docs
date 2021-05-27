@@ -19,6 +19,7 @@ select
     day_of_year,
     loaded_timestamp,
     created_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     row_number() over (partition by day_date order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_date') }}
         {% if is_incremental() %}

@@ -21,6 +21,7 @@ select
     loaded_timestamp,
     attributes,
     created_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','organisation_sku']) }} as product_id,
     row_number() over (partition by origin_organisation_number,business_organisation_number,organisation_sku order by loaded_timestamp desc) rank
  {% if target.name == 'ci' %}

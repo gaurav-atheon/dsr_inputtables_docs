@@ -17,8 +17,9 @@ select
     attributes,
     loaded_timestamp,
     created_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','organisation_location_id','location_function']) }} as location_id,
-    row_number() over (partition by origin_organisation_number,business_organisation_number,organisation_location_id order by loaded_timestamp desc) rank
+    row_number() over (partition by origin_organisation_number,business_organisation_number,organisation_location_id,location_function order by loaded_timestamp desc) rank
  {% if target.name == 'ci' %}
     from {{ ref ('stg_location_ci' )}}
  {% else %}

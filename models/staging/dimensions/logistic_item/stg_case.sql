@@ -15,6 +15,7 @@ with ranked_data as
     gtin,
     loaded_timestamp,
     created_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     row_number() over (partition by origin_organisation_number,business_organisation_number,organisation_case order by loaded_timestamp desc) rank,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','organisation_case']) }} as logisticitem_id
  {% if target.name == 'ci' %}

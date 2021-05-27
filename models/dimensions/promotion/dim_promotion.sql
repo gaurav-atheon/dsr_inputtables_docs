@@ -17,7 +17,8 @@ select
     attributes,
     created_timestamp,
     loaded_timestamp,
-    false as is_ghost
+    false as is_ghost,
+    runstartedtime
 from {{ ref('stg_promotion') }}
 
         {% if is_incremental() %}

@@ -13,6 +13,7 @@ select
     prd.product_id, --converted to dsr id
     ord.ranged,
     ord.loaded_timestamp,
+   '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','loc.location_id','prd.product_id']) }} as unique_key
 
 from {{ref('stg_pln_inv_storedaysku')}} ord
@@ -42,6 +43,7 @@ union all
     product_id, --converted to dsr id
     status as ranged,
     max(loaded_timestamp),
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['day_date','organisation_id','location_id','product_id']) }} as unique_key
 
     from {{ref('fact_pln_mvt_depotstoredaysku')}} pln
@@ -55,4 +57,5 @@ union all
         location_id,
         product_id,
         status,
+        runstartedtime,
         unique_key

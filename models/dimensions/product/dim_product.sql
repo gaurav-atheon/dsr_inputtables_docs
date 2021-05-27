@@ -18,7 +18,8 @@ select
     gtin,
     loaded_timestamp,
     attributes,
-    false as is_ghost
+    false as is_ghost,
+    runstartedtime
 from {{ ref('stg_sku') }}
 
         {% if is_incremental() %}
@@ -38,7 +39,8 @@ select
       ghost_data.gtin,
       ghost_data.loaded_timestamp,
       to_variant(ghost_data.attributes),
-      ghost_data.is_ghost
+      ghost_data.is_ghost,
+      ghost_data.runstartedtime
 
 from {{ ref('int_all_ghost_product') }} ghost_data
 
@@ -53,6 +55,7 @@ not exists
         (select 1
         from  {{ this }} dim
         where dim.product_id = ghost_data.product_id)
+        and ghost_data.runstartedtime > nvl((select max(runstartedtime) from {{ this }}), to_timestamp('0'))
     {% endif %}
 
 )

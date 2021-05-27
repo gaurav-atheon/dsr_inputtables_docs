@@ -14,7 +14,8 @@ select
     location_function,
     attributes,
     loaded_timestamp,
-    false as is_ghost
+    false as is_ghost,
+    runstartedtime
 from {{ ref('stg_location') }}
 
         {% if is_incremental() %}
@@ -30,7 +31,8 @@ select
     ghost_data.location_function,
     to_variant(ghost_data.attributes),
     ghost_data.loaded_timestamp,
-    ghost_data.is_ghost
+    ghost_data.is_ghost,
+    ghost_data.runstartedtime
 
 from {{ ref('int_all_ghost_location') }} ghost_data
 
@@ -46,6 +48,7 @@ NOT EXISTS
         (select 1
         from  {{ this }} dim
         where dim.location_ID = ghost_data.location_ID)
+        and ghost_data.runstartedtime > nvl((select max(runstartedtime) from {{ this }}), to_timestamp('0'))
     {% endif %}
 
 )

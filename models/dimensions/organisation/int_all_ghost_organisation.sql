@@ -1,9 +1,11 @@
 {{
     config(
-        materialized='table'
+        materialized='incremental',
+        unique_key='organisation_id',
+        cluster_by=['runstartedtime']
     )
 }}
-select organisation_id,organisation_name,attributes,max(loaded_timestamp) as loaded_timestamp,is_ghost
+select organisation_id,organisation_name,attributes,max(loaded_timestamp) as loaded_timestamp,is_ghost,max(runstartedtime)  as runstartedtime
 from (
 
     {{ ghost_organisation_entries(stg_of_fact_table='stg_act_mvt_orgdepotdaycase') }}

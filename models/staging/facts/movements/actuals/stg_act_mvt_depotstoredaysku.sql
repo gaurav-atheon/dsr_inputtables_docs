@@ -18,6 +18,7 @@ select
     units_fulfilled,
     loaded_timestamp,
     created_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id_from','organisation_location_id_to','organisation_sku']) }} as unique_key,
     row_number() over (partition by day_date, source_db_id, organisation_location_id_from,organisation_location_id_to, organisation_sku order by loaded_timestamp desc) rank
 

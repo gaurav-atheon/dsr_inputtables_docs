@@ -16,6 +16,7 @@ select
     business_organisation_number,
     loaded_timestamp,
     created_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     row_number() over (partition by origin_organisation_number,business_organisation_number,day_date order by loaded_timestamp desc) rank
 from {{ source('dsr_input', 'input_calendar') }}
         {% if is_incremental() %}

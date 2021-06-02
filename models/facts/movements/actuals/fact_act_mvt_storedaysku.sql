@@ -21,6 +21,7 @@ select
     ord.total_waste_eaches,
     ord.total_waste_value,
     ord.loaded_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['ord.day_date','src.organisation_id','loc.location_id','prd.product_id']) }} as unique_key
 
 from {{ref('stg_act_mvt_storedaysku')}} ord

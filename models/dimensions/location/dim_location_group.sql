@@ -15,7 +15,8 @@ select
     group_name,
     group_value,
     attributes,
-    loaded_timestamp
+    loaded_timestamp,
+    runstartedtime
 from {{ ref('stg_location_group') }}
 
         {% if is_incremental() %}

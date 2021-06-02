@@ -72,6 +72,10 @@ from
         and loc.LOCATION_ID = ord.LOCATION_ID
     {% endif %}
 
+        {% if is_incremental() %}
+        where ord.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where table_reference = '{{ fact }}' ), to_timestamp('0'))
+        {% endif %}
+
     group by
     ord.day_date,
     '{{product_type}}',
@@ -94,10 +98,6 @@ from
     )
 
     where item_id is not null -- some case conversions cannot happen until new dimension data comes through
-
-        {% if is_incremental() %}
-        and loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where table_reference = '{{ fact }}' ), to_timestamp('0'))
-        {% endif %}
 
     {%- if not loop.last %}
         union all

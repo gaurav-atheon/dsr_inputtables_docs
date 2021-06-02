@@ -16,7 +16,8 @@ select
     end  as consumer_unit_id,
     group_name,
     group_value,
-    loaded_timestamp
+    loaded_timestamp,
+    runstartedtime
 from {{ ref('stg_sku_grouping') }}
 
         {% if is_incremental() %}

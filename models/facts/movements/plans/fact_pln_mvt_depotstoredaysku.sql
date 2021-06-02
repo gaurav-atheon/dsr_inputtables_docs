@@ -22,6 +22,7 @@ select
     pln.status,
     pln.origin_file,
     pln.loaded_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['pln.day_date','pln.forecast_date','src.organisation_id','locfrom.location_id',
                                 'locto.location_id ','prd.product_id','pln.model_version']) }} as unique_key
 

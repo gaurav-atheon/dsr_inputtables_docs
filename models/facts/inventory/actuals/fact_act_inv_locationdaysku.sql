@@ -14,6 +14,7 @@ select
     stock_units,
     stock_value,
     inv.loaded_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.product_id','source']) }} as unique_key,
     source
 
@@ -44,6 +45,7 @@ select
     stock_units,
     stock_value,
     loaded_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     unique_key,
     source from (
                     select day_date,

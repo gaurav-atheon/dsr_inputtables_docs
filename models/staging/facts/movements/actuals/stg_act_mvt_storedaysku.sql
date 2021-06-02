@@ -24,6 +24,7 @@ select
     total_waste_value,
     loaded_timestamp,
     created_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','organisation_sku']) }} as unique_key,
     row_number() over (partition by day_date, source_db_id, organisation_location_id, organisation_sku order by loaded_timestamp desc) rank
  {% if target.name == 'ci' %}

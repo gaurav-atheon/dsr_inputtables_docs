@@ -14,6 +14,7 @@ select
     organisation_location_id,
     organisation_sku,
     ranged,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     loaded_timestamp,
 {{ dbt_utils.surrogate_key(['day_date','source_db_id','organisation_location_id','organisation_sku','ranged']) }} as unique_key,
     row_number() over (partition by day_date, source_db_id, organisation_location_id, organisation_sku,ranged order by loaded_timestamp desc) rank

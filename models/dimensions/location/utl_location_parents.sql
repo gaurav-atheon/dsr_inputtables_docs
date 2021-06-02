@@ -7,7 +7,8 @@ o.location_function,
 o.attributes,
 o.loaded_timestamp,
 o.is_ghost,
-p.parent_location_id
+p.parent_location_id,
+o.runstartedtime
 from {{ ref('dim_location') }} o
 left outer join {{ ref('dim_location_parentage') }} p
 on o.location_id = p.subject_location_id

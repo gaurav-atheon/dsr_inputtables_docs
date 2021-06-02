@@ -18,6 +18,7 @@ select
    attributes,
    created_timestamp,
    loaded_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
    {{ dbt_utils.surrogate_key(['creator_business_organisation_number','creator_origin_organisation_number','subject_business_organisation_number',
                                 'subject_origin_organisation_number','promotion_number','organisation_sku']) }} as promotion_id,
     row_number() over (partition by creator_business_organisation_number,creator_origin_organisation_number,subject_origin_organisation_number,

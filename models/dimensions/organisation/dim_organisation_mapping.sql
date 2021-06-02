@@ -12,7 +12,8 @@ select
     a.business_organisation_number,
     a.business_organisation_name,
    nvl2(a.origin_organisation_number,{{ dbt_utils.surrogate_key([ 'b.origin_organisation_number','a.origin_organisation_number']) }},null) as origin_organisation_id,
-   a.loaded_timestamp
+   a.loaded_timestamp,
+    a.runstartedtime
 from {{ ref('stg_organisation_mapping') }} a
 left outer join {{ ref('stg_organisation_mapping') }} b
 on a.origin_organisation_number = b.business_organisation_number

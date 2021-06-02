@@ -1,6 +1,8 @@
 {{
     config(
-        materialized='table'
+        materialized='incremental',
+        unique_key='location_id',
+        cluster_by=['runstartedtime']
     )
 }}
 select location_ID,
@@ -8,7 +10,7 @@ select location_ID,
     organisation_location_id,
     geographic_location,
     attributes,
-    location_function,max(loaded_timestamp) as loaded_timestamp, is_ghost from (
+    location_function,max(loaded_timestamp) as loaded_timestamp, is_ghost,max(runstartedtime)  as runstartedtime from (
 {{ ghost_location_entries(stg_of_fact_table='stg_act_inv_locationdaycase') }}
 
 union

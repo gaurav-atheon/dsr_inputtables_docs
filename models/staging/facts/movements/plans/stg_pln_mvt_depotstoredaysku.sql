@@ -23,6 +23,7 @@ select
     model_version,
     status,
     origin_file,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     loaded_timestamp,
     created_timestamp,
    {{ dbt_utils.surrogate_key(['base_forecast_date','forecast_date','source_db_id','organisation_location_id_from',

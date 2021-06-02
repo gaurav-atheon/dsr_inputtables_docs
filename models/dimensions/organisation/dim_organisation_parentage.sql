@@ -11,7 +11,8 @@ select
       {{ dbt_utils.surrogate_key(['parent_origin_organisation_number','parent_business_organisation_number']) }} as parent_organisation_id,
       {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number',
                                 'creator_origin_organisation_number','creator_business_organisation_number']) }} as parentage_id,
-      loaded_timestamp
+      loaded_timestamp,
+      runstartedtime
 from {{ ref('stg_organisation_parentage') }}
 
         {% if is_incremental() %}

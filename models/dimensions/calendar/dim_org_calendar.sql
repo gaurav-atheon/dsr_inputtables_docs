@@ -25,7 +25,8 @@ select
                ORDER BY
                    day_date)  AS day,
     {{ dbt_utils.surrogate_key(['origin_organisation_number','business_organisation_number','day_date']) }} as unq_calendar_id,
-    loaded_timestamp
+    loaded_timestamp,
+    runstartedtime
 from {{ ref('stg_calendar') }}
 
         {% if is_incremental() %}

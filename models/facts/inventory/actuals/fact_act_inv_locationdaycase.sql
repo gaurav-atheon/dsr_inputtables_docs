@@ -16,6 +16,7 @@ select
     prd.case_size,
     prd.product_id,
     inv.loaded_timestamp,
+    '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
     {{ dbt_utils.surrogate_key(['inv.day_date','src.organisation_id','loc.location_id','prd.logisticitem_id']) }} as unique_key
 
 from {{ ref('stg_act_inv_locationdaycase') }} inv

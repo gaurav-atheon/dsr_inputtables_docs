@@ -44,6 +44,8 @@ models:
       +snowflake_warehouse: "DATA_TRANSFORM_M"
       facts:
         +snowflake_warehouse: "DATA_TRANSFORM_XL"
+      dimensions:
+        +snowflake_warehouse: "DATA_TRANSFORM_XL"
       staging:
         +snowflake_warehouse: "DATA_TRANSFORM_XL"
       output:
@@ -69,6 +71,10 @@ seeds:
           +column_types:
             origin_organisation_number: varchar()
             business_organisation_number: varchar()
+      location:
+        stg_location_ci:
+          +column_types:
+            GEOGRAPHIC_LOCATION: variant
       product:
         stg_sku_ci:
           +column_types:

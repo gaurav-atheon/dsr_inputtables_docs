@@ -1,7 +1,8 @@
 {{
     config(
         materialized='incremental',
-        unique_key='product_id',
+        unique_key='org_group_type_id',
+        incremental_strategy='delete+insert',
         cluster_by=['loaded_timestamp']
     )
 }}
@@ -19,7 +20,7 @@ select
     loaded_timestamp,
     created_timestamp,
     '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
-       {{ dbt_utils.surrogate_key(['subject_origin_organisation_number','subject_business_organisation_number','organisation_sku']) }} as product_id,
+    {{ dbt_utils.surrogate_key(['creator_origin_organisation_number','creator_business_organisation_number','group_name']) }} as org_group_type_id,
     row_number() over (partition by creator_origin_organisation_number,creator_business_organisation_number,organisation_sku,
                                     subject_origin_organisation_number,subject_business_organisation_number order by loaded_timestamp desc) rank
  {% if target.name == 'ci' %}

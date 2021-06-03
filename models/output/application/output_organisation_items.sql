@@ -1,3 +1,7 @@
+{{ config(
+    query_tag = 'dbt-dsr_analytics-output_organisation_items'
+) }}
+
 SELECT DISTINCT
 LOWER(retailer_org.organisation_name) AS retailername,
 organisation_sku AS retailersku,
@@ -10,4 +14,4 @@ INNER JOIN {{ ref('dim_product') }} prd ON prd.product_id = osv.item_id
 INNER JOIN {{ ref('dim_organisation') }} org ON org.organisation_id = osv.organisation_group_id
 INNER JOIN {{ ref('dim_organisation') }} retailer_org ON retailer_org.organisation_id = prd.ORGANISATION_ID
 INNER JOIN {{ ref('dim_organisation_mapping') }} dom on dom.organisation_id = org.organisation_id
-where origin_organisation_number = '1';
+where origin_organisation_number = '1'

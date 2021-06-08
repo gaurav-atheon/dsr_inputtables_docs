@@ -106,6 +106,7 @@ from date_scaffold ds
 left join sku_ownership so
 on ds.product_id = so.product_id
 and ds.DAY_DATE between dateadd('day',1,start_date) and end_date --get an extra date, this is knocked off the end date later anyway
+and ds.R_SUPPLIERGROUPID = so.R_SUPPLIERGROUPID --07/06/2021: only exclude if the primary supplier already has ownership
 where so.product_id is null
 ),
 ps_next_prev_day as

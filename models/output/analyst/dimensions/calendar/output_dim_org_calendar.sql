@@ -7,5 +7,6 @@ select
     weekending,
     dayofweeknumber,
     day,
-    loaded_timestamp
+    loaded_timestamp,
+    runstartedtime
 from {{ ref('dim_org_calendar') }}

@@ -9,5 +9,6 @@ select
     attributes,
     created_timestamp,
     loaded_timestamp,
-    is_ghost
+    is_ghost,
+    runstartedtime
 from {{ ref('dim_promotion') }}

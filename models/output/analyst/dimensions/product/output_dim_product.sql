@@ -10,5 +10,6 @@ select
     gtin,
     loaded_timestamp,
     attributes,
-    is_ghost
+    is_ghost,
+    runstartedtime
 from {{ ref('dim_product') }}

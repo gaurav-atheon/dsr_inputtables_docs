@@ -59,6 +59,7 @@ models:
         +materialized: incremental
       staging:
         +materialized: view # The staging tables cannot be ephemeral
+    +pre-hook: "{{ tag_query() }}"
 seeds:
   DSR:
     dimensions:

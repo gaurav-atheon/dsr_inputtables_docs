@@ -4,5 +4,6 @@ select
     consumer_unit_id,
     group_name,
     group_value,
-    loaded_timestamp
+    loaded_timestamp,
+    runstartedtime
 from {{ ref('dim_product_group') }}

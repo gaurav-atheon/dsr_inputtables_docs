@@ -12,6 +12,7 @@ select
     model_version,
     origin_file,
     loaded_timestamp,
-    unique_key
+    unique_key,
+    runstartedtime
 
 from {{ref('fact_pln_mvt_daysku')}}

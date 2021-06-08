@@ -7,6 +7,7 @@ select
     stock_value,
     loaded_timestamp,
     unique_key,
-    source
+    source,
+    runstartedtime
 
 from {{ ref('fact_act_inv_locationdaysku') }}

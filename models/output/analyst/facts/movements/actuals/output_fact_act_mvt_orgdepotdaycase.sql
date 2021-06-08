@@ -7,6 +7,7 @@ select
     cases_ordered_in,
     cases_fulfilled_in,
     loaded_timestamp,
-    unique_key
+    unique_key,
+    runstartedtime
 
 from {{ ref('fact_act_mvt_orgdepotdaycase') }}

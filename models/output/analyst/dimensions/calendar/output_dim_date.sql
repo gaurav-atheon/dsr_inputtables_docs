@@ -7,5 +7,6 @@ select
     day_of_week,
     week_of_year,
     day_of_year,
-    loaded_timestamp
+    loaded_timestamp,
+    runstartedtime
 from {{ ref('dim_date') }}

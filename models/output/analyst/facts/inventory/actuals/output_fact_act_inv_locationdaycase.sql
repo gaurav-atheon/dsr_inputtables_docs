@@ -8,6 +8,7 @@ select
     case_size,
     product_id,
     loaded_timestamp,
-    unique_key
+    unique_key,
+    runstartedtime
 
 from {{ ref('fact_act_inv_locationdaycase') }} inv

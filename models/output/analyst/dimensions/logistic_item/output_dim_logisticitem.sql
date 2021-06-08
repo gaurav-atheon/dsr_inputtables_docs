@@ -7,5 +7,6 @@ select
     case_size,
     gtin,
     loaded_timestamp,
-    is_ghost
+    is_ghost,
+    runstartedtime
 from {{ ref('dim_logisticitem') }}

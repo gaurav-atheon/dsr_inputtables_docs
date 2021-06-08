@@ -7,5 +7,6 @@ select
     group_name,
     group_value,
     attributes,
-    loaded_timestamp
+    loaded_timestamp,
+    runstartedtime
 from {{ ref('dim_location_group') }}

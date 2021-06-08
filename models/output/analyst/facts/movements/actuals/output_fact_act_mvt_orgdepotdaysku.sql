@@ -6,5 +6,6 @@ select
     product_id,
     cases_ordered_in,
     cases_fulfilled_in,
-    loaded_timestamp
+    loaded_timestamp,
+    runstartedtime
 from  {{ ref('fact_act_mvt_orgdepotdaysku') }}

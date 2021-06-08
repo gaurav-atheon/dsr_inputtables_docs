@@ -2,7 +2,6 @@
     config(
         materialized='incremental',
         unique_key='unique_key',
-        incremental_strategy='delete+insert',
         cluster_by=['loaded_timestamp']
     )
 }}

@@ -7,7 +7,7 @@
 }}
 with ranked_data as
 (select
-    organisation_sku,
+    max(organisation_sku) as organisation_sku,
     origin_organisation_number,
     business_organisation_number,
     organisation_case,
@@ -26,6 +26,15 @@ with ranked_data as
         where loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }}), to_timestamp('0'))
         {% endif %}
  {% endif %}
+group by
+    origin_organisation_number,
+    business_organisation_number,
+    organisation_case,
+    case_size,
+    gtin,
+    loaded_timestamp,
+    created_timestamp,
+    logisticitem_id
 )
 
 select *

@@ -40,7 +40,7 @@ left outer join deliveries t3 --next delivery only same supplier
 on t2.next_delivery_day = t3.day_date
 and t1.product_ID = t3.product_ID
 and t1.organisation_id_from = t3.organisation_id_from
-order by t1.day_date
+--order by t1.day_date ---------------------------------------------------------REMOVE FOR PERFORMANCE!
 ),
 logic_test as
 (
@@ -63,15 +63,15 @@ select organisation_id_from, product_ID, day_date start_date, end_date
 from
 (
   select *,
-case when start_test = 'gap' and end_test = 'gap' then VALID_UNTIL
-when start_test = 'gap'
-then lead(valid_until,1) OVER (PARTITION BY product_ID, organisation_id_from ORDER BY day_date)
+--Single day runs, set end date to +28, or next delivery
+case when start_test = 'gap' and end_test = 'gap' then VALID_UNTIL 
+--Start of a run, set end date to to +28, or next delivery of the record at the end of the run  
+when start_test = 'gap' then lead(valid_until,1) OVER (PARTITION BY product_ID, organisation_id_from ORDER BY day_date)
 end end_date
 from logic_test
-  where start_test = 'gap'
-  or end_test = 'gap'
+  where start_test = 'gap' or end_test = 'gap' --only keep records that are start or end of a run
 )
-where end_date is not null
+where end_date is not null --remove then end of the run
 ),
 min_max as
 (
@@ -105,7 +105,8 @@ select distinct ds.product_id, ds.DAY_DATE, ds.organisation_id --remove any mult
 from date_scaffold ds
 left join sku_ownership so
 on ds.product_id = so.product_id
-and ds.DAY_DATE between dateadd('day',1,start_date) and end_date --get an extra date, this is knocked off the end date later anyway
+and ds.DAY_DATE between start_date and end_date 
+and ds.organisation_id = so.organisation_id_from --07/06/2021: only exclude if the primary supplier already has ownership
 where so.product_id is null
 ),
 ps_next_prev_day as
@@ -114,15 +115,11 @@ select md.*,
   lag(DAY_DATE) over (partition by product_id order by DAY_DATE desc) next_day,
   lead(DAY_DATE) over (partition by product_id order by DAY_DATE desc) prev_day,
   coalesce(
-    datediff('day',DAY_DATE,
-             lag(DAY_DATE) over (partition by product_id order by DAY_DATE desc)
-            )
-    , 2) days_to_next,
+    datediff('day',DAY_DATE, lag(DAY_DATE) over (partition by product_id order by DAY_DATE desc)) --days between day and next day
+    , 2) days_to_next, --If no next day, set to 2 days to indicate the end of a run
   coalesce(
-    datediff('day',DAY_DATE,
-             lead(DAY_DATE) over (partition by product_id order by DAY_DATE desc)
-            )
-    , -2) days_from_prev
+    datediff('day',DAY_DATE, lead(DAY_DATE) over (partition by product_id order by DAY_DATE desc)) --days between day and prev day
+    , -2) days_from_prev --If no prev day, set to -2 days to indicate the start of a run
 from missing_dates md
 ),
 ps_period as
@@ -131,7 +128,10 @@ ps_period as
   case when q1.days_from_prev <> -1 then 'start' end start_flag,
   case when q1.days_to_next <> 1 then 'end' end end_flag,
   q1.DAY_DATE start_date,
-  dateadd('day',-1,lag(q1.DAY_DATE) over (partition by q1.product_id order by q1.DAY_DATE desc)) end_date -- find the end of the period and knock off a day
+  case 
+    when q1.days_to_next <> 1 then q1.DAY_DATE --for single days use the same date
+    else lag(q1.DAY_DATE) over (partition by q1.product_id order by q1.DAY_DATE desc) 
+    end end_date
   from ps_next_prev_day q1
   where not (q1.days_to_next = 1 and q1.days_from_prev = -1) --only get the start and end dates of a period
 ),

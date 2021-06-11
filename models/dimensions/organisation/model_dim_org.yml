@@ -37,5 +37,5 @@ models:
               field: organisation_id
   - name: utl_retailer_organisations
     description: >-
-      This utility consolidates provides all organisations that belong to the master organisation and also are the parent to a retailer organisation.
+      This utility provides all organisations that belong to the master organisation and also are the parent to a retailer organisation.
       It essentially returns a list of all organisations that have a confirmed supplier relationship with each retailer.

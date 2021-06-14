@@ -84,7 +84,7 @@ select distinct cp.product_id, s.organisation_id, cp.attributes:primary_supplier
 from {{ ref('dim_product') }} cp
 inner join {{ ref('dim_organisation_mapping') }} s
   on cp.attributes:primary_supplier::string = s.business_organisation_number
-  and ORIGIN_ORGANISATION_NUMBER = 'morrsions' --How do we make this better and not hardcoded?
+  and ORIGIN_ORGANISATION_NUMBER = 'morrisons' --How do we make this better and not hardcoded?
 where cp.attributes:primary_supplier::string is not null
   ),
 date_scaffold as

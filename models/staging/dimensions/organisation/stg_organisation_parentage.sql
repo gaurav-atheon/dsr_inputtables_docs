@@ -18,9 +18,11 @@ select
     op.loaded_timestamp,
     op.created_timestamp,
     '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,
-    {{ dbt_utils.surrogate_key(['op.origin_organisation_number','op.business_organisation_number',
+    {{ dbt_utils.surrogate_key(['op.origin_organisation_number','op.business_organisation_number', 
+                                'op.parent_origin_organisation_number','op.parent_business_organisation_number',
                                 'op.creator_origin_organisation_number','op.creator_business_organisation_number']) }} as parentage_id,
     row_number() over (partition by op.origin_organisation_number,op.business_organisation_number,
+                                    op.parent_origin_organisation_number,op.parent_business_organisation_number,
                                     op.creator_origin_organisation_number,op.creator_business_organisation_number order by op.loaded_timestamp desc) rank
  {% if target.name == 'ci' %}
     from {{ ref ('stg_organisation_parentage_ci' )}} op

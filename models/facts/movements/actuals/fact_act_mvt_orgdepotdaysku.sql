@@ -4,6 +4,7 @@ select
     f.organisation_id_from,
     f.LOCATION_ID,
     li.product_ID,
+    li.case_size,
     min(f.loaded_timestamp) as loaded_timestamp,
     min(f.runstartedtime) as runstartedtime,
     sum(f.CASES_ORDERED_IN) as CASES_ORDERED_IN,
@@ -16,4 +17,5 @@ group by
     f.organisation_id_to,
     f.organisation_id_from,
     f.LOCATION_ID,
-    li.product_ID
+    li.product_ID,
+    li.case_size

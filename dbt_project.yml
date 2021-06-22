@@ -38,11 +38,10 @@ vars:
     dbt_artifacts_schema: 'DSR_PROD' # optional, default is 'dbt_artifacts'
     #dbt_artifacts_table: 'your_table' # option
 
-on-run-start:
-  - "grant usage on schema {{ target.schema }} to role dbt_analyst"    
-
+on-run-end:
+  - "{{ grant_usage_to_schemas(schemas, 'dbt_analyst') }}"
 models:
-    +post-hook: "grant select on {{ this }} to role dbt_analyst"
+    #+post-hook: "grant usage on schema {{ target.schema }} to role dbt_analyst"
     DSR:
       +snowflake_warehouse: "DATA_TRANSFORM_M"
       facts:
@@ -51,6 +50,9 @@ models:
         +snowflake_warehouse: "DATA_TRANSFORM_XL"
       staging:
         +snowflake_warehouse: "DATA_TRANSFORM_XL"
+      output:
+        analyst:
+          +post-hook: "grant select on {{ this }} to role dbt_analyst"
     dbt_artifacts:
       +database: AA_DBT_ARTIFACTS
       +schema: RESULTS

@@ -4,6 +4,7 @@ select
     f.organisation_id_from,
     f.LOCATION_ID,
     coalesce(li.product_ID, p.product_id) as product_id,
+    li.case_size,
     min(f.loaded_timestamp) as loaded_timestamp,
     min(f.runstartedtime) as runstartedtime,
     sum(f.CASES_ORDERED_IN) as CASES_ORDERED_IN,

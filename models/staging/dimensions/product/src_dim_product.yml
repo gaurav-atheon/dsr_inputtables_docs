@@ -103,7 +103,7 @@ models:
               env: ci
   - name: stg_sku_grouping
     columns:
-        - name: product_id
+        - name: ORG_GROUP_TYPE_ID
           tests:
             - check_distinct_sku_fetched:
                 env: ci

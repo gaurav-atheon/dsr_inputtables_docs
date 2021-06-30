@@ -39,7 +39,7 @@ vars:
     #dbt_artifacts_table: 'your_table' # option
 
 on-run-end:
-  - "{{ grant_usage_to_schemas(schemas, 'dbt_analyst') }}"
+  - "grant usage on schema {{ target.schema }} to role dbt_analyst"
 models:
     #+post-hook: "grant usage on schema {{ target.schema }} to role dbt_analyst"
     DSR:

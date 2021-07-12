@@ -65,6 +65,7 @@ sources:
 
 models:
   - name: stg_promotion
+    description: '{{ doc("stg_promotion") }}'
     columns:
       - name: promotion_id
         tests:

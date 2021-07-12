@@ -1,6 +1,11 @@
 version: 2
 models:
+  - name: dim_cu
+    description: '{{ doc("dim_cu") }}'
+  - name: int_all_ghost_product
+    description: '{{ doc("int_all_ghost_product") }}'
   - name: dim_product
+    description: '{{ doc("dim_product") }}'
     columns:
       - name: organisation_id
         tests:
@@ -8,6 +13,7 @@ models:
               to: ref('dim_organisation')
               field: organisation_id
   - name: dim_product_group
+    description: '{{ doc("dim_product_group") }}'
     columns:
       - name: creator_organisation_id
         tests:

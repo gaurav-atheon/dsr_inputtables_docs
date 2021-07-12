@@ -79,6 +79,50 @@ sources:
                 - not_null:
                     env: prod
 
+        - name: input_act_mvt_orgdepotdayordercase
+          description: Raw product data from origin organisations.
+          tests:
+            - unique_combination_of_columns:
+                combination_of_columns:
+                  - day_date
+                  - source_db_id
+                  - organisation_case
+                  - organisation_location_id
+                  - order_code
+                  - business_organisation_number_from
+                  - loaded_timestamp
+                env: prod
+          columns:
+            - name: source_db_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: day_date
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: organisation_case
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: business_organisation_number_from
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: order_code
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
 
         - name: input_act_mvt_depotstoredaysku
           description: Raw product data from origin organisations.
@@ -121,6 +165,7 @@ sources:
 
 models:
   - name: stg_act_mvt_storedaysku
+    description: '{{ doc("stg_act_mvt_storedaysku") }}'
     columns:
       - name: unique_key
         tests:
@@ -156,6 +201,7 @@ models:
               to: ref('dim_product')
               field: organisation_sku
   - name: stg_act_mvt_orgdepotdaycase
+    description: '{{ doc("stg_act_mvt_orgdepotdaycase") }}'
     columns:
       - name: unique_key
         tests:
@@ -199,6 +245,7 @@ models:
               field: organisation_case
 
   - name: stg_act_mvt_depotstoredaysku
+    description: '{{ doc("stg_act_mvt_depotstoredaysku") }}'
     columns:
       - name: unique_key
         tests:
@@ -240,3 +287,46 @@ models:
           - relationships:
               to: ref('dim_product')
               field: organisation_sku
+  - name: stg_act_mvt_orgdepotdayordercase
+    columns:
+      - name: unique_key
+        tests:
+          - check_distinct_sku_fetched:
+             env: ci
+          - check_all_sku_fetched:
+             columnlist:
+              - day_date
+              - source_db_id
+              - business_organisation_number_from
+              - order_code
+              - organisation_location_id
+              - organisation_case
+             env: ci
+          - check_latest_sku_fetched:
+              columnlist:
+                - day_date
+                - source_db_id
+                - business_organisation_number_from
+                - organisation_location_id
+                - organisation_case
+              env: ci
+      - name: source_db_id
+        tests:
+          - relationships:
+              to: ref('utl_source_organisations')
+              field: business_organisation_number
+      - name: business_organisation_number_from
+        tests:
+          - relationships:
+              to: ref('dim_organisation_mapping')
+              field: business_organisation_number
+      - name: organisation_location_id
+        tests:
+          - relationships:
+              to: ref('dim_location')
+              field: organisation_location_id
+      - name: organisation_case
+        tests:
+          - relationships:
+              to: ref('dim_logisticitem')
+              field: organisation_case

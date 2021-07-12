@@ -93,6 +93,7 @@ sources:
 
 models:
   - name: stg_act_inv_locationdaycase
+    description: '{{ doc("stg_act_inv_locationdaycase") }}'
     columns:
       - name: unique_key
         tests:
@@ -135,6 +136,7 @@ models:
               to: ref('dim_logisticitem')
               field: organisation_case
   - name: stg_act_inv_locationdaysku
+    description: '{{ doc("stg_act_inv_locationdaysku") }}'
     columns:
       - name: unique_key
         tests:

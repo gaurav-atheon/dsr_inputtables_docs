@@ -1,6 +1,7 @@
 version: 2
 models:
   - name: dim_promotion
+    description: '{{ doc("dim_promotion") }}'
     columns:
       - name: creator_organisation_id
         tests:

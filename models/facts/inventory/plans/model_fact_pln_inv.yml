@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: fact_pln_inv_storedaysku
+    description: '{{ doc("fact_pln_inv_storedaysku") }}'

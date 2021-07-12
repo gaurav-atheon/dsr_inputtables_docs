@@ -84,6 +84,7 @@ sources:
                     env: prod
 models:
   - name: stg_sku
+    description: '{{ doc("stg_sku") }}'
     columns:
       - name: product_id
         tests:
@@ -102,6 +103,7 @@ models:
               - organisation_sku
               env: ci
   - name: stg_sku_grouping
+    description: '{{ doc("stg_sku_grouping") }}'
     columns:
         - name: ORG_GROUP_TYPE_ID
           tests:

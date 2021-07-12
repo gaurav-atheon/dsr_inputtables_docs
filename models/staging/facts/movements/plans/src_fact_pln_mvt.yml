@@ -277,6 +277,7 @@ sources:
 
 models:
   - name: stg_pln_mvt_daysku
+    description: '{{ doc("stg_pln_mvt_daysku") }}'
     columns:
       - name: unique_key
         tests:
@@ -317,6 +318,7 @@ models:
               field: organisation_sku
 
   - name: stg_pln_mvt_depotstoredaysku
+    description: '{{ doc("stg_pln_mvt_depotstoredaysku") }}'
     columns:
       - name: unique_key
         tests:
@@ -364,6 +366,7 @@ models:
               field: organisation_sku
 
   - name: stg_pln_mvt_orgdepotdaysku
+    description: '{{ doc("stg_pln_mvt_orgdepotdaysku") }}'
     columns:
       - name: unique_key
         tests:
@@ -419,6 +422,7 @@ models:
               to: ref('dim_product')
               field: organisation_sku
   - name: stg_pln_mvt_storedaysku
+    description: '{{ doc("stg_pln_mvt_storedaysku") }}'
     columns:
         - name: unique_key
           tests:

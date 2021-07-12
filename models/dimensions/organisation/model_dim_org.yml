@@ -2,10 +2,7 @@ version: 2
 
 models:
   - name: utl_organisation_hierarchy
-    description: >-
-      This utility consolidates the parent child relationships of organisations,
-      returning the top of the hierarchical tree for each organisation.
-      This allows attribution of metrics to a single, top level organisation from all the children below.
+    description: '{{ doc("utl_organisation_hierarchy") }}'
   - name: dim_organisation_mapping
     columns:
       - name: organisation_id
@@ -19,6 +16,7 @@ models:
               to: ref('dim_organisation')
               field: organisation_id
   - name: dim_organisation_parentage
+    description: '{{ doc("dim_organisation_parentage") }}'
     columns:
       - name: creator_organisation_id
         tests:
@@ -35,7 +33,17 @@ models:
           - relationships:
               to: ref('dim_organisation')
               field: organisation_id
+  - name: dim_organisation
+    description: '{{ doc("dim_organisation") }}'
+  - name: int_all_ghost_organisation
+    description: '{{ doc("int_all_ghost_organisation") }}'
+  - name: utl_master_organisation
+    description: '{{ doc("utl_master_organisation") }}'
+  - name: utl_organisation_descendants
+    description: '{{ doc("utl_organisation_descendants") }}'
+  - name: utl_organisation_parents
+    description: '{{ doc("utl_organisation_parents") }}'
   - name: utl_retailer_organisations
-    description: >-
-      This utility provides all organisations that belong to the master organisation and also are the parent to a retailer organisation.
-      It essentially returns a list of all organisations that have a confirmed supplier relationship with each retailer.
+    description: '{{ doc("utl_retailer_organisations") }}'
+  - name: utl_source_organisations
+    description: '{{ doc("utl_source_organisations") }}'

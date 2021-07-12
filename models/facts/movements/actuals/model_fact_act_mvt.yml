@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: fact_act_mvt_depotstoredaysku
+    description: '{{ doc("fact_act_mvt_depotstoredaysku") }}'
+  - name: fact_act_mvt_orgdepotdaycase
+    description: '{{ doc("fact_act_mvt_orgdepotdaycase") }}'
+  - name: fact_act_mvt_orgdepotdaysku
+    description: '{{ doc("fact_act_mvt_orgdepotdaysku") }}'
+  - name: fact_act_mvt_storedaysku
+    description: '{{ doc("fact_act_mvt_storedaysku") }}'

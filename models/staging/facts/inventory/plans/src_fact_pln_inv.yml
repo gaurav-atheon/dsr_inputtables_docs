@@ -45,6 +45,7 @@ sources:
                     env: prod
 models:
   - name: stg_pln_inv_storedaysku
+    description: '{{ doc("stg_pln_inv_storedaysku") }}'
     columns:
       - name: unique_key
         tests:

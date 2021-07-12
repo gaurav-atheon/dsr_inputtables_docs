@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: int_allfacts_visibility
+    description: '{{ doc("int_allfacts_visibility") }}'
+  - name: int_delegated_visibility_scd
+    description: '{{ doc("int_delegated_visibility_scd") }}'
+  - name: int_organisationsku_visibility
+    description: '{{ doc("int_delegated_visibility_scd") }}'
+  - name: utl_organisationsku_visibility
+    description: '{{ doc("int_delegated_visibility_scd") }}'
+  - name: utl_orggroupsku_visibility
+    description: '{{ doc("int_delegated_visibility_scd") }}'
+

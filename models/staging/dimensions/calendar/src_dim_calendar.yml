@@ -1,5 +1,9 @@
 version: 2
-
+models:
+  - name: stg_calendar
+    description: '{{ doc("stg_calendar") }}'
+  - name: stg_date
+    description: '{{ doc("stg_date") }}'
 sources:
     - name: dsr_input
       description: Standard input tables for all inbound DSR data.

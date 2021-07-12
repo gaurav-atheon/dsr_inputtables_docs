@@ -90,6 +90,7 @@ sources:
                     env: prod
 models:
   - name: stg_organisation
+    description: '{{ doc("stg_organisation") }}'
     columns:
       - name: organisation_id
         tests:
@@ -106,6 +107,7 @@ models:
               - business_organisation_number
               env: ci
   - name: stg_organisation_parentage
+    description: '{{ doc("stg_organisation_parentage") }}'
     columns:
         - name: parentage_id
           tests:
@@ -129,3 +131,5 @@ models:
                   - creator_origin_organisation_number
                   - creator_business_organisation_number
                 env: ci
+  - name: stg_organisation_mapping
+    description: '{{ doc("stg_organisation_mapping") }}'

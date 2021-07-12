@@ -158,6 +158,7 @@ sources:
                     env: prod
 models:
   - name: stg_location
+    description: '{{ doc("stg_location") }}'
     columns:
       - name: location_id
         tests:
@@ -178,6 +179,7 @@ models:
               - location_function
               env: ci
   - name: stg_location_group
+    description: '{{ doc("stg_location_group") }}'
     columns:
         - name: location_mapping_id
           tests:
@@ -204,6 +206,7 @@ models:
                   - location_function
                 env: ci
   - name: stg_location_parentage
+    description: '{{ doc("stg_location_parentage") }}'
     columns:
         - name: parentage_id
           tests:

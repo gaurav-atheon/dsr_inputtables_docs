@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: fact_pln_mvt_daysku
+    description: '{{ doc("fact_pln_mvt_daysku") }}'
+  - name: fact_pln_mvt_depotstoredaysku
+    description: '{{ doc("fact_pln_mvt_depotstoredaysku") }}'
+  - name: fact_pln_mvt_storedaysku
+    description: '{{ doc("fact_pln_mvt_storedaysku") }}'

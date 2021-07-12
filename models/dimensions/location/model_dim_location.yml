@@ -1,6 +1,7 @@
 version: 2
 models:
   - name: dim_location
+    description: '{{ doc("dim_location") }}'
     columns:
       - name: organisation_id
         tests:
@@ -8,6 +9,7 @@ models:
               to: ref('dim_organisation')
               field: organisation_id
   - name: dim_location_group
+    description: '{{ doc("dim_location_group") }}'
     columns:
       - name: subject_organisation_id
         tests:
@@ -20,6 +22,7 @@ models:
               to: ref('dim_organisation')
               field: organisation_id
   - name: dim_location_parentage
+    description: '{{ doc("dim_location_parentage") }}'
     columns:
       - name: subject_organisation_id
         tests:
@@ -36,3 +39,9 @@ models:
           - relationships:
               to: ref('dim_organisation')
               field: organisation_id
+  - name: int_all_ghost_location
+    description: '{{ doc("int_all_ghost_location") }}'
+  - name: utl_location_hierarchy
+    description: '{{ doc("utl_location_hierarchy") }}'
+  - name: utl_location_parents
+    description: '{{ doc("utl_location_parents") }}'

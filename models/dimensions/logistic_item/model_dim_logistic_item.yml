@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: dim_logisticitem
+    description: '{{ doc("dim_logisticitem") }}'
     columns:
       - name: organisation_id
         tests:
@@ -14,6 +15,7 @@ models:
               to: ref('dim_product')
               field: product_id
   - name: dim_logisticitem_mapping
+    description: '{{ doc("dim_logisticitem_mapping") }}'
     columns:
       - name: creator_organisation_id
         tests:
@@ -25,3 +27,7 @@ models:
           - relationships:
               to: ref('dim_logisticitem')
               field: logisticitem_id
+  - name: dim_tu
+    description: '{{ doc("dim_tu") }}'
+  - name: int_all_ghost_logisticitem
+    description: '{{ doc("int_all_ghost_logisticitem") }}'

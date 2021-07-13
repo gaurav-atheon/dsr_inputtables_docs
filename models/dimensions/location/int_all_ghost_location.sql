@@ -1,6 +1,7 @@
 {{
     config(
         materialized='incremental',
+        incremental_strategy='delete+insert',
         unique_key='location_id',
         cluster_by=['runstartedtime']
     )

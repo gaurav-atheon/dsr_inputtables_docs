@@ -1,6 +1,7 @@
 {{
     config(
         materialized='incremental',
+        incremental_strategy='delete+insert',
         unique_key='logisticitem_stg_id',
         cluster_by=['loaded_timestamp']
     )

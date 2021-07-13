@@ -1,6 +1,7 @@
 {{
     config(
         materialized='incremental',
+        incremental_strategy='delete+insert',
         unique_key='location_mapping_id',
         cluster_by=['loaded_timestamp']
     )

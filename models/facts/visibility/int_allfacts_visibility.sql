@@ -1,6 +1,7 @@
 {{
     config(
         materialized='incremental',
+        incremental_strategy='delete+insert',
         unique_key='unique_key',
         cluster_by=['loaded_timestamp', 'table_reference']
     )

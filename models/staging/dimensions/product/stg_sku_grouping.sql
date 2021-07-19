@@ -1,8 +1,8 @@
 {{
     config(
         materialized='incremental',
-        unique_key='org_group_type_id',
         incremental_strategy='delete+insert',
+        unique_key='org_group_type_id',
         cluster_by=['loaded_timestamp']
     )
 }}

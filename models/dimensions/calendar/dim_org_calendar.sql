@@ -1,6 +1,7 @@
 {{
     config(
         materialized='incremental',
+        incremental_strategy='delete+insert',
         unique_key='unq_calendar_id',
         cluster_by=['loaded_timestamp']
     )

@@ -40,6 +40,7 @@ vars:
 
 on-run-end:
   - "grant usage on schema {{ target.schema }} to role dbt_analyst"
+  - "grant usage on schema {{ target.schema }} to role madamanew"
 models:
     #+post-hook: "grant usage on schema {{ target.schema }} to role dbt_analyst"
     DSR:
@@ -53,6 +54,8 @@ models:
       output:
         analyst:
           +post-hook: "grant select on {{ this }} to role dbt_analyst"
+        application:
+          +post-hook: "grant select on {{ this }} to role madamanew"
     dbt_artifacts:
       +database: AA_DBT_ARTIFACTS
       +schema: RESULTS

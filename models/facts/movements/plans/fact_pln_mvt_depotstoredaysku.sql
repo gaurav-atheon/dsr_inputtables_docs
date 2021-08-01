@@ -34,7 +34,7 @@ on pln.source_db_id = src.business_organisation_number
 
 inner join {{ ref('dim_location') }} locfrom --need relationship validation earlier in the flow
 on locfrom.organisation_id = src.organisation_id
-and locfrom.organisation_location_id = pln.organisation_location_id_from
+and locfrom.organisation_location_id =  coalesce(to_char(pln.organisation_location_id_from) , '')
 and locfrom.location_function = 'distribution location'
 
 inner join {{ ref('dim_location') }} locto --need relationship validation earlier in the flow

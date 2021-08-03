@@ -60,6 +60,7 @@ models:
       +database: AA_DBT_ARTIFACTS
       +schema: RESULTS
       +materialized: table
+      +post-hook: "grant select on {{ this }} to role tableau_reader"
       incremental:
         +materialized: incremental
       staging:

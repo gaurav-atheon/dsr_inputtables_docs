@@ -17,6 +17,7 @@ select
     subject_business_organisation_number,
     group_name,
     group_value,
+    attributes,
     loaded_timestamp,
     created_timestamp,
     '{{ run_started_at.astimezone(modules.pytz.timezone("Europe/London")) }}'  as runstartedtime,

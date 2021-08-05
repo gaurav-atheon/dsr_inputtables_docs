@@ -17,6 +17,7 @@ select
     end  as consumer_unit_id,
     group_name,
     group_value,
+    attributes,
     loaded_timestamp,
     runstartedtime,
     org_group_type_id

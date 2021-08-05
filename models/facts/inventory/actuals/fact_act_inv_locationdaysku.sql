@@ -33,10 +33,9 @@ inner join {{ ref('dim_product') }} prd --need relationship validation earlier i
 on prd.organisation_id = src.organisation_id
 and prd.organisation_sku = inv.organisation_sku
 
-        {% if is_incremental() %}
-        where inv.loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where source = 'sku'), to_timestamp('0'))
-        {% endif %}
-
+{% if is_incremental() %}
+    where inv.runstartedtime > nvl((select max(runstartedtime) from {{ this }}), to_timestamp('0'))
+{% endif %}
 union all
 select
     day_date,
@@ -69,6 +68,9 @@ select
                         on prd.organisation_id = src.organisation_id
                         and prd.organisation_case = inv.organisation_case
                     where prd.product_id is not null
+                    {% if is_incremental() %}
+                        and inv.runstartedtime > nvl((select max(runstartedtime) from {{ this }}), to_timestamp('0'))
+                    {% endif %}
                     group by
                         day_date,
                         src.organisation_id, --converted to dsr id
@@ -76,7 +78,5 @@ select
                         prd.product_id,      --converted to dsr id
                         {{ dbt_utils.surrogate_key(['inv.day_date', 'src.organisation_id', 'loc.location_id', 'prd.product_id', 'source']) }},
                         source
+
                 )
-    {% if is_incremental() %}
-      where loaded_timestamp > nvl((select max(loaded_timestamp) from {{ this }} where source = 'case'), to_timestamp('0'))
-    {% endif %}

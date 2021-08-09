@@ -1,5 +1,5 @@
 WITH retailer_source -- get all retailer organisation_ids  
-     AS (SELECT organisation_id, organisation_name 
+     AS (SELECT organisation_id, organisation_name
          FROM   {{ ref('dim_organisation') }} 
          WHERE  organisation_type = 'retailer'), 
      retailer_organisations 
@@ -28,7 +28,7 @@ WITH retailer_source -- get all retailer organisation_ids
          FROM   organisation_parentage op 
                 LEFT JOIN {{ ref('dim_organisation_mapping') }} om 
                        ON op.parent_organisation_id = om.organisation_id) 
-SELECT organisation_name as retailer, business_organisation_number, business_organisation_name
+SELECT lower(organisation_name) as retailer, business_organisation_number, business_organisation_name
 FROM   check_parent 
 WHERE  origin_of_parent_number = '1' 
         OR origin_of_parent_number IS NULL 

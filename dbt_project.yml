@@ -56,6 +56,7 @@ models:
           +post-hook: "grant select on {{ this }} to role dbt_analyst"
         application:
           +post-hook: "grant select on {{ this }} to role madamanew"
+          +post-hook: "grant select on {{ this }} to role app_reader"
     dbt_artifacts:
       +database: AA_DBT_ARTIFACTS
       +schema: RESULTS

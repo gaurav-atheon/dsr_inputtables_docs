@@ -6,7 +6,7 @@ sources:
       database: AA_DSR_RAW
       tables:
         - name: input_pln_inv_storedaysku
-          description: '{{ doc("input_pln_inv_storedaysku") }}'
+          description: Raw product data from origin organisations.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -18,37 +18,31 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
-            - name: day_date
-              description: '{{ doc("day_date") }}'
+            - name: source_db_id
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
-            - name: organisation_location_id
-              description: '{{ doc("organisation_location_id") }}'
+            - name: day_date
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: organisation_sku
-              description: '{{ doc("organisation_sku") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: ranged
-              description: '{{ doc("ranged") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: source_db_id
-              description: '{{ doc("source_db_id") }}'
+            - name: organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-
-
 models:
   - name: stg_pln_inv_storedaysku
     description: '{{ doc("stg_pln_inv_storedaysku") }}'

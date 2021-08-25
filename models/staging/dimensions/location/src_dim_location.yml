@@ -6,7 +6,7 @@ sources:
       database: AA_DSR_RAW
       tables:
         - name: input_location
-          description: '{{ doc("input_location") }}'
+          description: Raw location data from origin organisations.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -17,38 +17,29 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: attributes
-              description: '{{ doc("attributes") }}'
             - name: business_organisation_number
-              description: '{{ doc("business_organisation_number") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
-            - name: geographic_location
-              description: '{{ doc("geographic_location") }}'
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
-            - name: location_function
-              description: '{{ doc("location_function") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: organisation_location_id
-              description: '{{ doc("organisation_location_id") }}'
+              description: Nummber assigned to the organisation by the origin.
               tests:
                 - not_null:
                     env: prod
             - name: origin_organisation_number
-              description: '{{ doc("origin_organisation_number") }}'
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: location_function
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
 
-
         - name: input_location_group
-          description: '{{ doc("input_location_group") }}'
+          description: Raw location data from origin organisations.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -62,55 +53,43 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: attributes
-              description: '{{ doc("attributes") }}'
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
-            - name: creator_business_organisation_number
-              description: '{{ doc("creator_business_organisation_number") }}'
-              tests:
-                - not_null:
-                    env: prod
             - name: creator_origin_organisation_number
-              description: '{{ doc("creator_origin_organisation_number") }}'
+              description: Nummber assigned to the organisation by the origin.
               tests:
                 - not_null:
                     env: prod
-            - name: group_name
-              description: '{{ doc("group_name") }}'
+            - name: creator_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: group_value
-              description: '{{ doc("group_value") }}'
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
-            - name: location_function
-              description: '{{ doc("location_function") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: location_group_name
-              description: '{{ doc("location_group_name") }}'
             - name: organisation_location_id
-              description: '{{ doc("organisation_location_id") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: subject_business_organisation_number
-              description: '{{ doc("subject_business_organisation_number") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: subject_origin_organisation_number
-              description: '{{ doc("subject_origin_organisation_number") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-
-
+            - name: subject_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: location_function
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: group_name
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
         - name: input_location_parentage
-          description: '{{ doc("input_location_parentage") }}'
+          description: Raw location data from origin organisations.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -127,61 +106,56 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
-            - name: creator_business_organisation_number
-              description: '{{ doc("creator_business_organisation_number") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: creator_origin_organisation_number
-              tests:
-                - not_null:
-                    env: prod
-              description: '{{ doc("creator_origin_organisation_number") }}'
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
-            - name: parent_business_organisation_number
-              description: '{{ doc("parent_business_organisation_number") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: parent_location_function
-              description: '{{ doc("parent_location_function") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: parent_organisation_location_id
-              description: '{{ doc("parent_organisation_location_id") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: parent_origin_organisation_number
-              description: '{{ doc("parent_origin_organisation_number") }}'
+            - name: subject_origin_organisation_number
+              description: Nummber assigned to the organisation by the origin.
               tests:
                 - not_null:
                     env: prod
             - name: subject_business_organisation_number
-              description: '{{ doc("subject_business_organisation_number") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: subject_location_function
-              description: '{{ doc("subject_location_function") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: subject_organisation_location_id
-              description: '{{ doc("subject_organisation_location_id") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: subject_origin_organisation_number
-              description: '{{ doc("subject_origin_organisation_number") }}'
+            - name: subject_location_function
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-
+            - name: parent_origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: parent_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: parent_organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: parent_location_function
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: creator_origin_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: creator_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
 models:
   - name: stg_location
     description: '{{ doc("stg_location") }}'
@@ -194,7 +168,6 @@ models:
              columnlist:
               - origin_organisation_number
               - business_organisation_number
-              - organisation_location_id
               - organisation_location_id
               - location_function
              env: ci

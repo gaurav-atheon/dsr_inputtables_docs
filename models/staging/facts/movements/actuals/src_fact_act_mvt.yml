@@ -7,7 +7,7 @@ sources:
       tables:
 
         - name: input_act_mvt_storedaysku
-          description: '{{ doc("input_act_mvt_storedaysku") }}'
+          description: Raw store order metrics from source databases
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -18,52 +18,30 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: bin_waste_eaches
-              description: '{{ doc("bin_waste_eaches") }}'
-            - name: bin_waste_value
-              description: '{{ doc("bin_waste_value") }}'
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
-            - name: day_date
-              description: '{{ doc("day_date") }}'
+            - name: source_db_id
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: epos_eaches
-              description: '{{ doc("epos_eaches") }}'
-            - name: epos_value
-              description: '{{ doc("epos_value") }}'
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
-            - name: organisation_location_id
-              description: '{{ doc("organisation_location_id") }}'
+            - name: day_date
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: organisation_sku
-              description: '{{ doc("organisation_sku") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: rtc_epos_eaches
-              description: '{{ doc("rtc_epos_eaches") }}'
-            - name: rtc_epos_value
-              description: '{{ doc("rtc_epos_value") }}'
-            - name: rtc_reduction_value
-              description: '{{ doc("rtc_reduction_value") }}'
-            - name: source_db_id
-              description: '{{ doc("source_db_id") }}'
+            - name: organisation_location_id
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: total_waste_eaches
-              description: '{{ doc("total_waste_eaches") }}'
-            - name: total_waste_value
-              description: '{{ doc("total_waste_value") }}'
 
 
         - name: input_act_mvt_orgdepotdaycase
-          description: '{{ doc("input_act_mvt_orgdepotdaycase") }}'
+          description: Raw product data from origin organisations.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -75,43 +53,34 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: business_organisation_number_from
-              description: '{{ doc("business_organisation_number_from") }}'
+            - name: source_db_id
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: cases_fulfilled_in
-              description: '{{ doc("cases_fulfilled_in") }}'
-            - name: cases_ordered_in
-              description: '{{ doc("cases_ordered_in") }}'
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
             - name: day_date
-              description: '{{ doc("day_date") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
             - name: organisation_case
-              description: '{{ doc("organisation_case") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: organisation_location_id
-              description: '{{ doc("organisation_location_id") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: source_db_id
-              description: '{{ doc("source_db_id") }}'
+            - name: business_organisation_number_from
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-
 
         - name: input_act_mvt_orgdepotdayordercase
-          description: '{{ doc("input_act_mvt_orgdepotdayordercase") }}'
+          description: Raw product data from origin organisations.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -124,48 +93,39 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: business_organisation_number_from
-              description: '{{ doc("business_organisation_number_from") }}'
+            - name: source_db_id
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: cases_fulfilled_in
-              description: '{{ doc("cases_fulfilled_in") }}'
-            - name: cases_ordered_in
-              description: '{{ doc("cases_ordered_in") }}'
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
             - name: day_date
-              description: '{{ doc("day_date") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
-            - name: order_code
-              description: '{{ doc("order_code") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: organisation_case
-              description: '{{ doc("organisation_case") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: organisation_location_id
-              description: '{{ doc("organisation_location_id") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: source_db_id
-              description: '{{ doc("source_db_id") }}'
+            - name: business_organisation_number_from
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-
+            - name: order_code
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
 
         - name: input_act_mvt_depotstoredaysku
-          description: '{{ doc("input_act_mvt_depotstoredaysku") }}'
+          description: Raw product data from origin organisations.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -177,41 +137,31 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
+            - name: source_db_id
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
             - name: day_date
-              description: '{{ doc("day_date") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
-            - name: organisation_location_id_from
-              description: '{{ doc("organisation_location_id_from") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: organisation_location_id_to
-              description: '{{ doc("organisation_location_id_to") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: organisation_sku
-              description: '{{ doc("organisation_sku") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: source_db_id
-              description: '{{ doc("source_db_id") }}'
+            - name: organisation_location_id_from
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-            - name: units_fulfilled
-              description: '{{ doc("units_fulfilled") }}'
-            - name: units_ordered
-              description: '{{ doc("units_ordered") }}'
-
-
+            - name: organisation_location_id_to
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
 
 models:
   - name: stg_act_mvt_storedaysku

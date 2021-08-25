@@ -6,7 +6,7 @@ sources:
       database: AA_DSR_RAW
       tables:
         - name: input_case
-          description: Raw product data from origin organisations.
+          description: '{{ doc("input_case") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -19,33 +19,39 @@ sources:
                 env: prod
           columns:
             - name: business_organisation_number
-              description: Nummber assigned to the organisation by the origin.
-              tests:
-                - not_null:
-                    env: prod
-            - name: origin_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: organisation_sku
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: organisation_case
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("business_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
             - name: case_size
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("case_size") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
+            - name: gtin
+              description: '{{ doc("gtin") }}'
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: organisation_case
+              description: '{{ doc("organisation_case") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: organisation_sku
+              description: '{{ doc("organisation_sku") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: origin_organisation_number
+              description: '{{ doc("origin_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
 
         - name: input_case_grouping
-          description: Raw product data from origin organisations.
+          description: '{{ doc("input_case_grouping") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -58,36 +64,41 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
             - name: creator_business_organisation_number
-              description: Nummber assigned to the organisation by the origin.
+              description: '{{ doc("creator_business_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
             - name: creator_origin_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: organisation_case
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: subject_business_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: subject_origin_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("creator_origin_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
             - name: grouping_key
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("grouping_key") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: organisation_case
+              description: '{{ doc("organisation_case") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: subject_business_organisation_number
+              description: '{{ doc("subject_business_organisation_number") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: subject_origin_organisation_number
+              description: '{{ doc("subject_origin_organisation_number") }}'
+              tests:
+                - not_null:
+                    env: prod
+
 models:
   - name: stg_case
     description: '{{ doc("stg_case") }}'

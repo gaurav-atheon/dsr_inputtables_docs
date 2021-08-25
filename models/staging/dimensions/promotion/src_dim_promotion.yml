@@ -6,7 +6,7 @@ sources:
       database: AA_DSR_RAW
       tables:
         - name: input_promotion
-          description: Raw product data from origin organisations.
+          description: '{{ doc("input_promotion") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -21,43 +21,49 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
+            - name: attributes
+              description: '{{ doc("attributes") }}'
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
             - name: creator_business_organisation_number
-              description: Nummber assigned to the organisation by the origin.
+              description: '{{ doc("creator_business_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
             - name: creator_origin_organisation_number
-              description: Nummber assigned to the organisation by the origin.
-              tests:
-                - not_null:
-                    env: prod
-            - name: subject_origin_organisation_number
-              description: Nummber assigned to the organisation by the origin.
-              tests:
-                - not_null:
-                    env: prod
-            - name: subject_business_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: promotion_number
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: start_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("creator_origin_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
             - name: end_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("end_date") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
             - name: organisation_sku
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("organisation_sku") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: promotion_number
+              description: '{{ doc("promotion_number") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: start_date
+              description: '{{ doc("start_date") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: subject_business_organisation_number
+              description: '{{ doc("subject_business_organisation_number") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: subject_origin_organisation_number
+              description: '{{ doc("subject_origin_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod

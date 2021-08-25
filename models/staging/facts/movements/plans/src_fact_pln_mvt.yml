@@ -6,7 +6,7 @@ sources:
       database: AA_DSR_RAW
       tables:
         - name: input_pln_mvt_depotstoredaysku
-          description: Raw product data from origin organisations.
+          description: '{{ doc("input_pln_mvt_depotstoredaysku") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -21,44 +21,66 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: source_db_id
-              description: Number assigned to the organisation by the origin organisation.
+            - name: base_forecast_date
+              description: '{{ doc("base_forecast_date") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: base_forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+            - name: created_at
+              description: '{{ doc("created_at") }}'
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
+            - name: forecast_components
+              description: '{{ doc("forecast_components") }}'
               tests:
                 - not_null:
                     env: prod
             - name: forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("forecast_date") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: organisation_sku
-              description: Number assigned to the organisation by the origin organisation.
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: model_version
+              description: '{{ doc("model_version") }}'
               tests:
                 - not_null:
                     env: prod
             - name: organisation_location_id_from
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("organisation_location_id_from") }}'
               tests:
                 - not_null:
                     env: prod
             - name: organisation_location_id_to
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("organisation_location_id_to") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: model_version
-              description: Number assigned to the organisation by the origin organisation.
+            - name: organisation_sku
+              description: '{{ doc("organisation_sku") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: origin_file
+              description: '{{ doc("origin_file") }}'
+            - name: source_db_id
+              description: '{{ doc("source_db_id") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: status
+              description: '{{ doc("status") }}'
+            - name: units_required
+              description: '{{ doc("units_required") }}'
+            - name: units_required_lower
+              description: '{{ doc("units_required_lower") }}'
+            - name: units_required_upper
+              description: '{{ doc("units_required_upper") }}'
+
 
         - name: input_pln_mvt_daysku
-          description: Raw product data from origin organisations.
+          description: '{{ doc("input_pln_mvt_daysku") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -72,43 +94,58 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: source_db_id
-              description: Number assigned to the organisation by the origin organisation.
+            - name: base_forecast_date
+              description: '{{ doc("base_forecast_date") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: base_forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+            - name: created_at
+              description: '{{ doc("created_at") }}'
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
+            - name: forecast_components
+              description: '{{ doc("forecast_components") }}'
               tests:
                 - not_null:
                     env: prod
             - name: forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("forecast_date") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: model_version
+              description: '{{ doc("model_version") }}'
               tests:
                 - not_null:
                     env: prod
             - name: organisation_sku
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("organisation_sku") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: origin_file
+              description: '{{ doc("origin_file") }}'
+            - name: source_db_id
+              description: '{{ doc("source_db_id") }}'
               tests:
                 - not_null:
                     env: prod
             - name: subject_business_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("subject_business_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: forecast_components
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: model_version
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
+            - name: units_required
+              description: '{{ doc("units_required") }}'
+            - name: units_required_lower
+              description: '{{ doc("units_required_lower") }}'
+            - name: units_required_upper
+              description: '{{ doc("units_required_upper") }}'
+
         - name: input_pln_mvt_storedaysku
-          description: Raw product data from origin organisations.
+          description: '{{ doc("input_pln_mvt_storedaysku") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -123,43 +160,61 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: source_db_id
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
             - name: base_forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("base_forecast_date") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: created_at
+              description: '{{ doc("created_at") }}'
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
+            - name: forecast_components
+              description: '{{ doc("forecast_components") }}'
             - name: forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("forecast_date") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: model_version
+              description: '{{ doc("model_version") }}'
               tests:
                 - not_null:
                     env: prod
             - name: organisation_sku
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("organisation_sku") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: origin_file
+              description: '{{ doc("origin_file") }}'
+            - name: source_db_id
+              description: '{{ doc("source_db_id") }}'
               tests:
                 - not_null:
                     env: prod
             - name: subject_business_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("subject_business_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
             - name: subject_organisation_location_id_to
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("subject_organisation_location_id_to") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: model_version
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
+            - name: units_required
+              description: '{{ doc("units_required") }}'
+            - name: units_required_lower
+              description: '{{ doc("units_required_lower") }}'
+            - name: units_required_upper
+              description: '{{ doc("units_required_upper") }}'
+
+
         - name: input_pln_mvt_orgdepotdaysku
-          description: Raw product data from origin organisations.
+          description: '{{ doc("input_pln_mvt_orgdepotdaysku") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -176,54 +231,76 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: source_db_id
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
             - name: base_forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("base_forecast_date") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: cases_required
+              description: '{{ doc("cases_required") }}'
+            - name: cases_required_lower
+              description: '{{ doc("cases_required_lower") }}'
+            - name: cases_required_upper
+              description: '{{ doc("cases_required_upper") }}'
+            - name: created_at
+              description: '{{ doc("created_at") }}'
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
+            - name: forecast_components
+              description: '{{ doc("forecast_components") }}'
             - name: forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("forecast_date") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: subject_organisation_sku
-              description: Number assigned to the organisation by the origin organisation.
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: model_version
+              description: '{{ doc("model_version") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: subject_origin_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
+            - name: origin_file
+              description: '{{ doc("origin_file") }}'
+            - name: source_db_id
+              description: '{{ doc("source_db_id") }}'
               tests:
                 - not_null:
                     env: prod
             - name: subject_business_organisation_number_from
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("subject_business_organisation_number_from") }}'
               tests:
                 - not_null:
                     env: prod
             - name: subject_business_organisation_number_to
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("subject_business_organisation_number_to") }}'
               tests:
                 - not_null:
                     env: prod
             - name: subject_organisation_location_id_to
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("subject_organisation_location_id_to") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: model_version
-              description: Number assigned to the organisation by the origin organisation.
+            - name: subject_organisation_sku
+              description: '{{ doc("subject_organisation_sku") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: subject_origin_organisation_number
+              description: '{{ doc("subject_origin_organisation_number") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: units_required
+              description: '{{ doc("units_required") }}'
+            - name: units_required_lower
+              description: '{{ doc("units_required_lower") }}'
+            - name: units_required_upper
+              description: '{{ doc("units_required_upper") }}'
 
         - name: input_pln_mvt_orgstoredaysku
-          description: Raw product data from origin organisations.
+          description: '{{ doc("input_pln_mvt_orgstoredaysku") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -238,41 +315,61 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: source_db_id
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
             - name: base_forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("base_forecast_date") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: cases_required
+              description: '{{ doc("cases_required") }}'
+            - name: cases_required_lower
+              description: '{{ doc("cases_required_lower") }}'
+            - name: cases_required_upper
+              description: '{{ doc("cases_required_upper") }}'
+            - name: created_at
+              description: '{{ doc("created_at") }}'
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
+            - name: forecast_components
+              description: '{{ doc("forecast_components") }}'
             - name: forecast_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("forecast_date") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: model_version
+              description: '{{ doc("model_version") }}'
             - name: organisation_sku
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("organisation_sku") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: origin_file
+              description: '{{ doc("origin_file") }}'
+            - name: source_db_id
+              description: '{{ doc("source_db_id") }}'
               tests:
                 - not_null:
                     env: prod
             - name: subject_business_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("subject_business_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
             - name: subject_organisation_location_id_to
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("subject_organisation_location_id_to") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: model_version
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
+            - name: units_required
+              description: '{{ doc("units_required") }}'
+            - name: units_required_lower
+              description: '{{ doc("units_required_lower") }}'
+            - name: units_required_upper
+              description: '{{ doc("units_required_upper") }}'
+
 
 
 models:

@@ -10,21 +10,42 @@ sources:
       database: AA_DSR_RAW
       tables:
         - name: input_date
-          description: Raw date data.
+          description: '{{ doc("input_date") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
                   - day_date
                 env: prod
           columns:
-             - name: day_date
-               description: Number assigned to the organisation by the origin organisation.
-               tests:
-                  - not_null:
-                      env: prod
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
+            - name: day_date
+              description: '{{ doc("day_date") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: day_of_month
+              description: '{{ doc("day_of_month") }}'
+            - name: day_of_week
+              description: '{{ doc("day_of_week") }}'
+            - name: day_of_year
+              description: '{{ doc("day_of_year") }}'
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: month
+              description: '{{ doc("month") }}'
+            - name: month_name
+              description: '{{ doc("month_name") }}'
+            - name: week_of_year
+              description: '{{ doc("week_of_year") }}'
+            - name: year
+              description: '{{ doc("year") }}'
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
+
 
         - name: input_calendar
-          description: Raw date data from origin organisations.
+          description: '{{ doc("input_calendar") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -35,17 +56,25 @@ sources:
                 env: prod
           columns:
             - name: business_organisation_number
-              description: Nummber assigned to the organisation by the origin.
+              description: '{{ doc("business_organisation_number") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: origin_organisation_number
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
             - name: day_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("day_date") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: origin_organisation_number
+              description: '{{ doc("origin_organisation_number") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: week_id
+              description: '{{ doc("week_id") }}'
+            - name: year_id
+              description: '{{ doc("year_id") }}'

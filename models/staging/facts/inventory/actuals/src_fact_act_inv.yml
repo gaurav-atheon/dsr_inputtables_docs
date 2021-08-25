@@ -6,7 +6,7 @@ sources:
       database: AA_DSR_RAW
       tables:
         - name: input_act_inv_locationdaysku
-          description: Raw store order metrics from source databases
+          description: '{{ doc("input_act_inv_locationdaysku") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -19,35 +19,42 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: source_db_id
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
             - name: day_date
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("day_date") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: organisation_sku
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
             - name: location_function
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("location_function") }}'
               tests:
                 - not_null:
                     env: prod
             - name: organisation_location_id
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("organisation_location_id") }}'
               tests:
                 - not_null:
                     env: prod
-
+            - name: organisation_sku
+              description: '{{ doc("organisation_sku") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: source_db_id
+              description: '{{ doc("source_db_id") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: stock_units
+              description: '{{ doc("stock_units") }}'
+            - name: stock_value
+              description: '{{ doc("stock_value") }}'
 
         - name: input_act_inv_locationdaycase
-          description: Raw store order metrics from source databases
+          description: '{{ doc("input_act_inv_locationdaycase") }}'
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -60,36 +67,43 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: source_db_id
-              description: Number assigned to the organisation by the origin organisation.
+            - name: created_timestamp
+              description: '{{ doc("created_timestamp") }}'
+            - name: day_date
+              description: '{{ doc("day_date") }}'
               tests:
                 - not_null:
                     env: prod
-            - name: day_date
-              description: Number assigned to the organisation by the origin organisation.
+            - name: loaded_timestamp
+              description: '{{ doc("loaded_timestamp") }}'
+            - name: location_function
+              description: '{{ doc("location_function") }}'
               tests:
                 - not_null:
                     env: prod
             - name: organisation_case
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: stock_units
-              description: Number assigned to the organisation by the origin organisation.
-              tests:
-                - not_null:
-                    env: prod
-            - name: location_function
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("organisation_case") }}'
               tests:
                 - not_null:
                     env: prod
             - name: organisation_location_id
-              description: Number assigned to the organisation by the origin organisation.
+              description: '{{ doc("organisation_location_id") }}'
               tests:
                 - not_null:
                     env: prod
+            - name: source_db_id
+              description: '{{ doc("source_db_id") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: stock_units
+              description: '{{ doc("stock_units") }}'
+              tests:
+                - not_null:
+                    env: prod
+            - name: stock_value
+              description: '{{ doc("stock_value") }}'
+
 
 models:
   - name: stg_act_inv_locationdaycase

@@ -6,7 +6,7 @@ sources:
       database: AA_DSR_RAW
       tables:
         - name: input_organisation_mapping
-          description: '{{ doc("input_organisation_mapping") }}'
+          description: Raw organisation data from origin organisations.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -15,25 +15,21 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: business_organisation_name
-              description: '{{ doc("business_organisation_name") }}'
-            - name: business_organisation_number
-              description: '{{ doc("business_organisation_number") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
             - name: origin_organisation_number
-              description: '{{ doc("origin_organisation_number") }}'
+              description: Number of the organisation, as defined by the master, that is submitting this data record.
               tests:
                 - not_null:
                     env: prod
+            - name: business_organisation_number
+              tests:
+                - not_null:
+                    env: prod
+              description: Number that the origin organisation uses to refer to the subject organisation.
+            - name: business_organisation_name
+              description: Name of the subject organisation according to the origin organisation.
 
         - name: input_organisation
-          description: '{{ doc("input_organisation") }}'
+          description: Raw organisation attributes and parentage.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -42,26 +38,19 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: attributes
-              description: '{{ doc("attributes") }}'
             - name: business_organisation_number
-              description: '{{ doc("business_organisation_number") }}'
+              description: Nummber assigned to the organisation by the origin.
               tests:
                 - not_null:
                     env: prod
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
             - name: origin_organisation_number
-              description: '{{ doc("origin_organisation_number") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
-
 
         - name: input_organisation_parentage
-          description: '{{ doc("input_organisation_parentage") }}'
+          description: Raw location data from origin organisations.
           tests:
             - unique_combination_of_columns:
                 combination_of_columns:
@@ -75,34 +64,30 @@ sources:
                 env: prod
           columns:
             - name: business_organisation_number
-              description: '{{ doc("business_organisation_number") }}'
+              description: Nummber assigned to the organisation by the origin.
               tests:
                 - not_null:
                     env: prod
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
-            - name: creator_business_organisation_number
-              description: '{{ doc("creator_business_organisation_number") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
             - name: origin_organisation_number
-              description: '{{ doc("origin_organisation_number") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: parent_business_organisation_number
-              description: '{{ doc("parent_business_organisation_number") }}'
+              description: Number assigned to the organisation by the origin organisation.
               tests:
                 - not_null:
                     env: prod
             - name: parent_origin_organisation_number
-              description: '{{ doc("parent_origin_organisation_number") }}'
-
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
+            - name: parent_business_organisation_number
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
             - name: creator_business_organisation_number
-              description: '{{ doc("creator_business_organisation_number") }}'
+              description: Number assigned to the organisation by the origin organisation.
+              tests:
+                - not_null:
+                    env: prod
 models:
   - name: stg_organisation
     description: '{{ doc("stg_organisation") }}'

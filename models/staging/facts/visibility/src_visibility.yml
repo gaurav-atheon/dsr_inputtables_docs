@@ -21,52 +21,48 @@ sources:
                   - loaded_timestamp
                 env: prod
           columns:
-            - name: created_timestamp
-              description: '{{ doc("created_timestamp") }}'
-            - name: delegated_status
-              description: '{{ doc("delegated_status") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: delegatee_organisation_number
-              description: '{{ doc("delegatee_organisation_number") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: delegatee_origin_organisation_number
-              description: '{{ doc("delegatee_origin_organisation_number") }}'
+            - name: delegator_origin_organisation_number
+              description: The origin organisation of the organisation that is making the delegation
               tests:
                 - not_null:
                     env: prod
             - name: delegator_organisation_number
-              description: '{{ doc("delegator_organisation_number") }}'
+              description: The organisation that is making the delegation of their visibility access
               tests:
                 - not_null:
                     env: prod
-            - name: delegator_origin_organisation_number
-              description: '{{ doc("delegator_origin_organisation_number") }}'
+            - name: delegatee_origin_organisation_number
+              description: The origin organisation of the organisation that is receiving the delegated visibility access
               tests:
                 - not_null:
                     env: prod
-            - name: loaded_timestamp
-              description: '{{ doc("loaded_timestamp") }}'
-            - name: organisation_product
-              description: '{{ doc("organisation_product") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: product_type
-              description: '{{ doc("product_type") }}'
-              tests:
-                - not_null:
-                    env: prod
-            - name: subject_organisation_number
-              description: '{{ doc("subject_organisation_number") }}'
+            - name: delegatee_organisation_number
+              description: The organisation that is receiving the delegated visibility access
               tests:
                 - not_null:
                     env: prod
             - name: subject_origin_organisation_number
-              description: '{{ doc("subject_origin_organisation_number") }}'
+              description: The origin organisation of the organisation that created the SKU
+              tests:
+                - not_null:
+                    env: prod
+            - name: subject_organisation_number
+              description: The organisation that created the SKU
+              tests:
+                - not_null:
+                    env: prod
+            - name: product_type
+              description: "Indicates whether the product being delegated is a SKU or Case. Allowable values: sku, case"
+              tests:
+                - not_null:
+                    env: prod
+            - name: organisation_product
+              description: The subject organisation SKU or Logistic Item that is having it's visibility access delegated from delegator to delegatee
+              tests:
+                - not_null:
+                    env: prod
+            - name: delegated_status
+              description: Status of the delegation. TRUE = Access is delegated, FALSE = Delegated access revoked
               tests:
                 - not_null:
                     env: prod

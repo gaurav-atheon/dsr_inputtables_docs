@@ -1,5 +1,0 @@
-version: 2
-
-seeds:
-  - name: master_organisation
-    description: The first, master organisation of the DSR, allowing all subsequent organisations to ultimately have an origin organisation.

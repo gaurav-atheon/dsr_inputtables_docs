@@ -1,7 +1,0 @@
-version: 2
-
-models:
-  - name: fact_act_inv_locationdaycase
-    description: '{{ doc("fact_act_inv_locationdaycase") }}'
-  - name: fact_act_inv_locationdaysku
-    description: '{{ doc("fact_act_inv_locationdaysku") }}'
